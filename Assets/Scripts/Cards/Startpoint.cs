@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Startpoint : Card {
 
-    public int x = 0;
-    public int y = 0;
+    public new int x = 0;
+    public new int y = 0;
     protected override CardID? GetType() {
         return CardID.Startpoint;
     }
@@ -19,5 +19,14 @@ public class Startpoint : Card {
         return State.field;
     }
 
+    private void Start() {
+        GenerateCard();
+    }
 
+    public override void GenerateCard() {
+        GameObject startpoint = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        Renderer rend = startpoint.GetComponent<Renderer>();
+        rend.material.mainTexture = Resources.Load("startpunkt") as Texture;
+        startpoint.transform.position = new Vector3(0, 0, 1);
+    }
 }

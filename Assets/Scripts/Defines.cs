@@ -5,11 +5,13 @@ public class FieldProperties : System.Object {
     public int _size;
 }
 
-public enum CardID { Startpoint, Pointcard, Blankcard,
+public enum CardID {
+    Startpoint, Pointcard, Blankcard,
     Doublecard, Blockcard, Deletecard,
     Burncard, Infernocard, Changecard,
     Cancercard, HotPotatoe, Nukecard,
-    Vortexcard, Anchorcard, Sufflecard }
+    Vortexcard, Anchorcard, Sufflecard
+}
 public enum Team {
     system, blau, rot
 }
@@ -22,4 +24,8 @@ public enum State {
 }
 public class Materials {
     //Material transparent = new Material();
+}
+
+public class RoundData {
+    public bool currentPlayer = true;
 }

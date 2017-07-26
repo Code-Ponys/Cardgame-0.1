@@ -4,10 +4,14 @@ using UnityEngine;
 
 public abstract class Card : MonoBehaviour {
 
-    int state;
-    int team;
+    public int state;
+    public int team;
+    public int x;
+    public int y;
 
     protected abstract new CardID? GetType();
+
+    public  abstract void GenerateCard();
 
     protected void CardShow() {
 

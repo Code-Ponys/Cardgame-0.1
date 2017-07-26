@@ -6,10 +6,10 @@ using UnityEngine;
 public class BlockCard : Card {
 
     public string blockDirection;
-    public int x { get; set; }
-    public int y { get; set; }
-    public int team { get; set; }
-    public int state { get; set; }
+    public new int x { get; set; }
+    public new int y { get; set; }
+    public new int team { get; set; }
+    public new int state { get; set; }
 
     protected Block? GetBlockDirection() {
         switch (blockDirection) {
@@ -28,5 +28,16 @@ public class BlockCard : Card {
 
     protected override CardID? GetType() {
         return CardID.Blockcard;
+    }
+
+    private void Start() {
+        GenerateCard();
+    }
+
+    public override void GenerateCard() {
+        GameObject blockCard = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        Renderer rend = blockCard.GetComponent<Renderer>();
+        rend.material.mainTexture = Resources.Load("empty_card") as Texture;
+        blockCard.transform.position = new Vector3(0, 0, -1);
     }
 }

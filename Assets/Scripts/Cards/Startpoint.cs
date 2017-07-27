@@ -6,8 +6,8 @@ using UnityEngine;
 namespace Cards {
     public class Startpoint : Card {
 
-        public int x = 0;
-        public int y = 0;
+        public new int x = 0;
+        public new int y = 0;
         protected override CardID? GetType() {
             return CardID.Startpoint;
         }
@@ -33,8 +33,8 @@ namespace Cards {
             this.name = "Startpunkt";
         }
 
-        private void OnEnable() {
+        //private void OnEnable() {
 
-        }
+        //}
     }
 }

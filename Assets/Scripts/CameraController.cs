@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour {
     private Vector3 GetCenter() {
         int center_x = min_x + max_x / 2;
         int center_y = min_y + max_y / 2;
-        Vector3 result = new Vector3(center_x, center_y, 0);
+        Vector3 result = new Vector3(center_x, center_y, -10);
         return result;
     }
 
@@ -50,34 +50,34 @@ public class CameraController : MonoBehaviour {
     }
 
     public void CenterCamera() {
-        CalculateSize();
+        //CalculateSize();
         MainCam.transform.position = GetCenter();
         //MainCam.orthographicSize = GetCameraSize();
         //BGCam.orthographicSize = GetCameraSize();
     }
 
-    private void CalculateSize() {
+    //private void CalculateSize() {
 
-        List<Card> CardsOnField = Field.cardsOnField;
-        foreach (Card card in CardsOnField) {
-            if (card.x > max_x) {
-                max_x = card.x;
-            }
-            if (card.x < min_x) {
-                min_x = card.x;
-            }
-            if (card.y > max_y) {
-                max_y = card.y;
-            }
-            if (card.y > min_y) {
-                min_y = card.y;
-            }
-        }
+    //    List<Card> CardsOnField = Field.cardsOnField;
+    //    foreach (Card card in CardsOnField) {
+    //        if (card.x > max_x) {
+    //            max_x = card.x;
+    //        }
+    //        if (card.x < min_x) {
+    //            min_x = card.x;
+    //        }
+    //        if (card.y > max_y) {
+    //            max_y = card.y;
+    //        }
+    //        if (card.y > min_y) {
+    //            min_y = card.y;
+    //        }
+    //    }
 
-        print(min_x + "" + min_y + "" + max_x + "" + max_y);
-    }
+    //    print(min_x + "" + min_y + "" + max_x + "" + max_y);
+    //}
 
-    //public Image BackGround;
+    //public Image BackGround = new Image();
     //int canvasWidth = 1173;
     //int canvasHeight = 601;
 
@@ -90,5 +90,24 @@ public class CameraController : MonoBehaviour {
     //    float cameraY = BackGround.rectTransform.transform.position.y - cameraHeight / 2;
     //    this.MainCam.pixelRect = new Rect(cameraX, cameraY, cameraWidth, cameraHeight);
     //}
+
+
+    //http://answers.unity3d.com/questions/620699/scaling-my-background-sprite-to-fill-screen-2d-1.html
+    //function ResizeSpriteToScreen() {
+    //    var sr = GetComponent(SpriteRenderer);
+    //    if (sr == null) return;
+
+    //    transform.localScale = Vector3(1, 1, 1);
+
+    //    var width = sr.sprite.bounds.size.x;
+    //    var height = sr.sprite.bounds.size.y;
+
+    //    var worldScreenHeight = Camera.main.orthographicSize * 2.0;
+    //    var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
+
+    //    transform.localScale.x = worldScreenWidth / width;
+    //    transform.localScale.y = worldScreenHeight / height;
+    //}
+
 
 }

@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour {
         ChangeGameCard();
     }
 
-    
+
     private void ChangeGameCard() {
         GameObject g1 = GameObject.Find("HandCard1");
         Renderer rend1 = g1.GetComponent<Renderer>();
@@ -63,4 +63,23 @@ public class GameManager : MonoBehaviour {
         g2.transform.localScale = new Vector3(1, 1, 1);
     }
 
+    /*public GameObject PauseMenu;*/
+
+    //public void TogglePauseOn() {
+
+    //    PauseMenu.SetActive(true);
+    //    print("Pause is active");
+    //    print("Active in H." + PauseMenu.activeInHierarchy);
+    //    print("Active Self" + PauseMenu.activeSelf);
+    //    //bool g = GameObject.Find("UI_Pause").activeInHierarchy;
+    //    //if (g == true) {
+    //    //    GameObject.Find("UI_Pause").SetActive(false);
+    //    //} else {
+    //    //    GameObject.Find("UI_Pause").SetActive(true);
+    //    //}
+    //}
+
+    //public void TogglePauseMenuOff() {
+    //    PauseMenu.SetActive(false);
+    //}
 }

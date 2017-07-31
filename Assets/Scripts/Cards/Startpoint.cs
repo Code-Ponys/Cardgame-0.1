@@ -21,14 +21,17 @@ namespace Cards {
         }
 
         public void Start() {
-            print("we want to generate");
+            print("we want to generate2");
             GenerateCard();
             print("Startpoint created");
+
+           // Instantiate(Resources.Load())
         }
 
         public override void GenerateCard() {
-            Renderer rend = this.GetComponent<Renderer>();
-            rend.material.mainTexture = Resources.Load("startpunkt") as Texture;
+            SpriteRenderer rend = this.GetComponent<SpriteRenderer>();
+            rend.sprite = Resources.Load<Sprite>("startpunkt");
+            Debug.Log(Resources.Load("startpunkt") + "," + rend.material.mainTexture + "," + (Resources.Load("startpunkt") as Texture));
             this.transform.position = new Vector3(0, 0, -1);
             this.name = "Startpunkt";
         }

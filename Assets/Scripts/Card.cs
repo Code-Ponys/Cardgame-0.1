@@ -12,8 +12,6 @@ public abstract class Card : MonoBehaviour {
 
     protected abstract new CardID? GetType();
 
-    public  abstract void GenerateCard();
-
     protected void CardShow() {
 
     }
@@ -41,7 +39,7 @@ public abstract class Card : MonoBehaviour {
                 return State.hand;
             case 2:
                 return State.field;
-
         }
     }
+    
 }

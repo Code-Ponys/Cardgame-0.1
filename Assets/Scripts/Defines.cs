@@ -2,7 +2,7 @@
 
 [System.Serializable]
 public class FieldProperties : System.Object {
-    public int _size;
+    public int _size = 51;
 }
 
 public enum CardID {

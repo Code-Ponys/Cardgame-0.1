@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PanelMove : MonoBehaviour {
 
     private void Start() {
-        transform.position = new Vector3(15.5f, 0, -0.5f);
+        transform.position = new Vector3(15f, 0, -0.5f);
     }
 
     public void OnMouseEnter() {

@@ -33,14 +33,14 @@ namespace Cards {
         }
 
         private void Start() {
-            GenerateCard();
+            //GenerateCard();
         }
 
-        public override void GenerateCard() {
-            GameObject blockCard = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            Renderer rend = blockCard.GetComponent<Renderer>();
-            rend.material.mainTexture = Resources.Load("empty_card") as Texture;
-            blockCard.transform.position = new Vector3(0, 0, -1);
-        }
+        //public override void GenerateCard() {
+        //    GameObject blockCard = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        //    Renderer rend = blockCard.GetComponent<Renderer>();
+        //    rend.material.mainTexture = Resources.Load("empty_card") as Texture;
+        //    blockCard.transform.position = new Vector3(0, 0, -1);
+        //}
     }
 }

@@ -15,15 +15,15 @@ namespace Cards {
             return CardID.Pointcard;
         }
         private void Start() {
-            GenerateCard();
+            //GenerateCard();
         }
 
-        public override void GenerateCard() {
-            GameObject pointCard = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            Renderer rend = pointCard.GetComponent<Renderer>();
-            rend.material.mainTexture = Resources.Load("pointcard") as Texture;
-            pointCard.transform.position = new Vector3(0, 0, -1);
-        }
+        //public override void GenerateCard() {
+        //    GameObject pointCard = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        //    Renderer rend = pointCard.GetComponent<Renderer>();
+        //    rend.material.mainTexture = Resources.Load("pointcard") as Texture;
+        //    pointCard.transform.position = new Vector3(0, 0, -1);
+        //}
     }
 }
 

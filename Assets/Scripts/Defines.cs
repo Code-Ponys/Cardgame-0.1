@@ -5,13 +5,18 @@ public class FieldProperties : System.Object {
     public int _size = 51;
 }
 
+public struct MousePos {
+    public int x;
+    public int y;
+}
+
 public enum CardID {
     Startpoint, Pointcard, Blankcard,
     Doublecard, Blockcard, Deletecard,
     Burncard, Infernocard, Changecard,
     Cancercard, HotPotatoe, Nukecard,
     Vortexcard, Anchorcard, Sufflecard,
-    Indicator
+    Indicator, Indicatorred, none
 }
 public enum Team {
     system, blau, rot

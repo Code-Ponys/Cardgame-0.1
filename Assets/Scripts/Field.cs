@@ -5,10 +5,11 @@ using Cards;
 
 public class Field : MonoBehaviour {
 
-    public CameraController CC;
+    public CameraManager CM;
     protected RoundData RD;
     public FieldProperties FP;
     public GameManager GameManager;
+    public MousePos MP;
 
     public List<GameObject> cardsOnField = new List<GameObject>();
 
@@ -18,30 +19,25 @@ public class Field : MonoBehaviour {
     void Start() {
         for (int x = (((FP._size - 1) / 2) * -1); x < ((FP._size - 1) / 2); x++) {
             for (int y = (((FP._size - 1) / 2) * -1); y < ((FP._size - 1) / 2); y++) {
-                if (x == 0 && y == 0) {
-                    cardsOnField.Add(GameManager.GenerateFieldCard(CardID.Startpoint, x, y));
-                }
                 GameManager.GenerateFieldCard(CardID.Indicator, x, y);
             }
         }
-
-        //CC.CenterCamera();
-        //cardsOnField.Add(Startcard);
-
-
-
-
-
+        cardsOnField.Add(GameManager.GenerateFieldCard(CardID.Startpoint, 0, 0));
     }
 
     // Update is called once per frame
     void Update() {
         //if (lastPlayer != RD.currentPlayer) {
         //    lastPlayer = RD.currentPlayer;
-        //    CC.CenterCamera();
+        //    CM.CenterCamera();
         //    print("Kamera korrigiert");
         //}
-        if (Input.GetKeyDown(KeyCode.Mouse0)) ToggleMouseField();
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            ToggleMouseField();
+            if (GameManager.IsFieldOccupied(MP.x, MP.y) == false) {
+                GameManager.GenerateFieldCard(CardID.Pointcard, MP.x, MP.y);
+            }
+        }
     }
 
     private Card GetCardData(int x, int y) {
@@ -56,8 +52,10 @@ public class Field : MonoBehaviour {
 
     public void ToggleMouseField() {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float indexX = (float)mouseWorldPos.x;
-        float indexY = (float)mouseWorldPos.y;
+        int indexX = RoundIt(mouseWorldPos.x);
+        int indexY = RoundIt(mouseWorldPos.y);
+        MP.x = indexX;
+        MP.y = indexY;
     }
 
     public int RoundIt(float roundme) {

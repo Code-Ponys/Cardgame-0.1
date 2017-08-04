@@ -19,7 +19,7 @@ public enum CardID {
     Indicator, Indicatorred, none
 }
 public enum Team {
-    system, blau, rot
+    blue = 0, red = 1, system = -1,
 }
 public enum Block {
     up, right, left, down
@@ -30,8 +30,4 @@ public enum State {
 }
 public class Materials {
     //Material transparent = new Material();
-}
-
-public class RoundData {
-    public bool currentPlayer = true;
 }

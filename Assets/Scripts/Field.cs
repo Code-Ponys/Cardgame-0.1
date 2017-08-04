@@ -6,7 +6,6 @@ using Cards;
 public class Field : MonoBehaviour {
 
     public CameraManager CM;
-    protected RoundData RD;
     public FieldProperties FP;
     public GameManager GameManager;
     public MousePos MP;

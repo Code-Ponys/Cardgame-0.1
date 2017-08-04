@@ -4,34 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cards;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour{
 
+    public Team team;
     public List<CardID> Deck;
+    bool refillCardsIsDone = false;
+
+    private void Start() {
+    }
 
     // Use this for initialization
-    void Start() {
+    public void Init(Team team) {
+        this.team = team;
         Deck = GenerateDeck();
-        GameObject.Find("Players");
         //Deckerstellung
+        RefillHand();
     }
 
     // Update is called once per frame
     void Update() {
-        int count = 1;
-        if (count < 3) {
-            while (count != 3) {
-                CardID card = CardID.Pointcard;
-                //Deck.RemoveAt(0);
-                if (GameObject.Find("HandCard" + count).GetComponent<Handcards>().cardid == CardID.none) {
-                    GameObject Handcard = GameObject.Find("HandCard" + count);
-                    SpriteRenderer rend = Handcard.GetComponent<SpriteRenderer>();
-                    rend.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card));
-                    count++;
-                }
-            }
-        }
-    }
 
+    }
 
     private List<CardID> GenerateDeck() {
         List<CardID> generatedDeck = new List<CardID>();
@@ -132,6 +125,39 @@ public class Player : MonoBehaviour {
                 lastspecialcard = false;
             }
         }
+        Debug.Log("" + team + " GenerateDeck");
         return generatedDeck;
+    }
+
+    public void RefillHand() {
+        refillCardsIsDone = false;
+        while (refillCardsIsDone == false) {
+            CardID card = Deck[0];
+            if (GameObject.Find("HandCard1").GetComponent<Handcards>().cardid == CardID.none) {
+                GameObject Handcard = GameObject.Find("HandCard1");
+                Image image = Handcard.GetComponent<Image>();
+                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card));
+                Handcard.GetComponent<Handcards>().cardid = card;
+                Deck.RemoveAt(0);
+                continue;
+            } else if (GameObject.Find("HandCard2").GetComponent<Handcards>().cardid == CardID.none) {
+                GameObject Handcard = GameObject.Find("HandCard2");
+                Image image = Handcard.GetComponent<Image>();
+                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card));
+                Handcard.GetComponent<Handcards>().cardid = card;
+                Deck.RemoveAt(0);
+                continue;
+            } else if (GameObject.Find("HandCard3").GetComponent<Handcards>().cardid == CardID.none) {
+                GameObject Handcard = GameObject.Find("HandCard3");
+                Image image = Handcard.GetComponent<Image>();
+                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card));
+                Handcard.GetComponent<Handcards>().cardid = card;
+                Deck.RemoveAt(0);
+                continue;
+            }
+            refillCardsIsDone = true;
+            return;
+        }
+        return;
     }
 }

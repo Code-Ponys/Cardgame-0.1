@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Cards;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour {
     public List<Card> Cards = new List<Card>();
@@ -11,11 +12,29 @@ public class GameManager : MonoBehaviour {
     public MousePos MP;
     public CameraManager CameraController;
 
-    public Player player1;
-    public Player player2;
+    public Player PlayerBlue { get { return players[0]; } }
+    public Player PlayerRed { get { return players[1]; } }
+    public Player[] players;
+
+    public GameObject SideBarBlue;
+    public GameObject SideBarRed;
+
+    public Team currentPlayer;
+    public CardID currentChoosesCard;
+    public bool animationDone;
 
     // Use this for initialization
     void Start() {
+        players = new Player[2];
+        players[0] = GameObject.Find("PlayerBlue").GetComponent<Player>();
+        players[1] = GameObject.Find("PlayerRed").GetComponent<Player>();
+        players[0].Init(Team.blue);
+        players[1].Init(Team.red);
+        currentChoosesCard = CardID.none;
+        currentPlayer = Team.blue;
+        GameObject PlayerName = GameObject.Find("TextSpieler");
+        PlayerName.GetComponent<Text>().text = "Spieler 1";
+        PlayerBlue.RefillHand();
     }
 
     // Update is called once per frame
@@ -32,10 +51,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public virtual GameObject GenerateFieldCard(CardID cardid, int x, int y) {
-        string pf_path = Slave.GetImagePath(cardid);
+        string pf_path = Slave.GetImagePathPf(cardid);
         string Cardname;
-        int cord_x = x;
-        int cord_y = y;
         switch (cardid) {
             default:
                 Cardname = "Error " + x + "," + y;
@@ -84,28 +101,28 @@ public class GameManager : MonoBehaviour {
                 SpriteRenderer rend1 = IndicatorLeft.GetComponent<SpriteRenderer>();
                 rend1.sprite = Resources.Load<Sprite>("emptycards/green");
                 IndicatorLeft.GetComponent<Indicator>().blocked = false;
-            }else { GenerateFieldCard(CardID.Indicatorred, x - 1, y); }
+            } else { GenerateFieldCard(CardID.Indicatorred, x - 1, y); }
 
             GameObject IndicatorRight = GameObject.Find("FieldIndicator " + (x + 1) + "," + y);
             if (IndicatorRight != null) {
                 SpriteRenderer rend2 = IndicatorRight.GetComponent<SpriteRenderer>();
                 rend2.sprite = Resources.Load<Sprite>("emptycards/green");
                 IndicatorRight.GetComponent<Indicator>().blocked = false;
-            }else { GenerateFieldCard(CardID.Indicatorred, x + 1, y); }
+            } else { GenerateFieldCard(CardID.Indicatorred, x + 1, y); }
 
             GameObject IndicatorDown = GameObject.Find("FieldIndicator " + x + "," + (y - 1));
             if (IndicatorDown != null) {
                 SpriteRenderer rend3 = IndicatorDown.GetComponent<SpriteRenderer>();
                 rend3.sprite = Resources.Load<Sprite>("emptycards/green");
                 IndicatorDown.GetComponent<Indicator>().blocked = false;
-            }else { GenerateFieldCard(CardID.Indicatorred, x, y - 1); }
+            } else { GenerateFieldCard(CardID.Indicatorred, x, y - 1); }
 
             GameObject IndicatorUp = GameObject.Find("FieldIndicator " + x + "," + (y + 1));
             if (IndicatorUp != null) {
                 SpriteRenderer rend4 = IndicatorUp.GetComponent<SpriteRenderer>();
                 rend4.sprite = Resources.Load<Sprite>("emptycards/green");
                 IndicatorUp.GetComponent<Indicator>().blocked = false;
-            }else { GenerateFieldCard(CardID.Indicatorred, x, y + 1); }
+            } else { GenerateFieldCard(CardID.Indicatorred, x, y + 1); }
 
             //CameraController.CenterCamera();
             GameObject MainCamTest = GameObject.Find("Main Camera");
@@ -137,10 +154,6 @@ public class GameManager : MonoBehaviour {
         return Card;
     }
 
-    public virtual void GenerateHandCard(CardID CardID) {
-        string pf_path;
-        string Cardname;
-    }
     public bool IsFieldOccupied(int x, int y) {
         if (x == 0 && y == 0) {
             return true;
@@ -168,4 +181,43 @@ public class GameManager : MonoBehaviour {
         }
         return false;
     }
+
+    public void NewRound() {
+        if (currentPlayer == Team.blue) {
+            currentPlayer = Team.red;
+        } else {
+            currentPlayer = Team.blue;
+        }
+        currentChoosesCard = CardID.none;
+        animationDone = false;
+
+        //TODO Change Handcards
+        //TODO Fade in Black Scene
+        if (currentPlayer == Team.blue) {
+            SideBarBlue.SetActive(true);
+            SideBarRed.SetActive(false);
+            PlayerBlue.RefillHand();
+
+            GameObject PlayerName = GameObject.Find("TextSpieler");
+            PlayerName.GetComponent<Text>().text = "Spieler 1";
+        } else {
+            SideBarBlue.SetActive(false);
+            SideBarRed.SetActive(true);
+            PlayerRed.RefillHand();
+
+            GameObject PlayerName = GameObject.Find("TextSpieler");
+            PlayerName.GetComponent<Text>().text = "Spieler 2";
+        }
+    }
+
+    public void OnCardClick() {
+        string name = EventSystem.current.currentSelectedGameObject.name;
+        currentChoosesCard = GameObject.Find(name).GetComponent<Handcards>().cardid;
+        print(currentChoosesCard);
+    }
+
+    public void print() {
+        print("success");
+    }
 }
+

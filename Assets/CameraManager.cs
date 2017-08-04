@@ -16,7 +16,6 @@ public class CameraManager : MonoBehaviour {
     private int min_x = 0;
     private int max_y = 0;
     private int min_y = 0;
-    private int cameraSize = 10;
 
     // Use this for initialization
     void Start() {

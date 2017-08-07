@@ -9,7 +9,6 @@ using System;
 public class CameraManager : MonoBehaviour {
 
     public Camera MainCam;
-    //public Camera BGCam;
     public Field Field;
 
     private int max_x = 0;
@@ -46,7 +45,6 @@ public class CameraManager : MonoBehaviour {
         CalculateSize(x,y);
         MainCam.transform.position = GetCenter();
         MainCam.orthographicSize = GetCameraSize();
-        //BGCam.orthographicSize = GetCameraSize();
     }
 
     public void CalculateSize(int x, int y) {

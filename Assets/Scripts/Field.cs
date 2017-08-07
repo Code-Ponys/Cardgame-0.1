@@ -12,7 +12,7 @@ public class Field : MonoBehaviour {
 
     public List<GameObject> cardsOnField = new List<GameObject>();
 
-    bool lastPlayer = true;
+    public bool lastPlayer = true;
 
     // Use this for initialization
     void Start() {
@@ -31,6 +31,8 @@ public class Field : MonoBehaviour {
         //    CM.CenterCamera();
         //    print("Kamera korrigiert");
         //}
+        if (GameObject.Find("Field").GetComponent<GameManager>().ChangePlayer.enabled == true) return;
+        
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             ToggleMouseField();
             if (GameManager.IsFieldOccupied(MP.x, MP.y) == false) {

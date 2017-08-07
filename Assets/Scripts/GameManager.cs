@@ -12,12 +12,13 @@ public class GameManager : MonoBehaviour {
     public MousePos MP;
     public CameraManager CameraController;
 
+    public Player[] players;
     public Player PlayerBlue { get { return players[0]; } }
     public Player PlayerRed { get { return players[1]; } }
-    public Player[] players;
 
-    public GameObject SideBarBlue;
-    public GameObject SideBarRed;
+    public Image SideBarBlue;
+    public Image SideBarRed;
+    public Canvas ChangePlayer;
 
     public Team currentPlayer;
     public CardID currentChoosesCard;
@@ -32,14 +33,32 @@ public class GameManager : MonoBehaviour {
         players[1].Init(Team.red);
         currentChoosesCard = CardID.none;
         currentPlayer = Team.blue;
+        print("start player: " + currentPlayer);
+
         GameObject PlayerName = GameObject.Find("TextSpieler");
         PlayerName.GetComponent<Text>().text = "Spieler 1";
-        PlayerBlue.RefillHand();
+        PlayerBlue.RefillHand(currentPlayer);
+        Canvas ChangePlayer = GameObject.Find("PlayerChange").GetComponent<Canvas>();
+        Image SideBarBlue = GameObject.Find("SideMenu Blue").GetComponent<Image>();
+        Image SideBarRed = GameObject.Find("SideMenu Red").GetComponent<Image>();
+        SideBarRed.enabled = false;
+        ChangePlayer.enabled = false;
+        animationDone = true;
     }
 
     // Update is called once per frame
     void Update() {
 
+
+
+
+
+
+
+        if (animationDone) {
+            TogglePlayerScreen();
+            animationDone = false;
+        }
     }
 
     public void ChangeToScene(string SceneToChangeTo) {
@@ -132,18 +151,25 @@ public class GameManager : MonoBehaviour {
         switch (cardid) {
             default:
                 Card.AddComponent<NotImplemented>();
+                Card.GetComponent<NotImplemented>().team = currentPlayer;
                 break;
             case CardID.Blankcard:
                 Card.AddComponent<BlankCard>();
+                Card.GetComponent<BlankCard>().team = currentPlayer;
                 break;
             case CardID.Pointcard:
                 Card.AddComponent<PointCard>();
+                Card.GetComponent<PointCard>().team = currentPlayer;
+                Card.GetComponent<PointCard>().x = x;
+                Card.GetComponent<PointCard>().y = y;
                 break;
             case CardID.Startpoint:
                 Card.AddComponent<Startpoint>();
+                Card.GetComponent<Startpoint>().team = currentPlayer;
                 break;
             case CardID.Blockcard:
                 Card.AddComponent<BlockCard>();
+                Card.GetComponent<BlockCard>().team = currentPlayer;
                 break;
             case CardID.Indicator:
                 Card.AddComponent<Indicator>();
@@ -151,6 +177,7 @@ public class GameManager : MonoBehaviour {
             case CardID.Indicatorred:
                 break;
         }
+        animationDone = true;
         return Card;
     }
 
@@ -183,6 +210,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void NewRound() {
+        print("New Round!");
+
         if (currentPlayer == Team.blue) {
             currentPlayer = Team.red;
         } else {
@@ -194,26 +223,31 @@ public class GameManager : MonoBehaviour {
         //TODO Change Handcards
         //TODO Fade in Black Scene
         if (currentPlayer == Team.blue) {
-            SideBarBlue.SetActive(true);
-            SideBarRed.SetActive(false);
-            PlayerBlue.RefillHand();
-
+            GameObject.Find("Field").GetComponent<GameManager>().SideBarBlue.enabled = true;
+            GameObject.Find("Field").GetComponent<GameManager>().SideBarRed.enabled  = false;
+            GameObject.Find("Field").GetComponent<GameManager>().players[0].RefillHand(currentPlayer);
             GameObject PlayerName = GameObject.Find("TextSpieler");
             PlayerName.GetComponent<Text>().text = "Spieler 1";
         } else {
-            SideBarBlue.SetActive(false);
-            SideBarRed.SetActive(true);
-            PlayerRed.RefillHand();
+            GameObject.Find("Field").GetComponent<GameManager>().SideBarBlue.enabled = false;
+            GameObject.Find("Field").GetComponent<GameManager>().SideBarRed.enabled = true;
+            GameObject.Find("Field").GetComponent<GameManager>().players[1].RefillHand(currentPlayer);
 
             GameObject PlayerName = GameObject.Find("TextSpieler");
             PlayerName.GetComponent<Text>().text = "Spieler 2";
         }
+        TogglePlayerScreen();
+        print("new current player: " + currentPlayer);
     }
 
     public void OnCardClick() {
         string name = EventSystem.current.currentSelectedGameObject.name;
         currentChoosesCard = GameObject.Find(name).GetComponent<Handcards>().cardid;
         print(currentChoosesCard);
+    }
+
+    public void TogglePlayerScreen() {
+        GameObject.Find("Field").GetComponent<GameManager>().ChangePlayer.enabled = !GameObject.Find("Field").GetComponent<GameManager>().ChangePlayer.enabled;
     }
 
     public void print() {

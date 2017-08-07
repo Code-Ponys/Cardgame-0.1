@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cards {
-    public class NotImplemented : MonoBehaviour {
+    public class NotImplemented : Card {
 
         // Use this for initialization
         void Start() {

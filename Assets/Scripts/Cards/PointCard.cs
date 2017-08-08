@@ -8,11 +8,10 @@ namespace Cards {
 
 
         private void Start() {
-            print(WinCondition());
+            print("Player "+ team + " Win? " + WinCondition());
 
         }
         protected bool WinCondition() {
-            print("horizontal");
             //horizontal
             if (GameObject.Find("Pointcard " + (x - 1) + "," + y) != null
                 && GameObject.Find("Pointcard " + (x - 1) + "," + y).GetComponent<PointCard>().team == team) {
@@ -36,7 +35,6 @@ namespace Cards {
                 }
             }
 
-            print("vertikal");
             //vertikal
             if (GameObject.Find("Pointcard " + x + "," + (y + 1)) != null
                 && GameObject.Find("Pointcard " + x + "," + (y + 1)).GetComponent<PointCard>().team == team) {
@@ -60,7 +58,6 @@ namespace Cards {
                 }
             }
 
-            print("diagonal links oben -> rechts unten");
             //diagonal links oben -> rechts unten
             if (GameObject.Find("Pointcard " + (x - 1) + "," + (y + 1)) != null
                 && GameObject.Find("Pointcard " + (x - 1) + "," + (y + 1)).GetComponent<PointCard>().team == team) {
@@ -84,7 +81,6 @@ namespace Cards {
                 }
             }
 
-            print("diagonal links unten -> rechts oben");
             //diagonal links unten -> rechts oben
             if (GameObject.Find("Pointcard " + (x - 1) + "," + (y - 1)) != null
                 && GameObject.Find("Pointcard " + (x - 1) + "," + (y - 1)).GetComponent<PointCard>().team == team) {

@@ -19,9 +19,10 @@ public class GameManager : MonoBehaviour {
     public Image SideBarBlue;
     public Image SideBarRed;
     public Canvas ChangePlayer;
+    string currentChoosedCardName;
 
     public Team currentPlayer;
-    public CardID currentChoosesCard;
+    public CardID currentChoosedCard;
     public bool animationDone;
 
     // Use this for initialization
@@ -31,8 +32,7 @@ public class GameManager : MonoBehaviour {
         players[1] = GameObject.Find("PlayerRed").GetComponent<Player>();
         players[0].Init(Team.blue);
         players[1].Init(Team.red);
-        currentChoosesCard = CardID.none;
-        currentPlayer = Team.blue;
+        GameObject.Find("Field").GetComponent<GameManager>().currentPlayer = Team.blue;
         print("start player: " + currentPlayer);
 
         GameObject PlayerName = GameObject.Find("TextSpieler");
@@ -43,19 +43,16 @@ public class GameManager : MonoBehaviour {
         Image SideBarRed = GameObject.Find("SideMenu Red").GetComponent<Image>();
         SideBarRed.enabled = false;
         ChangePlayer.enabled = false;
-        animationDone = true;
+        animationDone = false;
     }
 
     // Update is called once per frame
     void Update() {
 
 
-
-
-
-
-
-        if (animationDone) {
+        if (animationDone == true) {
+            RemovePlacedCardFromHand();
+            print("player Change");
             TogglePlayerScreen();
             animationDone = false;
         }
@@ -70,7 +67,13 @@ public class GameManager : MonoBehaviour {
     }
 
     public virtual GameObject GenerateFieldCard(CardID cardid, int x, int y) {
-        string pf_path = Slave.GetImagePathPf(cardid);
+        if (cardid == CardID.ChoosedCard) {
+            cardid = currentChoosedCard;
+        }
+        if (currentChoosedCard == CardID.placed || cardid == CardID.none) {
+            return null;
+        }
+        string pf_path = Slave.GetImagePathPf(cardid, currentPlayer);
         string Cardname;
         switch (cardid) {
             default:
@@ -177,7 +180,11 @@ public class GameManager : MonoBehaviour {
             case CardID.Indicatorred:
                 break;
         }
-        animationDone = true;
+
+        GameObject.Find("Field").GetComponent<GameManager>().animationDone = true;
+        if (cardid != CardID.Indicator) {
+            GameObject.Find("Field").GetComponent<Field>().cardsOnField.Add(Card);
+        }
         return Card;
     }
 
@@ -211,20 +218,21 @@ public class GameManager : MonoBehaviour {
 
     public void NewRound() {
         print("New Round!");
-
+        print("Letzter Spieler: " + currentPlayer);
         if (currentPlayer == Team.blue) {
             currentPlayer = Team.red;
         } else {
             currentPlayer = Team.blue;
         }
-        currentChoosesCard = CardID.none;
+        print("Nächster Spieler: " + currentPlayer);
+        currentChoosedCard = CardID.none;
         animationDone = false;
 
         //TODO Change Handcards
         //TODO Fade in Black Scene
         if (currentPlayer == Team.blue) {
             GameObject.Find("Field").GetComponent<GameManager>().SideBarBlue.enabled = true;
-            GameObject.Find("Field").GetComponent<GameManager>().SideBarRed.enabled  = false;
+            GameObject.Find("Field").GetComponent<GameManager>().SideBarRed.enabled = false;
             GameObject.Find("Field").GetComponent<GameManager>().players[0].RefillHand(currentPlayer);
             GameObject PlayerName = GameObject.Find("TextSpieler");
             PlayerName.GetComponent<Text>().text = "Spieler 1";
@@ -237,21 +245,24 @@ public class GameManager : MonoBehaviour {
             PlayerName.GetComponent<Text>().text = "Spieler 2";
         }
         TogglePlayerScreen();
-        print("new current player: " + currentPlayer);
     }
 
     public void OnCardClick() {
         string name = EventSystem.current.currentSelectedGameObject.name;
-        currentChoosesCard = GameObject.Find(name).GetComponent<Handcards>().cardid;
-        print(currentChoosesCard);
+        GameObject.Find("Field").GetComponent<GameManager>().currentChoosedCardName = name;
+        GameObject currentChoosedCardGO = GameObject.Find(name);
+        currentChoosedCard = currentChoosedCardGO.GetComponent<Handcards>().cardid;
+        print(currentChoosedCard + " ausgewählt");
     }
 
     public void TogglePlayerScreen() {
         GameObject.Find("Field").GetComponent<GameManager>().ChangePlayer.enabled = !GameObject.Find("Field").GetComponent<GameManager>().ChangePlayer.enabled;
+        print("Player Screen Toggle");
     }
 
-    public void print() {
-        print("success");
+    void RemovePlacedCardFromHand() {
+        print("Aktueller Kartenname: " + currentChoosedCardName);
+        Debug.Log(GameObject.Find(currentChoosedCardName).GetComponent<Handcards>().cardid = CardID.none);
     }
 }
 

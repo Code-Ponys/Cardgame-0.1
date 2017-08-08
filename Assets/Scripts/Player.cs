@@ -131,30 +131,24 @@ public class Player : MonoBehaviour {
 
     public void RefillHand(Team team) {
         refillCardsIsDone = false;
-        char teamshort;
-        if (team == Team.blue) {
-            teamshort = 'b';
-        } else {
-            teamshort = 'r';
-        }
         while (refillCardsIsDone == false) {
             CardID card = Deck[0];
-            if (GameObject.Find("HandCard1" + teamshort).GetComponent<Handcards>().cardid == CardID.none) {
-                GameObject Handcard = GameObject.Find("HandCard1" + teamshort);
+            if (GameObject.Find("HandCard1" + team).GetComponent<Handcards>().cardid == CardID.none) {
+                GameObject Handcard = GameObject.Find("HandCard1" + team);
                 Image image = Handcard.GetComponent<Image>();
                 image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card));
                 Handcard.GetComponent<Handcards>().cardid = card;
                 Deck.RemoveAt(0);
                 continue;
-            } else if (GameObject.Find("HandCard2" + teamshort).GetComponent<Handcards>().cardid == CardID.none) {
-                GameObject Handcard = GameObject.Find("HandCard2" + teamshort);
+            } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == CardID.none) {
+                GameObject Handcard = GameObject.Find("HandCard2" + team);
                 Image image = Handcard.GetComponent<Image>();
                 image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card));
                 Handcard.GetComponent<Handcards>().cardid = card;
                 Deck.RemoveAt(0);
                 continue;
-            } else if (GameObject.Find("HandCard3" + teamshort).GetComponent<Handcards>().cardid == CardID.none) {
-                GameObject Handcard = GameObject.Find("HandCard3" + teamshort);
+            } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == CardID.none) {
+                GameObject Handcard = GameObject.Find("HandCard3" + team);
                 Image image = Handcard.GetComponent<Image>();
                 image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card));
                 Handcard.GetComponent<Handcards>().cardid = card;

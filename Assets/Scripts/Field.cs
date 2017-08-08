@@ -12,8 +12,6 @@ public class Field : MonoBehaviour {
 
     public List<GameObject> cardsOnField = new List<GameObject>();
 
-    public bool lastPlayer = true;
-
     // Use this for initialization
     void Start() {
         for (int x = (((FP._size - 1) / 2) * -1); x < ((FP._size - 1) / 2); x++) {
@@ -21,7 +19,7 @@ public class Field : MonoBehaviour {
                 GameManager.GenerateFieldCard(CardID.Indicator, x, y);
             }
         }
-        cardsOnField.Add(GameManager.GenerateFieldCard(CardID.Startpoint, 0, 0));
+        GameManager.GenerateFieldCard(CardID.Startpoint, 0, 0);
     }
 
     // Update is called once per frame
@@ -36,7 +34,7 @@ public class Field : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             ToggleMouseField();
             if (GameManager.IsFieldOccupied(MP.x, MP.y) == false) {
-                GameManager.GenerateFieldCard(CardID.Pointcard, MP.x, MP.y);
+                GameManager.GenerateFieldCard(CardID.ChoosedCard, MP.x, MP.y);
             }
         }
     }

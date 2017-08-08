@@ -16,7 +16,8 @@ public enum CardID {
     Burncard, Infernocard, Changecard,
     Cancercard, HotPotatoe, Nukecard,
     Vortexcard, Anchorcard, Sufflecard,
-    Indicator, Indicatorred, none
+    Indicator, Indicatorred, none,
+    ChoosedCard, placed
 }
 public enum Team {
     blue = 0, red = 1, system = -1,

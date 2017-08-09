@@ -11,10 +11,10 @@ public class CameraManager : MonoBehaviour {
     public Camera MainCam;
     public Field Field;
 
-    private int max_x = 0;
-    private int min_x = 0;
-    private int max_y = 0;
-    private int min_y = 0;
+    public int max_x = 0;
+    public int min_x = 0;
+    public int max_y = 0;
+    public int min_y = 0;
 
     // Use this for initialization
     void Start() {

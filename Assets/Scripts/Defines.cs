@@ -15,7 +15,7 @@ public enum CardID {
     Doublecard, Blockcard, Deletecard,
     Burncard, Infernocard, Changecard,
     Cancercard, HotPotatoe, Nukecard,
-    Vortexcard, Anchorcard, Sufflecard,
+    Vortexcard, Anchorcard, Shufflecard,
     Indicator, Indicatorred, none,
     ChoosedCard, placed
 }
@@ -31,4 +31,7 @@ public enum State {
 }
 public class Materials {
     //Material transparent = new Material();
+}
+public enum IndicatorState {
+    blocked, reachable, unreachable, anchorfield
 }

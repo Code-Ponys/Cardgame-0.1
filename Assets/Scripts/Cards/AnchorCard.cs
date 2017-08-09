@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnchorCard : MonoBehaviour {
+public class AnchorCard : Card {
 
 	// Use this for initialization
 	void Start () {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShuffleCard : MonoBehaviour {
+public class ShuffleCard : Card {
 
 	// Use this for initialization
 	void Start () {

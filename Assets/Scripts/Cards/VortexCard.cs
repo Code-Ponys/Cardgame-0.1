@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VortexCard {
+public class VortexCard : Card {
 
 	// Use this for initialization
 	void Start () {

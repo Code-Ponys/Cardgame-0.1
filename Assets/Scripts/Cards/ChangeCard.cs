@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeCard : MonoBehaviour {
+public class ChangeCard : Card {
 
 	// Use this for initialization
 	void Start () {

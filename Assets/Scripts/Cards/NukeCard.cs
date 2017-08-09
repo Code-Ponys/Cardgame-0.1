@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NukeCard : MonoBehaviour {
+public class NukeCard : Card {
 
 	// Use this for initialization
 	void Start () {

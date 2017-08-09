@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CancerCard : MonoBehaviour {
+public class CancerCard : Card {
 
 	// Use this for initialization
 	void Start () {

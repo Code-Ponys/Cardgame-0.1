@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BurnCard : MonoBehaviour {
+public class BurnCard : Card {
 
 	// Use this for initialization
 	void Start () {

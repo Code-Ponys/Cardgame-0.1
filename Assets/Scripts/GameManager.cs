@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour {
     public List<Card> Cards = new List<Card>();
     public Field Field;
     public MousePos MP;
-    public CameraManager CameraController;
 
     public Player[] players;
     public Player PlayerBlue { get { return players[0]; } }
@@ -23,6 +22,7 @@ public class GameManager : MonoBehaviour {
 
     public Team currentPlayer;
     public CardID currentChoosedCard;
+    bool anchorfieldvisible;
     public bool animationDone;
 
     // Use this for initialization
@@ -32,15 +32,14 @@ public class GameManager : MonoBehaviour {
         players[1] = GameObject.Find("PlayerRed").GetComponent<Player>();
         players[0].Init(Team.blue);
         players[1].Init(Team.red);
-        GameObject.Find("Field").GetComponent<GameManager>().currentPlayer = Team.blue;
-        print("start player: " + currentPlayer);
+        currentPlayer = Team.blue;
 
         GameObject PlayerName = GameObject.Find("TextSpieler");
         PlayerName.GetComponent<Text>().text = "Spieler 1";
         PlayerBlue.RefillHand(currentPlayer);
         Canvas ChangePlayer = GameObject.Find("PlayerChange").GetComponent<Canvas>();
-        Image SideBarBlue = GameObject.Find("SideMenu Blue").GetComponent<Image>();
-        Image SideBarRed = GameObject.Find("SideMenu Red").GetComponent<Image>();
+        //Image SideBarBlue = GameObject.Find("SideMenu Blue").GetComponent<Image>();
+        //Image SideBarRed = GameObject.Find("SideMenu Red").GetComponent<Image>();
         SideBarRed.enabled = false;
         ChangePlayer.enabled = false;
         animationDone = false;
@@ -48,11 +47,10 @@ public class GameManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        ToggleAnchorFieldVisibility();
 
         if (animationDone == true) {
             RemovePlacedCardFromHand();
-            print("player Change");
             TogglePlayerScreen();
             animationDone = false;
         }
@@ -97,6 +95,39 @@ public class GameManager : MonoBehaviour {
             case CardID.Indicatorred:
                 Cardname = "FieldIndicatorRed " + x + "," + y;
                 break;
+            case CardID.Doublecard:
+                Cardname = "Doublecard " + x + "," + y;
+                break;
+            case CardID.Deletecard:
+                Cardname = "Deletecard " + x + "," + y;
+                break;
+            case CardID.Burncard:
+                Cardname = "Burncard " + x + "," + y;
+                break;
+            case CardID.Infernocard:
+                Cardname = "Infernocard " + x + "," + y;
+                break;
+            case CardID.Changecard:
+                Cardname = "Changecard " + x + "," + y;
+                break;
+            case CardID.Cancercard:
+                Cardname = "Cancercard " + x + "," + y;
+                break;
+            case CardID.HotPotatoe:
+                Cardname = "HotPotatoe " + x + "," + y;
+                break;
+            case CardID.Nukecard:
+                Cardname = "Nukecard " + x + "," + y;
+                break;
+            case CardID.Vortexcard:
+                Cardname = "Vortexcard " + x + "," + y;
+                break;
+            case CardID.Anchorcard:
+                Cardname = "Anchorcard " + x + "," + y;
+                break;
+            case CardID.Shufflecard:
+                Cardname = "Shufflecard " + x + "," + y;
+                break;
         }
         GameObject Card = (GameObject)Instantiate(Resources.Load(pf_path));
         if (cardid == CardID.Indicator) {
@@ -118,33 +149,46 @@ public class GameManager : MonoBehaviour {
         if (cardid == CardID.Startpoint || cardid == CardID.Anchorcard
             || cardid == CardID.Pointcard || cardid == CardID.Blockcard
             || cardid == CardID.Blankcard) {
+
             GameObject IndicatorLeft = GameObject.Find("FieldIndicator " + (x - 1) + "," + y);
             if (IndicatorLeft != null) {
                 SpriteRenderer rend1 = IndicatorLeft.GetComponent<SpriteRenderer>();
                 rend1.sprite = Resources.Load<Sprite>("emptycards/green");
-                IndicatorLeft.GetComponent<Indicator>().blocked = false;
+                IndicatorLeft.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
             } else { GenerateFieldCard(CardID.Indicatorred, x - 1, y); }
 
             GameObject IndicatorRight = GameObject.Find("FieldIndicator " + (x + 1) + "," + y);
             if (IndicatorRight != null) {
                 SpriteRenderer rend2 = IndicatorRight.GetComponent<SpriteRenderer>();
                 rend2.sprite = Resources.Load<Sprite>("emptycards/green");
-                IndicatorRight.GetComponent<Indicator>().blocked = false;
+                IndicatorRight.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
             } else { GenerateFieldCard(CardID.Indicatorred, x + 1, y); }
 
             GameObject IndicatorDown = GameObject.Find("FieldIndicator " + x + "," + (y - 1));
             if (IndicatorDown != null) {
                 SpriteRenderer rend3 = IndicatorDown.GetComponent<SpriteRenderer>();
                 rend3.sprite = Resources.Load<Sprite>("emptycards/green");
-                IndicatorDown.GetComponent<Indicator>().blocked = false;
+                IndicatorDown.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
             } else { GenerateFieldCard(CardID.Indicatorred, x, y - 1); }
 
             GameObject IndicatorUp = GameObject.Find("FieldIndicator " + x + "," + (y + 1));
             if (IndicatorUp != null) {
                 SpriteRenderer rend4 = IndicatorUp.GetComponent<SpriteRenderer>();
                 rend4.sprite = Resources.Load<Sprite>("emptycards/green");
-                IndicatorUp.GetComponent<Indicator>().blocked = false;
+                IndicatorUp.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
             } else { GenerateFieldCard(CardID.Indicatorred, x, y + 1); }
+
+            for (int a = x - 2; a <= x + 2; a++) {
+                for (int b = y - 2; b <= y + 2; b++) {
+                    GameObject Indicator = GameObject.Find("FieldIndicator " + a + "," + b);
+                    if (Indicator != null) {
+                        IndicatorState state = Indicator.GetComponent<Indicator>().indicatorState;
+                        if (state == IndicatorState.unreachable) {
+                            Indicator.GetComponent<Indicator>().indicatorState = IndicatorState.anchorfield;
+                        }
+                    }
+                }
+            }
 
             //CameraController.CenterCamera();
             GameObject MainCamTest = GameObject.Find("Main Camera");
@@ -155,10 +199,14 @@ public class GameManager : MonoBehaviour {
             default:
                 Card.AddComponent<NotImplemented>();
                 Card.GetComponent<NotImplemented>().team = currentPlayer;
+                Card.GetComponent<NotImplemented>().x = x;
+                Card.GetComponent<NotImplemented>().y = y;
                 break;
             case CardID.Blankcard:
                 Card.AddComponent<BlankCard>();
                 Card.GetComponent<BlankCard>().team = currentPlayer;
+                Card.GetComponent<BlankCard>().x = x;
+                Card.GetComponent<BlankCard>().y = y;
                 break;
             case CardID.Pointcard:
                 Card.AddComponent<PointCard>();
@@ -169,21 +217,94 @@ public class GameManager : MonoBehaviour {
             case CardID.Startpoint:
                 Card.AddComponent<Startpoint>();
                 Card.GetComponent<Startpoint>().team = currentPlayer;
+                Card.GetComponent<Startpoint>().x = x;
+                Card.GetComponent<Startpoint>().y = y;
                 break;
             case CardID.Blockcard:
                 Card.AddComponent<BlockCard>();
                 Card.GetComponent<BlockCard>().team = currentPlayer;
+                Card.GetComponent<BlockCard>().x = x;
+                Card.GetComponent<BlockCard>().y = y;
                 break;
             case CardID.Indicator:
                 Card.AddComponent<Indicator>();
                 break;
             case CardID.Indicatorred:
                 break;
+            case CardID.Doublecard:
+                Card.AddComponent<DoubleCard>();
+                Card.GetComponent<DoubleCard>().team = currentPlayer;
+                Card.GetComponent<DoubleCard>().x = x;
+                Card.GetComponent<DoubleCard>().y = y;
+                break;
+            case CardID.Deletecard:
+                Card.AddComponent<DeleteCard>();
+                Card.GetComponent<DeleteCard>().team = currentPlayer;
+                Card.GetComponent<DeleteCard>().x = x;
+                Card.GetComponent<DeleteCard>().y = y;
+                break;
+            case CardID.Burncard:
+                Card.AddComponent<BurnCard>();
+                Card.GetComponent<BurnCard>().team = currentPlayer;
+                Card.GetComponent<BurnCard>().x = x;
+                Card.GetComponent<BurnCard>().y = y;
+                break;
+            case CardID.Infernocard:
+                Card.AddComponent<InfernoCard>();
+                Card.GetComponent<InfernoCard>().team = currentPlayer;
+                Card.GetComponent<InfernoCard>().x = x;
+                Card.GetComponent<InfernoCard>().y = y;
+                break;
+            case CardID.Changecard:
+                Card.AddComponent<ChangeCard>();
+                Card.GetComponent<ChangeCard>().team = currentPlayer;
+                Card.GetComponent<ChangeCard>().x = x;
+                Card.GetComponent<ChangeCard>().y = y;
+                break;
+            case CardID.Cancercard:
+                Card.AddComponent<CancerCard>();
+                Card.GetComponent<CancerCard>().team = currentPlayer;
+                Card.GetComponent<CancerCard>().x = x;
+                Card.GetComponent<CancerCard>().y = y;
+                break;
+            case CardID.HotPotatoe:
+                Card.AddComponent<HotPotatoe>();
+                Card.GetComponent<HotPotatoe>().team = currentPlayer;
+                Card.GetComponent<HotPotatoe>().x = x;
+                Card.GetComponent<HotPotatoe>().y = y;
+                break;
+            case CardID.Nukecard:
+                Card.AddComponent<NukeCard>();
+                Card.GetComponent<NukeCard>().team = currentPlayer;
+                Card.GetComponent<NukeCard>().x = x;
+                Card.GetComponent<NukeCard>().y = y;
+                break;
+            case CardID.Vortexcard:
+                Card.AddComponent<VortexCard>();
+                Card.GetComponent<VortexCard>().team = currentPlayer;
+                Card.GetComponent<VortexCard>().x = x;
+                Card.GetComponent<VortexCard>().y = y;
+                break;
+            case CardID.Anchorcard:
+                Card.AddComponent<AnchorCard>();
+                Card.GetComponent<AnchorCard>().team = currentPlayer;
+                Card.GetComponent<AnchorCard>().x = x;
+                Card.GetComponent<AnchorCard>().y = y;
+                break;
+            case CardID.Shufflecard:
+                Card.AddComponent<ShuffleCard>();
+                Card.GetComponent<ShuffleCard>().team = currentPlayer;
+                Card.GetComponent<ShuffleCard>().x = x;
+                Card.GetComponent<ShuffleCard>().y = y;
+                break;
         }
 
-        GameObject.Find("Field").GetComponent<GameManager>().animationDone = true;
         if (cardid != CardID.Indicator) {
             GameObject.Find("Field").GetComponent<Field>().cardsOnField.Add(Card);
+            if (cardid != CardID.Startpoint) {
+                animationDone = true;
+
+            }
         }
         return Card;
     }
@@ -210,36 +331,39 @@ public class GameManager : MonoBehaviour {
         if (GameObject.Find("FieldIndicator " + x + "," + y) == null) {
             return true;
         }
-        if (GameObject.Find("FieldIndicator " + x + "," + y).GetComponent<Indicator>().blocked) {
+        if (GameObject.Find("FieldIndicator " + x + "," + y).GetComponent<Indicator>().indicatorState == IndicatorState.anchorfield
+            && currentChoosedCard == CardID.Anchorcard) {
+            return false;
+        }
+        if (GameObject.Find("FieldIndicator " + x + "," + y).GetComponent<Indicator>().indicatorState == IndicatorState.blocked
+            || GameObject.Find("FieldIndicator " + x + "," + y).GetComponent<Indicator>().indicatorState == IndicatorState.unreachable
+            || GameObject.Find("FieldIndicator " + x + "," + y).GetComponent<Indicator>().indicatorState == IndicatorState.anchorfield) {
             return true;
         }
         return false;
     }
 
     public void NewRound() {
-        print("New Round!");
-        print("Letzter Spieler: " + currentPlayer);
         if (currentPlayer == Team.blue) {
             currentPlayer = Team.red;
         } else {
             currentPlayer = Team.blue;
         }
-        print("Nächster Spieler: " + currentPlayer);
         currentChoosedCard = CardID.none;
         animationDone = false;
 
         //TODO Change Handcards
         //TODO Fade in Black Scene
         if (currentPlayer == Team.blue) {
-            GameObject.Find("Field").GetComponent<GameManager>().SideBarBlue.enabled = true;
-            GameObject.Find("Field").GetComponent<GameManager>().SideBarRed.enabled = false;
-            GameObject.Find("Field").GetComponent<GameManager>().players[0].RefillHand(currentPlayer);
+            SideBarBlue.enabled = true;
+            SideBarRed.enabled = false;
+            players[0].RefillHand(currentPlayer);
             GameObject PlayerName = GameObject.Find("TextSpieler");
             PlayerName.GetComponent<Text>().text = "Spieler 1";
         } else {
-            GameObject.Find("Field").GetComponent<GameManager>().SideBarBlue.enabled = false;
-            GameObject.Find("Field").GetComponent<GameManager>().SideBarRed.enabled = true;
-            GameObject.Find("Field").GetComponent<GameManager>().players[1].RefillHand(currentPlayer);
+            SideBarBlue.enabled = false;
+            SideBarRed.enabled = true;
+            players[1].RefillHand(currentPlayer);
 
             GameObject PlayerName = GameObject.Find("TextSpieler");
             PlayerName.GetComponent<Text>().text = "Spieler 2";
@@ -249,20 +373,51 @@ public class GameManager : MonoBehaviour {
 
     public void OnCardClick() {
         string name = EventSystem.current.currentSelectedGameObject.name;
-        GameObject.Find("Field").GetComponent<GameManager>().currentChoosedCardName = name;
+        currentChoosedCardName = name;
         GameObject currentChoosedCardGO = GameObject.Find(name);
         currentChoosedCard = currentChoosedCardGO.GetComponent<Handcards>().cardid;
-        print(currentChoosedCard + " ausgewählt");
     }
 
     public void TogglePlayerScreen() {
-        GameObject.Find("Field").GetComponent<GameManager>().ChangePlayer.enabled = !GameObject.Find("Field").GetComponent<GameManager>().ChangePlayer.enabled;
-        print("Player Screen Toggle");
+        ChangePlayer.enabled = !ChangePlayer.enabled;
     }
 
     void RemovePlacedCardFromHand() {
-        print("Aktueller Kartenname: " + currentChoosedCardName);
-        Debug.Log(GameObject.Find(currentChoosedCardName).GetComponent<Handcards>().cardid = CardID.none);
+
+        GameObject.Find(currentChoosedCardName).GetComponent<Handcards>().cardid = CardID.none;
+    }
+
+    void ToggleAnchorFieldVisibility() {
+        if (currentChoosedCard == CardID.Anchorcard && anchorfieldvisible == false) {
+            anchorfieldvisible = true;
+            for (int x = Camera.main.GetComponent<CameraManager>().min_x - 2; x <= Camera.main.GetComponent<CameraManager>().max_x + 2; x++) {
+                for (int y = Camera.main.GetComponent<CameraManager>().min_y - 2; y <= Camera.main.GetComponent<CameraManager>().max_y + 2; y++) {
+                    if (GameObject.Find("FieldIndicator " + x + "," + y) != null) {
+                        GameObject Indicator = GameObject.Find("FieldIndicator " + x + "," + y);
+                        if (Indicator.GetComponent<Indicator>().indicatorState == IndicatorState.anchorfield) {
+                            SpriteRenderer rend = Indicator.GetComponent<SpriteRenderer>();
+                            rend.sprite = Resources.Load<Sprite>("emptycards/yellow");
+                        }
+                    }
+                }
+            }
+        }
+
+        if (currentChoosedCard != CardID.Anchorcard && anchorfieldvisible == true) {
+            anchorfieldvisible = false;
+            print("Deactivate Anchorcards");
+            for (int x = Camera.main.GetComponent<CameraManager>().min_x - 2; x <= Camera.main.GetComponent<CameraManager>().max_x + 2; x++) {
+                for (int y = Camera.main.GetComponent<CameraManager>().min_y - 2; y <= Camera.main.GetComponent<CameraManager>().max_y + 2; y++) {
+                    if (GameObject.Find("FieldIndicator " + x + "," + y) != null) {
+                        GameObject Indicator = GameObject.Find("FieldIndicator " + x + "," + y);
+                        if (Indicator.GetComponent<Indicator>().indicatorState == IndicatorState.anchorfield) {
+                            SpriteRenderer rend = Indicator.GetComponent<SpriteRenderer>();
+                            rend.sprite = Resources.Load<Sprite>("emptycards/black");
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

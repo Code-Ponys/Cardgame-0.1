@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Cards {
     public class Indicator : MonoBehaviour {
 
-        public bool blocked = true;
+        public IndicatorState indicatorState = IndicatorState.unreachable;
 
         // Use this for initialization
         void Start() {
@@ -14,9 +14,6 @@ namespace Cards {
         // Update is called once per frame
         void Update() {
 
-        }
-        public bool isBlocked() {
-            return blocked;
         }
     }
 }

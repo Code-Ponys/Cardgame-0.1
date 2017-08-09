@@ -5,7 +5,6 @@ using Cards;
 
 public class Field : MonoBehaviour {
 
-    public CameraManager CM;
     public FieldProperties FP;
     public GameManager GameManager;
     public MousePos MP;
@@ -20,6 +19,7 @@ public class Field : MonoBehaviour {
             }
         }
         GameManager.GenerateFieldCard(CardID.Startpoint, 0, 0);
+        GameManager.currentChoosedCard = CardID.none;
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class Field : MonoBehaviour {
         //    CM.CenterCamera();
         //    print("Kamera korrigiert");
         //}
-        if (GameObject.Find("Field").GetComponent<GameManager>().ChangePlayer.enabled == true) return;
+        if (GameManager.ChangePlayer.enabled == true) return;
         
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             ToggleMouseField();

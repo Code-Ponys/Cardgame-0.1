@@ -15,7 +15,8 @@ public class Field : MonoBehaviour {
     void Start() {
         for (int x = (((FP._size - 1) / 2) * -1); x < ((FP._size - 1) / 2); x++) {
             for (int y = (((FP._size - 1) / 2) * -1); y < ((FP._size - 1) / 2); y++) {
-                GameManager.GenerateFieldCard(CardID.Indicator, x, y);
+                GameManager.GenerateFieldCard(CardID.FieldIndicator, x, y);
+                GameManager.GenerateFieldCard(CardID.CardIndicator, x, y);
             }
         }
         GameManager.GenerateFieldCard(CardID.Startpoint, 0, 0);

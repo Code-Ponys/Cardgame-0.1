@@ -13,7 +13,7 @@ static public class Slave {
                 return "cards/" + team + "/pf_Pointcard";
             case CardID.Blockcard:
                 return "cards/" + team + "/pf_Blockcard";
-            case CardID.Indicator:
+            case CardID.FieldIndicator:
                 return "emptycards/pf_black";
             case CardID.Indicatorred:
                 return "emptycards/pf_red";
@@ -41,6 +41,8 @@ static public class Slave {
                 return "cards/" + team + "/pf_Anchorcard";
             case CardID.Shufflecard:
                 return "cards/" + team + "/pf_Shufflecard";
+            case CardID.CardIndicator:
+                return "emptycards/pf_transparent";
         }
     }
 
@@ -77,7 +79,7 @@ static public class Slave {
             case CardID.Anchorcard:
                 return "cards/Anchorcard";
             case CardID.Shufflecard:
-                return "cards/pf_Shufflecard";
+                return "cards/Shufflecard";
         }
     }
 }

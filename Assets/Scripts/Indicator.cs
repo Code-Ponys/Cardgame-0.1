@@ -7,6 +7,8 @@ namespace Cards {
 
         public IndicatorState indicatorState = IndicatorState.unreachable;
 
+        public bool isFieldDeleteable = false;
+
         // Use this for initialization
         void Start() {
         }

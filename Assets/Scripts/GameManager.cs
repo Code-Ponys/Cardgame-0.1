@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour {
     public List<Card> Cards = new List<Card>();
     public Field Field;
     public MousePos MP;
+    public FieldProperties FP;
 
     public Player[] players;
     public Player PlayerBlue { get { return players[0]; } }
     public Player PlayerRed { get { return players[1]; } }
+    public int[,] distance;
 
     public Image SideBarBlue;
     public Image SideBarRed;
@@ -418,6 +420,34 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void RenewIndicators() {
+        for (int x = Camera.main.GetComponent<CameraManager>().min_x - 3; x <= Camera.main.GetComponent<CameraManager>().max_x + 3; x++) {
+            for (int y = Camera.main.GetComponent<CameraManager>().min_y - 3; y <= Camera.main.GetComponent<CameraManager>().max_y + 3; y++) {
+                if (GameObject.Find("FieldIndicator " + x + "," + y) != null) {
+                    GameObject Indicator = GameObject.Find("FieldIndicator " + x + "," + y);
+                    if (Indicator.GetComponent<Indicator>().indicatorState == IndicatorState.unreachable) {
+                        SpriteRenderer rend = Indicator.GetComponent<SpriteRenderer>();
+                        rend.sprite = Resources.Load<Sprite>("emptycards/black");
+                    }
+                }
+            }
+        }
+        for (int x = Camera.main.GetComponent<CameraManager>().min_x; x <= Camera.main.GetComponent<CameraManager>().max_x; x++) {
+            for (int y = Camera.main.GetComponent<CameraManager>().min_y; y <= Camera.main.GetComponent<CameraManager>().max_y; y++) {
+                if (GameObject.Find("Startpoint " + x + "," + y) != null
+                    || GameObject.Find("Anchorcard " + x + "," + y) != null
+                    || GameObject.Find("Pointcard " + x + "," + y) != null
+                    || GameObject.Find("Blockcard " + x + "," + y) != null
+                    || GameObject.Find("Blankcard " + x + "," + y) != null) {
+                    SetFieldIndicator(x, y);
+                }
+            }
+        }
+    }
+        }
+        return removeCards;
     }
 }
 

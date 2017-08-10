@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cards {
-    public class Card : Card {
+    public class PointCard : Card {
 
 
         private void Start() {

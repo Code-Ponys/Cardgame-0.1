@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnchorCard : Card {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+namespace Cards {
+    public class AnchorCard : Card {
+
+        // Use this for initialization
+        void Start() {
+
+        }
+
+        // Update is called once per frame
+        void Update() {
+
+        }
+        
+    }
 }

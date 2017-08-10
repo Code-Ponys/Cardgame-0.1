@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeleteCard : Card {
 namespace Cards {
     public class DeleteCard : Card {
 

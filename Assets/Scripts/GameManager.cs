@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Cards;
 using UnityEngine.EventSystems;
+using System;
 
 public class GameManager : MonoBehaviour {
     public List<Card> Cards = new List<Card>();
@@ -24,6 +25,9 @@ public class GameManager : MonoBehaviour {
 
     public Team currentPlayer;
     public CardID currentChoosedCard;
+    public CardID lastSetCard;
+    public bool anchorFieldVisible;
+    public bool cardIndicatorVisible;
     public bool animationDone;
 
     // Use this for initialization
@@ -49,6 +53,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         ToggleAnchorFieldVisibility();
+        ToggleDeleteCardFieldVisibility();
 
         if (animationDone == true) {
             RemovePlacedCardFromHand();
@@ -56,6 +61,8 @@ public class GameManager : MonoBehaviour {
             animationDone = false;
         }
     }
+
+
 
     public void ChangeToScene(string SceneToChangeTo) {
         SceneManager.LoadScene(SceneToChangeTo);
@@ -90,7 +97,7 @@ public class GameManager : MonoBehaviour {
             case CardID.Blockcard:
                 Cardname = "Blockcard " + x + "," + y;
                 break;
-            case CardID.Indicator:
+            case CardID.FieldIndicator:
                 Cardname = "FieldIndicator " + x + "," + y;
                 break;
             case CardID.Indicatorred:
@@ -129,9 +136,12 @@ public class GameManager : MonoBehaviour {
             case CardID.Shufflecard:
                 Cardname = "Shufflecard " + x + "," + y;
                 break;
+            case CardID.CardIndicator:
+                Cardname = "CardIndicator " + x + "," + y;
+                break;
         }
         GameObject Card = (GameObject)Instantiate(Resources.Load(pf_path));
-        if (cardid == CardID.Indicator) {
+        if (cardid == CardID.FieldIndicator) {
             GameObject FieldIndicatorParent = GameObject.Find("FieldIndicator");
             Card.transform.parent = FieldIndicatorParent.transform;
             Card.transform.position = new Vector3(x, y, -1);
@@ -139,6 +149,10 @@ public class GameManager : MonoBehaviour {
             GameObject FieldIndicatorParentRed = GameObject.Find("FieldIndicator");
             Card.transform.parent = FieldIndicatorParentRed.transform;
             Card.transform.position = new Vector3(x, y, -1);
+        } else if (cardid == CardID.CardIndicator) {
+            GameObject FieldIndicatorParentRed = GameObject.Find("CardIndicator");
+            Card.transform.parent = FieldIndicatorParentRed.transform;
+            Card.transform.position = new Vector3(x, y, -3);
         } else {
             GameObject FieldParent = GameObject.Find("Field");
             Card.transform.parent = FieldParent.transform;
@@ -152,11 +166,11 @@ public class GameManager : MonoBehaviour {
             || cardid == CardID.Blankcard) {
 
             SetFieldIndicator(x, y);
+            Card.AddComponent<Card>();
 
             Camera.main.GetComponent<CameraManager>().CenterCamera(x, y);
         }
 
-        Card.AddComponent<Card>();
 
         switch (cardid) {
             default:
@@ -172,7 +186,7 @@ public class GameManager : MonoBehaviour {
                 Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Pointcard:
-                Card.AddComponent<Cards.Card>();
+                Card.AddComponent<PointCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
@@ -189,7 +203,7 @@ public class GameManager : MonoBehaviour {
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
                 break;
-            case CardID.Indicator:
+            case CardID.FieldIndicator:
                 Card.AddComponent<Indicator>();
                 break;
             case CardID.Indicatorred:
@@ -260,15 +274,21 @@ public class GameManager : MonoBehaviour {
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
                 break;
+            case CardID.CardIndicator:
+                Card.AddComponent<Indicator>();
+                break;
         }
 
-        if (cardid != CardID.Indicator) {
+        if (cardid == CardID.Startpoint || cardid == CardID.Anchorcard
+            || cardid == CardID.Pointcard || cardid == CardID.Blockcard
+            || cardid == CardID.Blankcard) {
             GameObject.Find("Field").GetComponent<Field>().cardsOnField.Add(Card);
-            if (cardid != CardID.Startpoint) {
-                animationDone = true;
-
-            }
         }
+        if (cardid != CardID.Startpoint) {
+            animationDone = true;
+        }
+        lastSetCard = cardid;
+
         return Card;
     }
 

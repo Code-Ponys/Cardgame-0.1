@@ -152,50 +152,12 @@ public class GameManager : MonoBehaviour {
             || cardid == CardID.Pointcard || cardid == CardID.Blockcard
             || cardid == CardID.Blankcard) {
 
-            GameObject IndicatorLeft = GameObject.Find("FieldIndicator " + (x - 1) + "," + y);
-            if (IndicatorLeft != null) {
-                SpriteRenderer rend1 = IndicatorLeft.GetComponent<SpriteRenderer>();
-                rend1.sprite = Resources.Load<Sprite>("emptycards/green");
-                IndicatorLeft.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
-            } else { GenerateFieldCard(CardID.Indicatorred, x - 1, y); }
+            SetFieldIndicator(x, y);
 
-            GameObject IndicatorRight = GameObject.Find("FieldIndicator " + (x + 1) + "," + y);
-            if (IndicatorRight != null) {
-                SpriteRenderer rend2 = IndicatorRight.GetComponent<SpriteRenderer>();
-                rend2.sprite = Resources.Load<Sprite>("emptycards/green");
-                IndicatorRight.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
-            } else { GenerateFieldCard(CardID.Indicatorred, x + 1, y); }
-
-            GameObject IndicatorDown = GameObject.Find("FieldIndicator " + x + "," + (y - 1));
-            if (IndicatorDown != null) {
-                SpriteRenderer rend3 = IndicatorDown.GetComponent<SpriteRenderer>();
-                rend3.sprite = Resources.Load<Sprite>("emptycards/green");
-                IndicatorDown.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
-            } else { GenerateFieldCard(CardID.Indicatorred, x, y - 1); }
-
-            GameObject IndicatorUp = GameObject.Find("FieldIndicator " + x + "," + (y + 1));
-            if (IndicatorUp != null) {
-                SpriteRenderer rend4 = IndicatorUp.GetComponent<SpriteRenderer>();
-                rend4.sprite = Resources.Load<Sprite>("emptycards/green");
-                IndicatorUp.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
-            } else { GenerateFieldCard(CardID.Indicatorred, x, y + 1); }
-
-            for (int a = x - 2; a <= x + 2; a++) {
-                for (int b = y - 2; b <= y + 2; b++) {
-                    GameObject Indicator = GameObject.Find("FieldIndicator " + a + "," + b);
-                    if (Indicator != null) {
-                        IndicatorState state = Indicator.GetComponent<Indicator>().indicatorState;
-                        if (state == IndicatorState.unreachable) {
-                            Indicator.GetComponent<Indicator>().indicatorState = IndicatorState.anchorfield;
-                        }
-                    }
-                }
-            }
-
-            //CameraController.CenterCamera();
-            GameObject MainCamTest = GameObject.Find("Main Camera");
-            MainCamTest.GetComponent<CameraManager>().CenterCamera(x, y);
+            Camera.main.GetComponent<CameraManager>().CenterCamera(x, y);
         }
+
+        Card.AddComponent<Card>();
 
         switch (cardid) {
             default:
@@ -446,6 +408,65 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
+
+    public void SetFieldIndicator(int x, int y) {
+        GameObject IndicatorLeft = GameObject.Find("FieldIndicator " + (x - 1) + "," + y);
+        if (IndicatorLeft != null && IndicatorLeft.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
+            SpriteRenderer rend1 = IndicatorLeft.GetComponent<SpriteRenderer>();
+            rend1.sprite = Resources.Load<Sprite>("emptycards/green");
+            IndicatorLeft.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
+        } else {
+            if (GameObject.Find("FieldIndicatorRed " + (x - 1) + "," + y) == null) {
+                GenerateFieldCard(CardID.Indicatorred, x - 1, y);
+            }
+        }
+
+        GameObject IndicatorRight = GameObject.Find("FieldIndicator " + (x + 1) + "," + y);
+        if (IndicatorRight != null && IndicatorRight.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
+            SpriteRenderer rend2 = IndicatorRight.GetComponent<SpriteRenderer>();
+            rend2.sprite = Resources.Load<Sprite>("emptycards/green");
+            IndicatorRight.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
+        } else {
+            if (GameObject.Find("FieldIndicatorRed " + (x + 1) + "," + y) == null) {
+                GenerateFieldCard(CardID.Indicatorred, x + 1, y);
+            }
+        }
+
+        GameObject IndicatorDown = GameObject.Find("FieldIndicator " + x + "," + (y - 1));
+        if (IndicatorDown != null && IndicatorDown.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
+            SpriteRenderer rend3 = IndicatorDown.GetComponent<SpriteRenderer>();
+            rend3.sprite = Resources.Load<Sprite>("emptycards/green");
+            IndicatorDown.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
+        } else {
+            if (GameObject.Find("FieldIndicatorRed " + x + "," + (y - 1)) == null) {
+                GenerateFieldCard(CardID.Indicatorred, x, y - 1);
+            }
+        }
+
+        GameObject IndicatorUp = GameObject.Find("FieldIndicator " + x + "," + (y + 1));
+        if (IndicatorUp != null && IndicatorUp.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
+            SpriteRenderer rend4 = IndicatorUp.GetComponent<SpriteRenderer>();
+            rend4.sprite = Resources.Load<Sprite>("emptycards/green");
+            IndicatorUp.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
+        } else {
+            if (GameObject.Find("FieldIndicatorRed " + x + "," + (y + 1)) == null) {
+                GenerateFieldCard(CardID.Indicatorred, x, y + 1);
+            }
+        }
+
+        for (int a = x - 2; a <= x + 2; a++) {
+            for (int b = y - 2; b <= y + 2; b++) {
+                GameObject Indicator = GameObject.Find("FieldIndicator " + a + "," + b);
+                if (Indicator != null && Indicator.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
+                    IndicatorState state = Indicator.GetComponent<Indicator>().indicatorState;
+                    if (state == IndicatorState.unreachable) {
+                        Indicator.GetComponent<Indicator>().indicatorState = IndicatorState.anchorfield;
+                    }
+                }
+            }
+        }
+    }
+    public void RemoveUnconnectedCards() {
         distance = new int[FP._size, FP._size];
         for (int i = 0; i < distance.GetLength(0); i++) {
             for (int j = 0; j < distance.GetLength(1); j++) {

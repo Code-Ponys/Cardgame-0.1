@@ -446,6 +446,54 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
+        distance = new int[FP._size, FP._size];
+        for (int i = 0; i < distance.GetLength(0); i++) {
+            for (int j = 0; j < distance.GetLength(1); j++) {
+                distance[i, j] = int.MaxValue;
+            }
+        }
+
+
+    }
+
+    void Breitensuche(GameObject anchor) {
+        int x = 0;
+        int y = 0;
+        Queue<GameObject> queue = new Queue<GameObject>();
+        queue.Enqueue(anchor);
+
+        x = anchor.GetComponent<Card>().x;
+        y = anchor.GetComponent<Card>().y;
+
+        distance[x, y] = 0;
+        while (queue.Count > 0) {
+            GameObject GO = queue.Dequeue();
+            List<GameObject> neighbours = Field.cardsOnField;
+            foreach (GameObject neighbour in neighbours) {
+                if (distance[neighbour.GetComponent<Card>().x + 25, neighbour.GetComponent<Card>().y + 25] == int.MaxValue) {
+                    distance[neighbour.GetComponent<Card>().x + 25, neighbour.GetComponent<Card>().y + 25] = distance[GO.GetComponent<Card>().x, GO.GetComponent<Card>().y] + 1;
+                    queue.Enqueue(neighbour);
+                }
+            }
+        }
+    }
+
+
+
+    List<GameObject> UnconnectedCards() {
+        List<GameObject> removeCards = Field.cardsOnField;
+        for (int x = 0; x < FP._size; x++) {
+            for (int y = 0; y < FP._size; y++) {
+                if (distance[x, y] != int.MaxValue) {
+                    for (int i = 0; i < removeCards.Count; i++) {
+                        if (removeCards[i].GetComponent<Card>().x == x -25
+                            && removeCards[i].GetComponent<Card>().y == y -25) {
+                            removeCards.RemoveAt(i);
+                            break;
+                        }
+                    }
+                }
+            }
         }
         return removeCards;
     }

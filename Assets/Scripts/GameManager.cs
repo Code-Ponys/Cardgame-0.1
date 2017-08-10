@@ -200,33 +200,33 @@ public class GameManager : MonoBehaviour {
         switch (cardid) {
             default:
                 Card.AddComponent<NotImplemented>();
-                Card.GetComponent<NotImplemented>().team = currentPlayer;
-                Card.GetComponent<NotImplemented>().x = x;
-                Card.GetComponent<NotImplemented>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Blankcard:
                 Card.AddComponent<BlankCard>();
-                Card.GetComponent<BlankCard>().team = currentPlayer;
-                Card.GetComponent<BlankCard>().x = x;
-                Card.GetComponent<BlankCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Pointcard:
-                Card.AddComponent<PointCard>();
-                Card.GetComponent<PointCard>().team = currentPlayer;
-                Card.GetComponent<PointCard>().x = x;
-                Card.GetComponent<PointCard>().y = y;
+                Card.AddComponent<Cards.Card>();
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Startpoint:
                 Card.AddComponent<Startpoint>();
-                Card.GetComponent<Startpoint>().team = currentPlayer;
-                Card.GetComponent<Startpoint>().x = x;
-                Card.GetComponent<Startpoint>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Blockcard:
                 Card.AddComponent<BlockCard>();
-                Card.GetComponent<BlockCard>().team = currentPlayer;
-                Card.GetComponent<BlockCard>().x = x;
-                Card.GetComponent<BlockCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Indicator:
                 Card.AddComponent<Indicator>();
@@ -235,69 +235,69 @@ public class GameManager : MonoBehaviour {
                 break;
             case CardID.Doublecard:
                 Card.AddComponent<DoubleCard>();
-                Card.GetComponent<DoubleCard>().team = currentPlayer;
-                Card.GetComponent<DoubleCard>().x = x;
-                Card.GetComponent<DoubleCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Deletecard:
                 Card.AddComponent<DeleteCard>();
-                Card.GetComponent<DeleteCard>().team = currentPlayer;
-                Card.GetComponent<DeleteCard>().x = x;
-                Card.GetComponent<DeleteCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Burncard:
                 Card.AddComponent<BurnCard>();
-                Card.GetComponent<BurnCard>().team = currentPlayer;
-                Card.GetComponent<BurnCard>().x = x;
-                Card.GetComponent<BurnCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Infernocard:
                 Card.AddComponent<InfernoCard>();
-                Card.GetComponent<InfernoCard>().team = currentPlayer;
-                Card.GetComponent<InfernoCard>().x = x;
-                Card.GetComponent<InfernoCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Changecard:
                 Card.AddComponent<ChangeCard>();
-                Card.GetComponent<ChangeCard>().team = currentPlayer;
-                Card.GetComponent<ChangeCard>().x = x;
-                Card.GetComponent<ChangeCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Cancercard:
                 Card.AddComponent<CancerCard>();
-                Card.GetComponent<CancerCard>().team = currentPlayer;
-                Card.GetComponent<CancerCard>().x = x;
-                Card.GetComponent<CancerCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.HotPotatoe:
                 Card.AddComponent<HotPotatoe>();
-                Card.GetComponent<HotPotatoe>().team = currentPlayer;
-                Card.GetComponent<HotPotatoe>().x = x;
-                Card.GetComponent<HotPotatoe>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Nukecard:
                 Card.AddComponent<NukeCard>();
-                Card.GetComponent<NukeCard>().team = currentPlayer;
-                Card.GetComponent<NukeCard>().x = x;
-                Card.GetComponent<NukeCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Vortexcard:
                 Card.AddComponent<VortexCard>();
-                Card.GetComponent<VortexCard>().team = currentPlayer;
-                Card.GetComponent<VortexCard>().x = x;
-                Card.GetComponent<VortexCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Anchorcard:
                 Card.AddComponent<AnchorCard>();
-                Card.GetComponent<AnchorCard>().team = currentPlayer;
-                Card.GetComponent<AnchorCard>().x = x;
-                Card.GetComponent<AnchorCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
             case CardID.Shufflecard:
                 Card.AddComponent<ShuffleCard>();
-                Card.GetComponent<ShuffleCard>().team = currentPlayer;
-                Card.GetComponent<ShuffleCard>().x = x;
-                Card.GetComponent<ShuffleCard>().y = y;
+                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
                 break;
         }
 

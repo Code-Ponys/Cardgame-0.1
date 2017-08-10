@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour {
 
     public Team currentPlayer;
     public CardID currentChoosedCard;
-    bool anchorfieldvisible;
     public bool animationDone;
 
     // Use this for initialization
@@ -277,6 +276,9 @@ public class GameManager : MonoBehaviour {
         if (x == 0 && y == 0) {
             return true;
         }
+        if (currentChoosedCard == CardID.Deletecard) {
+            return !GameObject.Find("CardIndicator " + x + "," + y).GetComponent<Indicator>().isFieldDeleteable;
+        }
         if (GameObject.Find("Blankcard " + x + "," + y) != null) {
             return true;
         }
@@ -332,6 +334,13 @@ public class GameManager : MonoBehaviour {
             GameObject PlayerName = GameObject.Find("TextSpieler");
             PlayerName.GetComponent<Text>().text = "Spieler 2";
         }
+
+        if (lastSetCard == CardID.Deletecard) {
+            RenewIndicators();
+            //RemoveUnconnectedCards();
+            lastSetCard = CardID.none;
+        }
+
         TogglePlayerScreen();
     }
 
@@ -352,8 +361,8 @@ public class GameManager : MonoBehaviour {
     }
 
     void ToggleAnchorFieldVisibility() {
-        if (currentChoosedCard == CardID.Anchorcard && anchorfieldvisible == false) {
-            anchorfieldvisible = true;
+        if (currentChoosedCard == CardID.Anchorcard && anchorFieldVisible == false) {
+            anchorFieldVisible = true;
             for (int x = Camera.main.GetComponent<CameraManager>().min_x - 2; x <= Camera.main.GetComponent<CameraManager>().max_x + 2; x++) {
                 for (int y = Camera.main.GetComponent<CameraManager>().min_y - 2; y <= Camera.main.GetComponent<CameraManager>().max_y + 2; y++) {
                     if (GameObject.Find("FieldIndicator " + x + "," + y) != null) {
@@ -367,8 +376,8 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if (currentChoosedCard != CardID.Anchorcard && anchorfieldvisible == true) {
-            anchorfieldvisible = false;
+        if (currentChoosedCard != CardID.Anchorcard && anchorFieldVisible == true) {
+            anchorFieldVisible = false;
             print("Deactivate Anchorcards");
             for (int x = Camera.main.GetComponent<CameraManager>().min_x - 2; x <= Camera.main.GetComponent<CameraManager>().max_x + 2; x++) {
                 for (int y = Camera.main.GetComponent<CameraManager>().min_y - 2; y <= Camera.main.GetComponent<CameraManager>().max_y + 2; y++) {
@@ -384,12 +393,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+
+
     public void RenewIndicators() {
         for (int x = Camera.main.GetComponent<CameraManager>().min_x - 3; x <= Camera.main.GetComponent<CameraManager>().max_x + 3; x++) {
             for (int y = Camera.main.GetComponent<CameraManager>().min_y - 3; y <= Camera.main.GetComponent<CameraManager>().max_y + 3; y++) {
                 if (GameObject.Find("FieldIndicator " + x + "," + y) != null) {
                     GameObject Indicator = GameObject.Find("FieldIndicator " + x + "," + y);
-                    if (Indicator.GetComponent<Indicator>().indicatorState == IndicatorState.unreachable) {
+                    if (Indicator.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
+                        Indicator.GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
                         SpriteRenderer rend = Indicator.GetComponent<SpriteRenderer>();
                         rend.sprite = Resources.Load<Sprite>("emptycards/black");
                     }
@@ -466,6 +478,42 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
+
+    void ToggleDeleteCardFieldVisibility() {
+        if (currentChoosedCard == CardID.Deletecard && cardIndicatorVisible == false) {
+            cardIndicatorVisible = true;
+            for (int i = 0; i < Field.cardsOnField.Count; i++) {
+                GameObject Card = Field.cardsOnField[i];
+                if (Card.GetComponent<Card>().team != currentPlayer
+                    && Card.GetComponent<Card>().team != Team.system) {
+                    ShowCardIndicators(Card.GetComponent<Card>().x, Card.GetComponent<Card>().y);
+                }
+            }
+        }
+        if (currentChoosedCard != CardID.Deletecard && cardIndicatorVisible) {
+            cardIndicatorVisible = false;
+            HideCardIndicator();
+        }
+    }
+
+    void ShowCardIndicators(int x, int y) {
+        GameObject CardIndicator = GameObject.Find("CardIndicator " + x + "," + y);
+        SpriteRenderer rend = CardIndicator.GetComponent<SpriteRenderer>();
+        rend.sprite = Resources.Load<Sprite>("emptycards/CardIndicator");
+        CardIndicator.GetComponent<Indicator>().isFieldDeleteable = true;
+    }
+
+    void HideCardIndicator() {
+        for (int x = Camera.main.GetComponent<CameraManager>().min_x; x <= Camera.main.GetComponent<CameraManager>().max_x; x++) {
+            for (int y = Camera.main.GetComponent<CameraManager>().min_y; y <= Camera.main.GetComponent<CameraManager>().max_y; y++) {
+                GameObject CardIndicator = GameObject.Find("CardIndicator " + x + "," + y);
+                SpriteRenderer rend = CardIndicator.GetComponent<SpriteRenderer>();
+                rend.sprite = Resources.Load<Sprite>("emptycards/transparent");
+                CardIndicator.GetComponent<Indicator>().isFieldDeleteable = false;
+            }
+        }
+    }
+
     public void RemoveUnconnectedCards() {
         distance = new int[FP._size, FP._size];
         for (int i = 0; i < distance.GetLength(0); i++) {
@@ -474,7 +522,23 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+        List<GameObject> anchor = new List<GameObject>();
+        for (int i = 0; i < Field.cardsOnField.Count; i++) {
+            if (Field.cardsOnField[i].GetComponent("Startpoint") != null
+                || Field.cardsOnField[i].GetComponent("AnchorCard") != null) {
+                anchor.Add(Field.cardsOnField[i]);
+            }
+        }
 
+        for (int i = 0; i < anchor.Count; i++) {
+            Breitensuche(anchor[i]);
+        }
+
+        List<GameObject> removeCards = UnconnectedCards();
+
+        for (int i = 0; i < removeCards.Count; i++) {
+            Destroy(removeCards[i]);
+        }
     }
 
     void Breitensuche(GameObject anchor) {
@@ -499,16 +563,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-
-
     List<GameObject> UnconnectedCards() {
-        List<GameObject> removeCards = Field.cardsOnField;
+        List<GameObject> removeCards = new List<GameObject>();
+        removeCards.Add(null);
         for (int x = 0; x < FP._size; x++) {
             for (int y = 0; y < FP._size; y++) {
                 if (distance[x, y] != int.MaxValue) {
                     for (int i = 0; i < removeCards.Count; i++) {
-                        if (removeCards[i].GetComponent<Card>().x == x -25
-                            && removeCards[i].GetComponent<Card>().y == y -25) {
+                        if (removeCards[i].GetComponent<Card>().x == x - 25
+                            && removeCards[i].GetComponent<Card>().y == y - 25) {
                             removeCards.RemoveAt(i);
                             break;
                         }

@@ -546,8 +546,70 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < distance.GetLength(0); i++) {
             for (int j = 0; j < distance.GetLength(1); j++) {
                 distance[i, j] = int.MaxValue;
+    void DeleteUnconnectedCards() {
+        GameObject F = GameObject.Find("Field");
+        for (int x = Camera.main.GetComponent<CameraManager>().min_x; x <= Camera.main.GetComponent<CameraManager>().max_x; x++) {
+            for (int y = Camera.main.GetComponent<CameraManager>().min_y; y <= Camera.main.GetComponent<CameraManager>().max_y; y++) {
+                if (GameObject.Find("Pointcard " + x + "," + y) != null
+                    && GameObject.Find("Pointcard " + x + "," + y).GetComponent<Card>().visited == false) {
+                    for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
+                        if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
+                            && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
+                            F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                            break;
+                        }
+                    }
+                    Destroy(GameObject.Find("Pointcard " + x + "," + y));
+                } else if (GameObject.Find("Pointcard " + x + "," + y) != null
+                     && GameObject.Find("Pointcard " + x + "," + y).GetComponent<Card>().visited == true) {
+                    GameObject.Find("Pointcard " + x + "," + y).GetComponent<Card>().visited = false;
+                } else if (GameObject.Find("Blankcard " + x + "," + y) != null
+                    && GameObject.Find("Blankcard " + x + "," + y).GetComponent<Card>().visited == false) {
+                    for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
+                        if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
+                            && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
+                            F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                            break;
+                        }
+                    }
+                    Destroy(GameObject.Find("Blankcard " + x + "," + y));
+                } else if (GameObject.Find("Blankcard " + x + "," + y) != null
+                     && GameObject.Find("Blankcard " + x + "," + y).GetComponent<Card>().visited == true) {
+                    GameObject.Find("Blankcard " + x + "," + y).GetComponent<Card>().visited = false;
+                } else if (GameObject.Find("Blockcard " + x + "," + y) != null
+                    && GameObject.Find("Blockcard " + x + "," + y).GetComponent<Card>().visited == false) {
+                    Block blockdirection = GameObject.Find("Blockcard " + x + "," + y).GetComponent<BlockCard>().blockDirection;
+                    for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
+                        if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
+                            && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
+                            F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                            break;
+                        }
+                    }
+                    switch (blockdirection) {
+                        case Block.right:
+                            GameObject.Find("FieldIndicator " + (x + 1) + "," + y).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                            break;
+                        case Block.left:
+                            GameObject.Find("FieldIndicator " + (x - 1) + "," + y).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                            break;
+                        case Block.up:
+                            GameObject.Find("FieldIndicator " + x + "," + (y + 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                            break;
+                        case Block.down:
+                            GameObject.Find("FieldIndicator " + x + "," + (y - 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                            break;
+                    }
+
+                    Destroy(GameObject.Find("Blockcard " + x + "," + y));
+                } else if (GameObject.Find("Blockcard " + x + "," + y) != null
+                     && GameObject.Find("Blockcard " + x + "," + y).GetComponent<Card>().visited == true) {
+                    GameObject.Find("Blockcard " + x + "," + y).GetComponent<Card>().visited = false;
+                }
             }
         }
+        print("DeleteUnconnectedCards done.");
+    }
 
     void MarkUnconnectedCards() {
         List<GameObject> anchor = new List<GameObject>();

@@ -104,37 +104,37 @@ public class GameManager : MonoBehaviour {
                 Cardname = "FieldIndicatorRed " + x + "," + y;
                 break;
             case CardID.Doublecard:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "Doublecard " + x + "," + y;
                 break;
             case CardID.Deletecard:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "Deletecard " + x + "," + y;
                 break;
             case CardID.Burncard:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "Burncard " + x + "," + y;
                 break;
             case CardID.Infernocard:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "Infernocard " + x + "," + y;
                 break;
             case CardID.Changecard:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "Changecard " + x + "," + y;
                 break;
             case CardID.Cancercard:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "Cancercard " + x + "," + y;
                 break;
             case CardID.HotPotatoe:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "HotPotatoe " + x + "," + y;
                 break;
             case CardID.Nukecard:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "Nukecard " + x + "," + y;
                 break;
             case CardID.Vortexcard:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "Vortexcard " + x + "," + y;
                 break;
             case CardID.Anchorcard:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "Anchorcard " + x + "," + y;
                 break;
             case CardID.Shufflecard:
-                Cardname = "Card " + x + "," + y;
+                Cardname = "Shufflecard " + x + "," + y;
                 break;
             case CardID.CardIndicator:
                 Cardname = "CardIndicator " + x + "," + y;

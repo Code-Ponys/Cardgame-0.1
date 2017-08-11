@@ -136,21 +136,21 @@ public class Player : MonoBehaviour {
             if (GameObject.Find("HandCard1" + team).GetComponent<Handcards>().cardid == CardID.none) {
                 GameObject Handcard = GameObject.Find("HandCard1" + team);
                 Image image = Handcard.GetComponent<Image>();
-                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card));
+                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
                 Handcard.GetComponent<Handcards>().cardid = card;
                 Deck.RemoveAt(0);
                 continue;
             } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == CardID.none) {
                 GameObject Handcard = GameObject.Find("HandCard2" + team);
                 Image image = Handcard.GetComponent<Image>();
-                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card));
+                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
                 Handcard.GetComponent<Handcards>().cardid = card;
                 Deck.RemoveAt(0);
                 continue;
             } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == CardID.none) {
                 GameObject Handcard = GameObject.Find("HandCard3" + team);
                 Image image = Handcard.GetComponent<Image>();
-                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card));
+                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
                 Handcard.GetComponent<Handcards>().cardid = card;
                 Deck.RemoveAt(0);
                 continue;

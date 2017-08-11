@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour {
             || cardid == CardID.Blankcard) {
 
             SetFieldIndicator(x, y);
-            Card.AddComponent<Card>();
+            //Card.AddComponent<Card>();
 
             Camera.main.GetComponent<CameraManager>().CenterCamera(x, y);
         }
@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour {
                 break;
             case CardID.Startpoint:
                 Card.AddComponent<Startpoint>();
-                Card.GetComponent<Card>().team = currentPlayer;
+                Card.GetComponent<Card>().team = Team.system;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
                 break;
@@ -358,9 +358,10 @@ public class GameManager : MonoBehaviour {
         if (lastSetCard == CardID.Deletecard) {
             RenewIndicators();
             //RemoveUnconnectedCards();
+            print("NR - removed cards!");
             lastSetCard = CardID.none;
         }
-
+        RenewIndicators();
         TogglePlayerScreen();
     }
 
@@ -416,6 +417,8 @@ public class GameManager : MonoBehaviour {
 
 
     public void RenewIndicators() {
+        print("Start RenewIndicators");
+
         for (int x = Camera.main.GetComponent<CameraManager>().min_x - 3; x <= Camera.main.GetComponent<CameraManager>().max_x + 3; x++) {
             for (int y = Camera.main.GetComponent<CameraManager>().min_y - 3; y <= Camera.main.GetComponent<CameraManager>().max_y + 3; y++) {
                 if (GameObject.Find("FieldIndicator " + x + "," + y) != null) {
@@ -428,6 +431,7 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
+        
         for (int x = Camera.main.GetComponent<CameraManager>().min_x; x <= Camera.main.GetComponent<CameraManager>().max_x; x++) {
             for (int y = Camera.main.GetComponent<CameraManager>().min_y; y <= Camera.main.GetComponent<CameraManager>().max_y; y++) {
                 if (GameObject.Find("Startpoint " + x + "," + y) != null
@@ -439,6 +443,7 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
+        print("RenewIndicators completed");
     }
 
     public void SetFieldIndicator(int x, int y) {
@@ -534,6 +539,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+
+
     public void RemoveUnconnectedCards() {
         distance = new int[FP._size, FP._size];
         for (int i = 0; i < distance.GetLength(0); i++) {
@@ -599,7 +606,7 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
-        return removeCards;
+        print("MarkUnconnectedCards done");
     }
 }
 

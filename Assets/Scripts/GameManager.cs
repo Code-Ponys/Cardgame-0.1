@@ -356,8 +356,7 @@ public class GameManager : MonoBehaviour {
         }
 
         if (lastSetCard == CardID.Deletecard) {
-            RenewIndicators();
-            //RemoveUnconnectedCards();
+            RemoveUnconnectedCards();
             print("NR - removed cards!");
             lastSetCard = CardID.none;
         }
@@ -542,10 +541,14 @@ public class GameManager : MonoBehaviour {
 
 
     public void RemoveUnconnectedCards() {
-        distance = new int[FP._size, FP._size];
-        for (int i = 0; i < distance.GetLength(0); i++) {
-            for (int j = 0; j < distance.GetLength(1); j++) {
-                distance[i, j] = int.MaxValue;
+        MarkUnconnectedCards();
+        print("RUC - marked");
+        DeleteUnconnectedCards();
+        print("RUC - deleted");
+        RenewIndicators();
+        print("RUC - renewed");
+    }
+
     void DeleteUnconnectedCards() {
         GameObject F = GameObject.Find("Field");
         for (int x = Camera.main.GetComponent<CameraManager>().min_x; x <= Camera.main.GetComponent<CameraManager>().max_x; x++) {

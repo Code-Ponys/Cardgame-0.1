@@ -17,92 +17,92 @@ namespace Cards {
         }
         protected bool WinCondition() {
             //horizontal
-            if (GameObject.Find("Pointcard " + (x - 1) + "," + y) != null
-                && GameObject.Find("Pointcard " + (x - 1) + "," + y).GetComponent<Card>().team == team) {
-                if (GameObject.Find("Pointcard " + (x - 2) + "," + y) != null
-                    && GameObject.Find("Pointcard " + (x - 2) + "," + y).GetComponent<Card>().team == team) {
+            if (GameObject.Find("Card " + (x - 1) + "," + y) != null
+                && GameObject.Find("Card " + (x - 1) + "," + y).GetComponent<Card>().team == team) {
+                if (GameObject.Find("Card " + (x - 2) + "," + y) != null
+                    && GameObject.Find("Card " + (x - 2) + "," + y).GetComponent<Card>().team == team) {
                     print("WIN °_°");
                     return true;
                 } else {
-                    if (GameObject.Find("Pointcard " + (x + 1) + "," + y) != null
-                        && GameObject.Find("Pointcard " + (x + 1) + "," + y).GetComponent<Card>().team == team) {
+                    if (GameObject.Find("Card " + (x + 1) + "," + y) != null
+                        && GameObject.Find("Card " + (x + 1) + "," + y).GetComponent<Card>().team == team) {
                         print("WIN °_°");
                         return true;
                     }
                 }
-            } else if (GameObject.Find("Pointcard " + (x + 1) + "," + y) != null
-                    && GameObject.Find("Pointcard " + (x + 1) + "," + y).GetComponent<Card>().team == team) {
-                if (GameObject.Find("Pointcard " + (x + 2) + "," + y) != null
-                    && GameObject.Find("Pointcard " + (x + 2) + "," + y).GetComponent<Card>().team == team) {
+            } else if (GameObject.Find("Card " + (x + 1) + "," + y) != null
+                    && GameObject.Find("Card " + (x + 1) + "," + y).GetComponent<Card>().team == team) {
+                if (GameObject.Find("Card " + (x + 2) + "," + y) != null
+                    && GameObject.Find("Card " + (x + 2) + "," + y).GetComponent<Card>().team == team) {
                     print("WIN °_°");
                     return true;
                 }
             }
 
             //vertikal
-            if (GameObject.Find("Pointcard " + x + "," + (y + 1)) != null
-                && GameObject.Find("Pointcard " + x + "," + (y + 1)).GetComponent<Card>().team == team) {
-                if (GameObject.Find("Pointcard " + x + "," + (y + 2)) != null
-                    && GameObject.Find("Pointcard " + x + "," + (y + 2)).GetComponent<Card>().team == team) {
+            if (GameObject.Find("Card " + x + "," + (y + 1)) != null
+                && GameObject.Find("Card " + x + "," + (y + 1)).GetComponent<Card>().team == team) {
+                if (GameObject.Find("Card " + x + "," + (y + 2)) != null
+                    && GameObject.Find("Card " + x + "," + (y + 2)).GetComponent<Card>().team == team) {
                     print("WIN °_°");
                     return true;
                 } else {
-                    if (GameObject.Find("Pointcard " + x + "," + (y - 1)) != null
-                        && GameObject.Find("Pointcard " + x + "," + (y - 1)).GetComponent<Card>().team == team) {
+                    if (GameObject.Find("Card " + x + "," + (y - 1)) != null
+                        && GameObject.Find("Card " + x + "," + (y - 1)).GetComponent<Card>().team == team) {
                         print("WIN °_°");
                         return true;
                     }
                 }
-            } else if (GameObject.Find("Pointcard " + x + "," + (y - 1)) != null
-                    && GameObject.Find("Pointcard " + x + "," + (y - 1)).GetComponent<Card>().team == team) {
-                if (GameObject.Find("Pointcard " + x + "," + (y - 2)) != null
-                    && GameObject.Find("Pointcard " + x + "," + (y - 2)).GetComponent<Card>().team == team) {
+            } else if (GameObject.Find("Card " + x + "," + (y - 1)) != null
+                    && GameObject.Find("Card " + x + "," + (y - 1)).GetComponent<Card>().team == team) {
+                if (GameObject.Find("Card " + x + "," + (y - 2)) != null
+                    && GameObject.Find("Card " + x + "," + (y - 2)).GetComponent<Card>().team == team) {
                     print("WIN °_°");
                     return true;
                 }
             }
 
             //diagonal links oben -> rechts unten
-            if (GameObject.Find("Pointcard " + (x - 1) + "," + (y + 1)) != null
-                && GameObject.Find("Pointcard " + (x - 1) + "," + (y + 1)).GetComponent<Card>().team == team) {
-                if (GameObject.Find("Pointcard " + (x - 2) + "," + (y + 2)) != null
-                    && GameObject.Find("Pointcard " + (x - 2) + "," + (y + 2)).GetComponent<Card>().team == team) {
+            if (GameObject.Find("Card " + (x - 1) + "," + (y + 1)) != null
+                && GameObject.Find("Card " + (x - 1) + "," + (y + 1)).GetComponent<Card>().team == team) {
+                if (GameObject.Find("Card " + (x - 2) + "," + (y + 2)) != null
+                    && GameObject.Find("Card " + (x - 2) + "," + (y + 2)).GetComponent<Card>().team == team) {
                     print("WIN °_°");
                     return true;
                 } else {
-                    if (GameObject.Find("Pointcard " + (x + 1) + "," + (y - 1)) != null
-                        && GameObject.Find("Pointcard " + (x + 1) + "," + (y - 1)).GetComponent<Card>().team == team) {
+                    if (GameObject.Find("Card " + (x + 1) + "," + (y - 1)) != null
+                        && GameObject.Find("Card " + (x + 1) + "," + (y - 1)).GetComponent<Card>().team == team) {
                         print("WIN °_°");
                         return true;
                     }
                 }
-            } else if (GameObject.Find("Pointcard " + (x + 1) + "," + (y - 1)) != null
-                    && GameObject.Find("Pointcard " + (x + 1) + "," + (y - 1)).GetComponent<Card>().team == team) {
-                if (GameObject.Find("Pointcard " + (x + 2) + "," + (y - 2)) != null
-                    && GameObject.Find("Pointcard " + (x + 2) + "," + (y - 2)).GetComponent<Card>().team == team) {
+            } else if (GameObject.Find("Card " + (x + 1) + "," + (y - 1)) != null
+                    && GameObject.Find("Card " + (x + 1) + "," + (y - 1)).GetComponent<Card>().team == team) {
+                if (GameObject.Find("Card " + (x + 2) + "," + (y - 2)) != null
+                    && GameObject.Find("Card " + (x + 2) + "," + (y - 2)).GetComponent<Card>().team == team) {
                     print("WIN °_°");
                     return true;
                 }
             }
 
             //diagonal links unten -> rechts oben
-            if (GameObject.Find("Pointcard " + (x - 1) + "," + (y - 1)) != null
-                && GameObject.Find("Pointcard " + (x - 1) + "," + (y - 1)).GetComponent<Card>().team == team) {
-                if (GameObject.Find("Pointcard " + (x - 2) + "," + (y - 2)) != null
-                    && GameObject.Find("Pointcard " + (x - 2) + "," + (y - 2)).GetComponent<Card>().team == team) {
+            if (GameObject.Find("Card " + (x - 1) + "," + (y - 1)) != null
+                && GameObject.Find("Card " + (x - 1) + "," + (y - 1)).GetComponent<Card>().team == team) {
+                if (GameObject.Find("Card " + (x - 2) + "," + (y - 2)) != null
+                    && GameObject.Find("Card " + (x - 2) + "," + (y - 2)).GetComponent<Card>().team == team) {
                     print("WIN °_°");
                     return true;
                 } else {
-                    if (GameObject.Find("Pointcard " + (x + 1) + "," + (y + 1)) != null
-                        && GameObject.Find("Pointcard " + (x + 1) + "," + (y + 1)).GetComponent<Card>().team == team) {
+                    if (GameObject.Find("Card " + (x + 1) + "," + (y + 1)) != null
+                        && GameObject.Find("Card " + (x + 1) + "," + (y + 1)).GetComponent<Card>().team == team) {
                         print("WIN °_°");
                         return true;
                     }
                 }
-            } else if (GameObject.Find("Pointcard " + (x + 1) + "," + (y + 1)) != null
-                    && GameObject.Find("Pointcard " + (x + 1) + "," + (y + 1)).GetComponent<Card>().team == team) {
-                if (GameObject.Find("Pointcard " + (x + 2) + "," + (y + 2)) != null
-                    && GameObject.Find("Pointcard " + (x + 2) + "," + (y + 2)).GetComponent<Card>().team == team) {
+            } else if (GameObject.Find("Card " + (x + 1) + "," + (y + 1)) != null
+                    && GameObject.Find("Card " + (x + 1) + "," + (y + 1)).GetComponent<Card>().team == team) {
+                if (GameObject.Find("Card " + (x + 2) + "," + (y + 2)) != null
+                    && GameObject.Find("Card " + (x + 2) + "," + (y + 2)).GetComponent<Card>().team == team) {
                     print("WIN °_°");
                     return true;
                 }

@@ -549,6 +549,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+    void MarkUnconnectedCards() {
         List<GameObject> anchor = new List<GameObject>();
         for (int i = 0; i < Field.cardsOnField.Count; i++) {
             if (Field.cardsOnField[i].GetComponent("Startpoint") != null
@@ -558,7 +559,93 @@ public class GameManager : MonoBehaviour {
         }
 
         for (int i = 0; i < anchor.Count; i++) {
+            Queue<GameObject> ToDo = new Queue<GameObject>();
+            ToDo.Enqueue(anchor[i]);
+            anchor[i].GetComponent<Card>().visited = true;
+
+            while (ToDo.Count > 0) {
+                print("Queue Entries: " + ToDo.Count);
+                GameObject CurrentGameObject = ToDo.Dequeue();
+                int x = CurrentGameObject.GetComponent<Card>().x;
+                int y = CurrentGameObject.GetComponent<Card>().y;
+                //rechts
+                GameObject PointcardRight = GameObject.Find("Pointcard " + (x + 1) + "," + y);
+                GameObject BlankcardRight = GameObject.Find("Blankcard " + (x + 1) + "," + y);
+                GameObject BlockcardRight = GameObject.Find("Blockcard " + (x + 1) + "," + y);
+                if (PointcardRight != null) {
+                    if (PointcardRight.GetComponent<Card>().visited != true) {
+                        PointcardRight.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(PointcardRight);
+                    }
+                } else if (BlankcardRight != null) {
+                    if (BlankcardRight.GetComponent<Card>().visited != true) {
+                        BlankcardRight.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(BlankcardRight);
+                    }
+                } else if (BlockcardRight != null) {
+                    if (BlockcardRight.GetComponent<Card>().visited != true) {
+                        BlockcardRight.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(BlockcardRight);
+                    }
                 }
+                //links
+                GameObject PointcardLeft = GameObject.Find("Pointcard " + (x - 1) + "," + y);
+                GameObject BlankcardLeft = GameObject.Find("Blankcard " + (x - 1) + "," + y);
+                GameObject BlockcardLeft = GameObject.Find("Blockcard " + (x - 1) + "," + y);
+                if (PointcardLeft != null) {
+                    if (PointcardLeft.GetComponent<Card>().visited != true) {
+                        PointcardLeft.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(PointcardLeft);
+                    }
+                } else if (BlankcardLeft != null) {
+                    if (BlankcardLeft.GetComponent<Card>().visited != true) {
+                        BlankcardLeft.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(BlankcardLeft);
+                    }
+                } else if (BlockcardLeft != null) {
+                    if (BlockcardLeft.GetComponent<Card>().visited != true) {
+                        BlockcardLeft.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(BlockcardLeft);
+                    }
+                }
+                //oben
+                GameObject PointcardUp = GameObject.Find("Pointcard " + x + "," + (y + 1));
+                GameObject BlankcardUp = GameObject.Find("Blankcard " + x + "," + (y + 1));
+                GameObject BlockcardUp = GameObject.Find("Blockcard " + x + "," + (y + 1));
+                if (PointcardUp != null) {
+                    if (PointcardUp.GetComponent<Card>().visited != true) {
+                        PointcardUp.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(PointcardUp);
+                    }
+                } else if (BlankcardUp != null) {
+                    if (BlankcardUp.GetComponent<Card>().visited != true) {
+                        BlankcardUp.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(BlankcardUp);
+                    }
+                } else if (BlockcardUp != null) {
+                    if (BlockcardUp.GetComponent<Card>().visited != true) {
+                        BlockcardUp.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(BlockcardUp);
+                    }
+                }
+                //unten
+                GameObject PointcardDown = GameObject.Find("Pointcard " + x + "," + (y - 1));
+                GameObject BlankcardDown = GameObject.Find("Blankcard " + x + "," + (y - 1));
+                GameObject BlockcardDown = GameObject.Find("Blockcard " + x + "," + (y - 1));
+                if (PointcardDown != null) {
+                    if (PointcardDown.GetComponent<Card>().visited != true) {
+                        PointcardDown.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(PointcardDown);
+                    }
+                } else if (BlankcardDown != null) {
+                    if (BlankcardDown.GetComponent<Card>().visited != true) {
+                        BlankcardDown.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(BlankcardDown);
+                    }
+                } else if (BlockcardDown != null) {
+                    if (BlockcardDown.GetComponent<Card>().visited != true) {
+                        BlockcardDown.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(BlockcardDown);
                     }
                 }
             }

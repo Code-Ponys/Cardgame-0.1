@@ -46,40 +46,40 @@ static public class Slave {
         }
     }
 
-    static public string GetImagePath(CardID card) {
+    static public string GetImagePath(CardID card, Team team) {
         switch (card) {
             default:
-                return "cards/Errorcard";
+                return "cards/" + team + "/Errorcard";
             case CardID.Blankcard:
-                return "cards/Blankcard";
+                return "cards/" + team + "/Blankcard";
             case CardID.Pointcard:
-                return "cards/Pointcard";
+                return "cards/" + team + "/Pointcard";
             case CardID.Startpoint:
-                return "cards/Startpoint";
+                return "cards/" + team + "/Startpoint";
             case CardID.Blockcard:
-                return "cards/Blockcard";
+                return "cards/" + team + "/Blockcard";
             case CardID.Doublecard:
-                return "cards/Doublecard";
+                return "cards/" + team + "/Doublecard";
             case CardID.Deletecard:
-                return "cards/Deletecard";
+                return "cards/" + team + "/Deletecard";
             case CardID.Burncard:
-                return "cards/Burncard";
+                return "cards/" + team + "/Burncard";
             case CardID.Infernocard:
-                return "cards/Infernocard";
+                return "cards/" + team + "/Infernocard";
             case CardID.Changecard:
-                return "cards/Changecard";
+                return "cards/" + team + "/Changecard";
             case CardID.Cancercard:
-                return "cards/Cancercard";
+                return "cards/" + team + "/Cancercard";
             case CardID.HotPotatoe:
-                return "cards/HotPotatoe";
+                return "cards/" + team + "/HotPotatoe";
             case CardID.Nukecard:
-                return "cards/Nukecard";
+                return "cards/" + team + "/Nukecard";
             case CardID.Vortexcard:
-                return "cards/Vortexcard";
+                return "cards/" + team + "/Vortexcard";
             case CardID.Anchorcard:
-                return "cards/Anchorcard";
+                return "cards/" + team + "/Anchorcard";
             case CardID.Shufflecard:
-                return "cards/Shufflecard";
+                return "cards/" + team + "/Shufflecard";
         }
     }
 }

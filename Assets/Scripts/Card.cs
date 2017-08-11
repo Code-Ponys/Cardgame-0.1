@@ -5,7 +5,7 @@ using Cards;
 
 public abstract class Card : MonoBehaviour {
 
-    public CardID card;
+    public CardID cardid;
     public Team team;
     public int x;
     public int y;

@@ -5,8 +5,8 @@ using Cards;
 
 public abstract class Card : MonoBehaviour {
 
-    public State state;
     public Team team;
     public int x;
     public int y;
+    public bool visited;
 }

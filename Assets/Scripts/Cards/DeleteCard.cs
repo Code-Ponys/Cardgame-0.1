@@ -10,11 +10,10 @@ namespace Cards {
             GameObject F = GameObject.Find("Field");
             if (GameObject.Find("Pointcard " + x + "," + y) != null) {
                 for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
-                    print(F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x);
-                    print(F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y);
                     if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
                         && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
                         F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                        break;
                     }
                 }
                 Destroy(GameObject.Find("Pointcard " + x + "," + y));
@@ -24,6 +23,7 @@ namespace Cards {
                     if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
                         && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
                         F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                        break;
                     }
                 }
                 Destroy(GameObject.Find("Blankcard " + x + "," + y));
@@ -32,6 +32,7 @@ namespace Cards {
                 if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
                     && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
                     F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                        break;
                 }
             }
             if (GameObject.Find("Anchorcard " + x + "," + y) != null) {
@@ -39,6 +40,7 @@ namespace Cards {
                     if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
                         && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
                         F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                        break;
                     }
                 }
                 Destroy(GameObject.Find("Anchorcard " + x + "," + y));
@@ -49,6 +51,7 @@ namespace Cards {
                     if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
                         && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
                         F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                        break;
                     }
                 }
                 Destroy(GameObject.Find("Blockcard " + x + "," + y));

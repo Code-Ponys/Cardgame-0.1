@@ -4,43 +4,21 @@ using UnityEngine;
 
 static public class Slave {
     static public string GetImagePathPf(CardID card, Team team) {
+        if (card != CardID.FieldIndicator
+            || card != CardID.Indicatorred
+            || card != CardID.Startpoint
+            || card != CardID.CardIndicator) {
+            return "cards/" + team + "/pf_" + card;
+        }
         switch (card) {
             default:
                 return "cards/" + team + "/pf_Errorcard";
-            case CardID.Blankcard:
-                return "cards/" + team + "/pf_Blankcard";
-            case CardID.Pointcard:
-                return "cards/" + team + "/pf_Pointcard";
-            case CardID.Blockcard:
-                return "cards/" + team + "/pf_Blockcard";
             case CardID.FieldIndicator:
                 return "emptycards/pf_black";
             case CardID.Indicatorred:
                 return "emptycards/pf_red";
             case CardID.Startpoint:
                 return "cards/pf_Startpoint";
-            case CardID.Doublecard:
-                return "cards/" + team + "/pf_Doublecard";
-            case CardID.Deletecard:
-                return "cards/" + team + "/pf_Deletecard";
-            case CardID.Burncard:
-                return "cards/" + team + "/pf_Burncard";
-            case CardID.Infernocard:
-                return "cards/" + team + "/pf_Infernocard";
-            case CardID.Changecard:
-                return "cards/" + team + "/pf_Changecard";
-            case CardID.Cancercard:
-                return "cards/" + team + "/pf_Cancercard";
-            case CardID.HotPotatoe:
-                return "cards/" + team + "/pf_HotPotatoe";
-            case CardID.Nukecard:
-                return "cards/" + team + "/pf_Nukecard";
-            case CardID.Vortexcard:
-                return "cards/" + team + "/pf_Vortexcard";
-            case CardID.Anchorcard:
-                return "cards/" + team + "/pf_Anchorcard";
-            case CardID.Shufflecard:
-                return "cards/" + team + "/pf_Shufflecard";
             case CardID.CardIndicator:
                 return "emptycards/pf_transparent";
         }
@@ -81,5 +59,7 @@ static public class Slave {
             case CardID.Shufflecard:
                 return "cards/" + team + "/Shufflecard";
         }
+        return "cards/" + team + "/" + card;
+
     }
 }

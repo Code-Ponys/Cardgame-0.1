@@ -86,16 +86,16 @@ public class GameManager : MonoBehaviour {
                 Cardname = "Error " + x + "," + y;
                 break;
             case CardID.Blankcard:
-                Cardname = "Blankcard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Pointcard:
-                Cardname = "Pointcard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Startpoint:
-                Cardname = "Startpoint " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Blockcard:
-                Cardname = "Blockcard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.FieldIndicator:
                 Cardname = "FieldIndicator " + x + "," + y;
@@ -104,37 +104,37 @@ public class GameManager : MonoBehaviour {
                 Cardname = "FieldIndicatorRed " + x + "," + y;
                 break;
             case CardID.Doublecard:
-                Cardname = "Doublecard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Deletecard:
-                Cardname = "Deletecard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Burncard:
-                Cardname = "Burncard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Infernocard:
-                Cardname = "Infernocard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Changecard:
-                Cardname = "Changecard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Cancercard:
-                Cardname = "Cancercard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.HotPotatoe:
-                Cardname = "HotPotatoe " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Nukecard:
-                Cardname = "Nukecard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Vortexcard:
-                Cardname = "Vortexcard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Anchorcard:
-                Cardname = "Anchorcard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.Shufflecard:
-                Cardname = "Shufflecard " + x + "," + y;
+                Cardname = "Card " + x + "," + y;
                 break;
             case CardID.CardIndicator:
                 Cardname = "CardIndicator " + x + "," + y;
@@ -178,30 +178,35 @@ public class GameManager : MonoBehaviour {
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Blankcard:
                 Card.AddComponent<BlankCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Pointcard:
                 Card.AddComponent<PointCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Startpoint:
                 Card.AddComponent<Startpoint>();
                 Card.GetComponent<Card>().team = Team.system;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Blockcard:
                 Card.AddComponent<BlockCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.FieldIndicator:
                 Card.AddComponent<Indicator>();
@@ -213,66 +218,77 @@ public class GameManager : MonoBehaviour {
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Deletecard:
                 Card.AddComponent<DeleteCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Burncard:
                 Card.AddComponent<BurnCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Infernocard:
                 Card.AddComponent<InfernoCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Changecard:
                 Card.AddComponent<ChangeCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Cancercard:
                 Card.AddComponent<CancerCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.HotPotatoe:
                 Card.AddComponent<HotPotatoe>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Nukecard:
                 Card.AddComponent<NukeCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Vortexcard:
                 Card.AddComponent<VortexCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Anchorcard:
                 Card.AddComponent<AnchorCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.Shufflecard:
                 Card.AddComponent<ShuffleCard>();
                 Card.GetComponent<Card>().team = currentPlayer;
                 Card.GetComponent<Card>().x = x;
                 Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
                 break;
             case CardID.CardIndicator:
                 Card.AddComponent<Indicator>();
@@ -299,19 +315,7 @@ public class GameManager : MonoBehaviour {
         if (currentChoosedCard == CardID.Deletecard) {
             return !GameObject.Find("CardIndicator " + x + "," + y).GetComponent<Indicator>().isFieldDeleteable;
         }
-        if (GameObject.Find("Blankcard " + x + "," + y) != null) {
-            return true;
-        }
-        if (GameObject.Find("Blockcard " + x + "," + y) != null) {
-            return true;
-        }
-        if (GameObject.Find("Pointcard " + x + "," + y) != null) {
-            return true;
-        }
-        if (GameObject.Find("Blockedfield " + x + "," + y) != null) {
-            return true;
-        }
-        if (GameObject.Find("Anchorcard " + x + "," + y) != null) {
+        if (GameObject.Find("Card " + x + "," + y) != null) {
             return true;
         }
         if (GameObject.Find("FieldIndicator " + x + "," + y) == null) {
@@ -430,14 +434,10 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
-        
+
         for (int x = Camera.main.GetComponent<CameraManager>().min_x; x <= Camera.main.GetComponent<CameraManager>().max_x; x++) {
             for (int y = Camera.main.GetComponent<CameraManager>().min_y; y <= Camera.main.GetComponent<CameraManager>().max_y; y++) {
-                if (GameObject.Find("Startpoint " + x + "," + y) != null
-                    || GameObject.Find("Anchorcard " + x + "," + y) != null
-                    || GameObject.Find("Pointcard " + x + "," + y) != null
-                    || GameObject.Find("Blockcard " + x + "," + y) != null
-                    || GameObject.Find("Blankcard " + x + "," + y) != null) {
+                if (GameObject.Find("Card " + x + "," + y) != null) {
                     SetFieldIndicator(x, y);
                 }
             }
@@ -538,8 +538,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-
-
     public void RemoveUnconnectedCards() {
         MarkUnconnectedCards();
         print("RUC - marked");
@@ -551,10 +549,12 @@ public class GameManager : MonoBehaviour {
 
     void DeleteUnconnectedCards() {
         GameObject F = GameObject.Find("Field");
+
         for (int x = Camera.main.GetComponent<CameraManager>().min_x; x <= Camera.main.GetComponent<CameraManager>().max_x; x++) {
             for (int y = Camera.main.GetComponent<CameraManager>().min_y; y <= Camera.main.GetComponent<CameraManager>().max_y; y++) {
-                if (GameObject.Find("Pointcard " + x + "," + y) != null
-                    && GameObject.Find("Pointcard " + x + "," + y).GetComponent<Card>().visited == false) {
+                GameObject Card = GameObject.Find("Card " + x + "," + y);
+                if (Card != null
+                    && Card.GetComponent<Card>().visited == false) {
                     for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
                         if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
                             && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
@@ -562,52 +562,27 @@ public class GameManager : MonoBehaviour {
                             break;
                         }
                     }
-                    Destroy(GameObject.Find("Pointcard " + x + "," + y));
-                } else if (GameObject.Find("Pointcard " + x + "," + y) != null
-                     && GameObject.Find("Pointcard " + x + "," + y).GetComponent<Card>().visited == true) {
-                    GameObject.Find("Pointcard " + x + "," + y).GetComponent<Card>().visited = false;
-                } else if (GameObject.Find("Blankcard " + x + "," + y) != null
-                    && GameObject.Find("Blankcard " + x + "," + y).GetComponent<Card>().visited == false) {
-                    for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
-                        if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
-                            && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
-                            F.GetComponent<Field>().cardsOnField.RemoveAt(i);
-                            break;
+                    if (Card.GetComponent<Card>().cardid == CardID.Blockcard) {
+                        Block blockdirection = Card.GetComponent<BlockCard>().blockDirection;
+                        switch (blockdirection) {
+                            case Block.right:
+                                GameObject.Find("FieldIndicator " + (x + 1) + "," + y).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                                break;
+                            case Block.left:
+                                GameObject.Find("FieldIndicator " + (x - 1) + "," + y).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                                break;
+                            case Block.up:
+                                GameObject.Find("FieldIndicator " + x + "," + (y + 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                                break;
+                            case Block.down:
+                                GameObject.Find("FieldIndicator " + x + "," + (y - 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                                break;
                         }
                     }
-                    Destroy(GameObject.Find("Blankcard " + x + "," + y));
-                } else if (GameObject.Find("Blankcard " + x + "," + y) != null
-                     && GameObject.Find("Blankcard " + x + "," + y).GetComponent<Card>().visited == true) {
-                    GameObject.Find("Blankcard " + x + "," + y).GetComponent<Card>().visited = false;
-                } else if (GameObject.Find("Blockcard " + x + "," + y) != null
-                    && GameObject.Find("Blockcard " + x + "," + y).GetComponent<Card>().visited == false) {
-                    Block blockdirection = GameObject.Find("Blockcard " + x + "," + y).GetComponent<BlockCard>().blockDirection;
-                    for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
-                        if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
-                            && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
-                            F.GetComponent<Field>().cardsOnField.RemoveAt(i);
-                            break;
-                        }
-                    }
-                    switch (blockdirection) {
-                        case Block.right:
-                            GameObject.Find("FieldIndicator " + (x + 1) + "," + y).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
-                            break;
-                        case Block.left:
-                            GameObject.Find("FieldIndicator " + (x - 1) + "," + y).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
-                            break;
-                        case Block.up:
-                            GameObject.Find("FieldIndicator " + x + "," + (y + 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
-                            break;
-                        case Block.down:
-                            GameObject.Find("FieldIndicator " + x + "," + (y - 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
-                            break;
-                    }
-
-                    Destroy(GameObject.Find("Blockcard " + x + "," + y));
-                } else if (GameObject.Find("Blockcard " + x + "," + y) != null
-                     && GameObject.Find("Blockcard " + x + "," + y).GetComponent<Card>().visited == true) {
-                    GameObject.Find("Blockcard " + x + "," + y).GetComponent<Card>().visited = false;
+                    Destroy(Card);
+                } else if (Card != null
+                     && Card.GetComponent<Card>().visited == true) {
+                    Card.GetComponent<Card>().visited = false;
                 }
             }
         }
@@ -633,89 +608,42 @@ public class GameManager : MonoBehaviour {
                 GameObject CurrentGameObject = ToDo.Dequeue();
                 int x = CurrentGameObject.GetComponent<Card>().x;
                 int y = CurrentGameObject.GetComponent<Card>().y;
+
                 //rechts
-                GameObject PointcardRight = GameObject.Find("Pointcard " + (x + 1) + "," + y);
-                GameObject BlankcardRight = GameObject.Find("Blankcard " + (x + 1) + "," + y);
-                GameObject BlockcardRight = GameObject.Find("Blockcard " + (x + 1) + "," + y);
-                if (PointcardRight != null) {
-                    if (PointcardRight.GetComponent<Card>().visited != true) {
-                        PointcardRight.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(PointcardRight);
+                GameObject CardRight = GameObject.Find("Card " + (x + 1) + "," + y);
+                if (CardRight != null) {
+                    if (CardRight.GetComponent<Card>().visited != true) {
+                        CardRight.GetComponent<Card>().visited = true;
+                        ToDo.Enqueue(CardRight);
                     }
-                } else if (BlankcardRight != null) {
-                    if (BlankcardRight.GetComponent<Card>().visited != true) {
-                        BlankcardRight.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(BlankcardRight);
+                    //links
+                    GameObject CardLeft = GameObject.Find("Card " + (x - 1) + "," + y);
+                    if (CardLeft != null) {
+                        if (CardLeft.GetComponent<Card>().visited != true) {
+                            CardLeft.GetComponent<Card>().visited = true;
+                            ToDo.Enqueue(CardLeft);
+                        }
                     }
-                } else if (BlockcardRight != null) {
-                    if (BlockcardRight.GetComponent<Card>().visited != true) {
-                        BlockcardRight.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(BlockcardRight);
+                    //oben
+                    GameObject CardUp = GameObject.Find("Card " + x + "," + (y + 1));
+                    if (CardUp != null) {
+                        if (CardUp.GetComponent<Card>().visited != true) {
+                            CardUp.GetComponent<Card>().visited = true;
+                            ToDo.Enqueue(CardUp);
+                        }
                     }
-                }
-                //links
-                GameObject PointcardLeft = GameObject.Find("Pointcard " + (x - 1) + "," + y);
-                GameObject BlankcardLeft = GameObject.Find("Blankcard " + (x - 1) + "," + y);
-                GameObject BlockcardLeft = GameObject.Find("Blockcard " + (x - 1) + "," + y);
-                if (PointcardLeft != null) {
-                    if (PointcardLeft.GetComponent<Card>().visited != true) {
-                        PointcardLeft.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(PointcardLeft);
-                    }
-                } else if (BlankcardLeft != null) {
-                    if (BlankcardLeft.GetComponent<Card>().visited != true) {
-                        BlankcardLeft.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(BlankcardLeft);
-                    }
-                } else if (BlockcardLeft != null) {
-                    if (BlockcardLeft.GetComponent<Card>().visited != true) {
-                        BlockcardLeft.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(BlockcardLeft);
-                    }
-                }
-                //oben
-                GameObject PointcardUp = GameObject.Find("Pointcard " + x + "," + (y + 1));
-                GameObject BlankcardUp = GameObject.Find("Blankcard " + x + "," + (y + 1));
-                GameObject BlockcardUp = GameObject.Find("Blockcard " + x + "," + (y + 1));
-                if (PointcardUp != null) {
-                    if (PointcardUp.GetComponent<Card>().visited != true) {
-                        PointcardUp.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(PointcardUp);
-                    }
-                } else if (BlankcardUp != null) {
-                    if (BlankcardUp.GetComponent<Card>().visited != true) {
-                        BlankcardUp.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(BlankcardUp);
-                    }
-                } else if (BlockcardUp != null) {
-                    if (BlockcardUp.GetComponent<Card>().visited != true) {
-                        BlockcardUp.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(BlockcardUp);
-                    }
-                }
-                //unten
-                GameObject PointcardDown = GameObject.Find("Pointcard " + x + "," + (y - 1));
-                GameObject BlankcardDown = GameObject.Find("Blankcard " + x + "," + (y - 1));
-                GameObject BlockcardDown = GameObject.Find("Blockcard " + x + "," + (y - 1));
-                if (PointcardDown != null) {
-                    if (PointcardDown.GetComponent<Card>().visited != true) {
-                        PointcardDown.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(PointcardDown);
-                    }
-                } else if (BlankcardDown != null) {
-                    if (BlankcardDown.GetComponent<Card>().visited != true) {
-                        BlankcardDown.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(BlankcardDown);
-                    }
-                } else if (BlockcardDown != null) {
-                    if (BlockcardDown.GetComponent<Card>().visited != true) {
-                        BlockcardDown.GetComponent<Card>().visited = true;
-                        ToDo.Enqueue(BlockcardDown);
+                    //unten
+                    GameObject CardDown = GameObject.Find("Card " + x + "," + (y - 1));
+                    if (CardDown != null) {
+                        if (CardDown.GetComponent<Card>().visited != true) {
+                            CardDown.GetComponent<Card>().visited = true;
+                            ToDo.Enqueue(CardDown);
+                        }
                     }
                 }
             }
+            print("MarkUnconnectedCards done");
         }
-        print("MarkUnconnectedCards done");
     }
 }
 

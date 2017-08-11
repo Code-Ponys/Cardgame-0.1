@@ -19,6 +19,8 @@ public class Player : MonoBehaviour {
         Deck = GenerateDeck();
         //Deckerstellung
         RefillHand(team);
+            
+
     }
 
     // Update is called once per frame

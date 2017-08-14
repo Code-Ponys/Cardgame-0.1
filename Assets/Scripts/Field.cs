@@ -31,11 +31,13 @@ public class Field : MonoBehaviour {
         //    print("Kamera korrigiert");
         //}
         if (GameManager.ChangePlayer.enabled == true) return;
-        
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            ToggleMouseField();
-            if (GameManager.IsFieldOccupied(MP.x, MP.y) == false) {
-                GameManager.GenerateFieldCard(CardID.ChoosedCard, MP.x, MP.y);
+            print("SideMenu Blue: " + GameObject.Find("SideMenu Blue").GetComponent<SideBarMove>().panelactive + " | SideMenu Red: " + GameObject.Find("SideMenu Red").GetComponent<SideBarMove>().panelactive);
+            if (GameObject.Find("SideMenu Blue").GetComponent<SideBarMove>().panelactive == false || GameObject.Find("SideMenu Red").GetComponent<SideBarMove>().panelactive == false) {
+                ToggleMouseField();
+                if (GameManager.IsFieldOccupied(MP.x, MP.y) == false) {
+                    GameManager.GenerateFieldCard(CardID.ChoosedCard, MP.x, MP.y);
+                }
             }
         }
     }

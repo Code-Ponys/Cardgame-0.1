@@ -80,66 +80,6 @@ public class GameManager : MonoBehaviour {
             return null;
         }
         string pf_path = Slave.GetImagePathPf(cardid, currentPlayer);
-        string Cardname;
-        switch (cardid) {
-            default:
-                Cardname = "Error " + x + "," + y;
-                break;
-            case CardID.Blankcard:
-                Cardname = "Card " + x + "," + y;
-                break;
-            case CardID.Pointcard:
-                Cardname = "Card " + x + "," + y;
-                break;
-            case CardID.Startpoint:
-                Cardname = "Card " + x + "," + y;
-                break;
-            case CardID.Blockcard:
-                Cardname = "Card " + x + "," + y;
-                break;
-            case CardID.FieldIndicator:
-                Cardname = "FieldIndicator " + x + "," + y;
-                break;
-            case CardID.Indicatorred:
-                Cardname = "FieldIndicatorRed " + x + "," + y;
-                break;
-            case CardID.Doublecard:
-                Cardname = "Doublecard " + x + "," + y;
-                break;
-            case CardID.Deletecard:
-                Cardname = "Deletecard " + x + "," + y;
-                break;
-            case CardID.Burncard:
-                Cardname = "Burncard " + x + "," + y;
-                break;
-            case CardID.Infernocard:
-                Cardname = "Infernocard " + x + "," + y;
-                break;
-            case CardID.Changecard:
-                Cardname = "Changecard " + x + "," + y;
-                break;
-            case CardID.Cancercard:
-                Cardname = "Cancercard " + x + "," + y;
-                break;
-            case CardID.HotPotatoe:
-                Cardname = "HotPotatoe " + x + "," + y;
-                break;
-            case CardID.Nukecard:
-                Cardname = "Nukecard " + x + "," + y;
-                break;
-            case CardID.Vortexcard:
-                Cardname = "Vortexcard " + x + "," + y;
-                break;
-            case CardID.Anchorcard:
-                Cardname = "Anchorcard " + x + "," + y;
-                break;
-            case CardID.Shufflecard:
-                Cardname = "Shufflecard " + x + "," + y;
-                break;
-            case CardID.CardIndicator:
-                Cardname = "CardIndicator " + x + "," + y;
-                break;
-        }
         GameObject Card = (GameObject)Instantiate(Resources.Load(pf_path));
         if (cardid == CardID.FieldIndicator) {
             GameObject FieldIndicatorParent = GameObject.Find("FieldIndicator");

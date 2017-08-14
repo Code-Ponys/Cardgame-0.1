@@ -132,6 +132,7 @@ public class Player : MonoBehaviour {
     }
 
     public void RefillHand(Team team) {
+        print("RefillHand");
         refillCardsIsDone = false;
         while (refillCardsIsDone == false) {
             CardID card = Deck[0];

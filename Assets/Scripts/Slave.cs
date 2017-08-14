@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 static public class Slave {
     static public string GetImagePathPf(CardID card, Team team) {
@@ -59,7 +60,77 @@ static public class Slave {
             case CardID.Shufflecard:
                 return "cards/" + team + "/Shufflecard";
         }
-        return "cards/" + team + "/" + card;
+        //return "cards/" + team + "/" + card;
 
+    }
+
+    public static string GetCardName(CardID card) {
+        switch (card) {
+            default:
+                return "";
+            case CardID.Blankcard:
+                return "Blankcard";
+            case CardID.Pointcard:
+                return "Pointcard";
+            case CardID.Blockcard:
+                return "Blockcard";
+            case CardID.Doublecard:
+                return "Doublecard";
+            case CardID.Deletecard:
+                return "Deletecard";
+            case CardID.Burncard:
+                return "Burncard";
+            case CardID.Infernocard:
+                return "Infernocard";
+            case CardID.Changecard:
+                return "Changecard";
+            case CardID.Cancercard:
+                return "Cancercard";
+            case CardID.HotPotatoe:
+                return "HotPotatoe";
+            case CardID.Nukecard:
+                return "Nukecard";
+            case CardID.Vortexcard:
+                return "Vortexcard";
+            case CardID.Anchorcard:
+                return "Anchorcard";
+            case CardID.Shufflecard:
+                return "Shufflecard";
+        }
+    }
+
+    public static string GetCardDescription(CardID card) {
+        switch (card) {
+            default:
+                return "";
+            case CardID.Blankcard:
+                return "Use this card to block your opponents moves.";
+            case CardID.Pointcard:
+                return "Place 3 of these cards diagonally, horizontally or vertically in a row to win.";
+            case CardID.Blockcard:
+                return "Blocks a field and reserves an empty, adjacent one for you to use later.";
+            case CardID.Doublecard:
+                return "Place a Point- and a Blankcard from your deck.";
+            case CardID.Deletecard:
+                return "Destroys any card from the playfield.";
+            case CardID.Burncard:
+                return "Destroys one adjacent card and itself.";
+            case CardID.Infernocard:
+                return "Deletes 3 cards in any straight direction, starting from its position.";
+            case CardID.Changecard:
+                return "Turns any pointcard into a blankcard.";
+            case CardID.Cancercard:
+                return "Turns all cards in its line and column into blank cards.";
+            case CardID.HotPotatoe:
+                return "The opponent must discard all special cards on his hand.";
+            case CardID.Nukecard:
+                return "All cards are removed from the playfield.";
+            case CardID.Vortexcard:
+                return "Exchange your deck and handcards with your opponents.";
+            case CardID.Anchorcard:
+                return "Creates a new starting point, max. 2 fields away from other cards.";
+            case CardID.Shufflecard:
+                return "Switches places of your card with enemy card, if they’re adjacent.";
+        }
     }
 }

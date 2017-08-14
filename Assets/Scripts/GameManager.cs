@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
     public Player PlayerRed { get { return players[1]; } }
     public int[,] distance;
 
+    public GameObject currentChoosedCardGO;
     public Image SideBarBlue;
     public Image SideBarRed;
     public Canvas ChangePlayer;
@@ -52,7 +53,6 @@ public class GameManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        ToggleAnchorFieldVisibility();
         ToggleDeleteCardFieldVisibility();
 
         if (animationDone == true) {
@@ -152,8 +152,11 @@ public class GameManager : MonoBehaviour {
                 break;
             case CardID.FieldIndicator:
                 Card.AddComponent<Indicator>();
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field);
                 break;
             case CardID.FieldIndicatorRed:
+                Card.AddComponent<Indicator>();
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field);
                 break;
             case CardID.Doublecard:
                 Card.AddComponent<DoubleCard>();
@@ -234,6 +237,7 @@ public class GameManager : MonoBehaviour {
                 break;
             case CardID.CardIndicator:
                 Card.AddComponent<Indicator>();
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.card);
                 break;
         }
 
@@ -254,7 +258,10 @@ public class GameManager : MonoBehaviour {
         if (x == 0 && y == 0) {
             return true;
         }
-        if (currentChoosedCard == CardID.Deletecard) {
+        if (GameObject.Find("SideMenu Blue").GetComponent<SideBarMove>().panelactive || GameObject.Find("SideMenu Red").GetComponent<SideBarMove>().panelactive) {
+            return true;
+        }
+            if (currentChoosedCard == CardID.Deletecard) {
             return !GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y)).GetComponent<Indicator>().isFieldDeleteable;
         }
         if (GameObject.Find(Slave.GetCardName(CardID.Card, x, y)) != null) {
@@ -306,14 +313,13 @@ public class GameManager : MonoBehaviour {
             print("NR - removed cards!");
             lastSetCard = CardID.none;
         }
-        RenewIndicators();
         TogglePlayerScreen();
     }
 
     public void OnCardClick() {
         string name = EventSystem.current.currentSelectedGameObject.name;
         currentChoosedCardName = name;
-        GameObject currentChoosedCardGO = GameObject.Find(name);
+        currentChoosedCardGO = GameObject.Find(name);
         currentChoosedCard = currentChoosedCardGO.GetComponent<Handcards>().cardid;
     }
 
@@ -474,11 +480,8 @@ public class GameManager : MonoBehaviour {
 
     public void RemoveUnconnectedCards() {
         MarkUnconnectedCards();
-        print("RUC - marked");
         DeleteUnconnectedCards();
-        print("RUC - deleted");
         RenewIndicators();
-        print("RUC - renewed");
     }
 
     void DeleteUnconnectedCards() {
@@ -513,7 +516,7 @@ public class GameManager : MonoBehaviour {
                                 break;
                         }
                     }
-                    Destroy(Card);
+                    DestroyImmediate(Card);
                 } else if (Card != null
                      && Card.GetComponent<Card>().visited == true) {
                     Card.GetComponent<Card>().visited = false;

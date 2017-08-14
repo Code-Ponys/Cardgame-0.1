@@ -167,7 +167,7 @@ public class Player : MonoBehaviour {
         return;
     }
 
-    void GetCardTexts(CardID card) {
+    public void GetCardTexts(CardID card) {
 
         switch (card) {
             default:

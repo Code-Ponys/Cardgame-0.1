@@ -27,8 +27,8 @@ public enum Block {
     up, right, left, down
 }
 
-public enum State {
-    deck, hand, field
+public enum IndicatorType {
+    card, field
 }
 public class Materials {
     //Material transparent = new Material();

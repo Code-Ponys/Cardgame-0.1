@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SideBarMove : MonoBehaviour {
 
+    public bool panelactive;
+
     private void Start() {
         RectTransform rectTransform = GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector3(240, 0, 0);
@@ -18,6 +20,7 @@ public class SideBarMove : MonoBehaviour {
             RectTransform var = GetComponent<RectTransform>();
             var.anchoredPosition = goal;
         }
+        panelactive = false;
     }
 
     public void MovePanelIn() {
@@ -28,5 +31,6 @@ public class SideBarMove : MonoBehaviour {
             RectTransform var = GetComponent<RectTransform>();
             var.anchoredPosition = goal;
         }
+        panelactive = true;
     }
 }

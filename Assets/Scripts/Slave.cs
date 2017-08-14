@@ -27,8 +27,6 @@ static public class Slave {
 
     static public string GetImagePath(CardID card, Team team) {
         switch (card) {
-            default:
-                return "cards/" + team + "/Errorcard";
             case CardID.Blankcard:
                 return "cards/" + team + "/Blankcard";
             case CardID.Pointcard:
@@ -69,6 +67,8 @@ static public class Slave {
                 return "emptycards/black";
             case CardID.FieldIndicatorYellow:
                 return "emptycards/yellow";
+            default:
+                return "cards/" + team + "/Errorcard";
         }
         //return "cards/" + team + "/" + card;
 

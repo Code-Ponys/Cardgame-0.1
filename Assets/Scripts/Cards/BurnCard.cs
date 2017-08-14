@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BurnCard : Card {
+namespace Cards {
+    public class BurnCard : Card {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        // Use this for initialization
+        void Start() {
+            
+        }
+
+        // Update is called once per frame
+        void Update() {
+
+        }
+    }
 }

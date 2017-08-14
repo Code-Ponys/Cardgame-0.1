@@ -18,25 +18,25 @@ namespace Cards {
                     }
                 }
                 if (Card.GetComponent<Card>().cardid == CardID.Blockcard) {
-                    Block blockdirection = GameObject.Find("Card " + x + "," + y).GetComponent<BlockCard>().blockDirection;
+                    Block blockdirection = GameObject.Find(Slave.GetCardName(CardID.Card, x, y)).GetComponent<BlockCard>().blockDirection;
                     switch (blockdirection) {
                         case Block.right:
-                            GameObject.Find("FieldIndicator " + (x + 1) + "," + y).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                            GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x + 1, y)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
                             break;
                         case Block.left:
-                            GameObject.Find("FieldIndicator " + (x - 1) + "," + y).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                            GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x - 1, y)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
                             break;
                         case Block.up:
-                            GameObject.Find("FieldIndicator " + x + "," + (y + 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                            GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y + 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
                             break;
                         case Block.down:
-                            GameObject.Find("FieldIndicator " + x + "," + (y - 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                            GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y - 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
                             break;
                     }
                 }
-                Destroy(GameObject.Find("Card " + x + "," + y));
+                Destroy(GameObject.Find(Slave.GetCardName(CardID.Card, x, y)));
             }
-            Destroy(GameObject.Find("DeleteCard " + x + "," + y));
+            Destroy(GameObject.Find(Slave.GetCardName(CardID.Deletecard, x, y)));
         }
 
 

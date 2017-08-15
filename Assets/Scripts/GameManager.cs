@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
     public Image SideBarBlue;
     public Image SideBarRed;
     public Canvas ChangePlayer;
+    public Canvas WinScreen;
     string currentChoosedCardName;
 
     public Team currentPlayer;
@@ -44,11 +45,12 @@ public class GameManager : MonoBehaviour {
         GameObject PlayerName = GameObject.Find("TextSpieler");
         PlayerName.GetComponent<Text>().text = "Spieler 1";
         PlayerBlue.RefillHand(currentPlayer);
-        Canvas ChangePlayer = GameObject.Find("PlayerChange").GetComponent<Canvas>();
+
         //Image SideBarBlue = GameObject.Find("SideMenu Blue").GetComponent<Image>();
         //Image SideBarRed = GameObject.Find("SideMenu Red").GetComponent<Image>();
         SideBarRed.enabled = false;
         ChangePlayer.enabled = false;
+        WinScreen.enabled = false;
         animationDone = false;
     }
 
@@ -94,8 +96,8 @@ public class GameManager : MonoBehaviour {
             Card.transform.parent = FieldIndicatorParentRed.transform;
             Card.transform.position = new Vector3(x, y, -1);
         } else if (cardid == CardID.CardIndicator) {
-            GameObject FieldIndicatorParentRed = GameObject.Find("CardIndicator");
-            Card.transform.parent = FieldIndicatorParentRed.transform;
+            GameObject CardIndicatorParentRed = GameObject.Find("CardIndicator");
+            Card.transform.parent = CardIndicatorParentRed.transform;
             Card.transform.position = new Vector3(x, y, -3);
         } else {
             GameObject FieldParent = GameObject.Find("Field");
@@ -153,11 +155,12 @@ public class GameManager : MonoBehaviour {
                 break;
             case CardID.FieldIndicator:
                 Card.AddComponent<Indicator>();
-                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field);
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field, IndicatorColor.black);
                 break;
             case CardID.FieldIndicatorRed:
                 Card.AddComponent<Indicator>();
-                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field);
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field, IndicatorColor.red);
+                Card.GetComponent<Indicator>().currentcolor = IndicatorColor.red;
                 break;
             case CardID.Doublecard:
                 Card.AddComponent<DoubleCard>();
@@ -238,7 +241,7 @@ public class GameManager : MonoBehaviour {
                 break;
             case CardID.CardIndicator:
                 Card.AddComponent<Indicator>();
-                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.card);
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.card, IndicatorColor.transparent);
                 break;
         }
 
@@ -247,9 +250,7 @@ public class GameManager : MonoBehaviour {
             || cardid == CardID.Blankcard) {
             GameObject.Find("Field").GetComponent<Field>().cardsOnField.Add(Card);
         }
-        if (cardid != CardID.Startpoint) {
-            animationDone = true;
-        }
+
         lastSetCard = cardid;
 
         return Card;
@@ -262,7 +263,7 @@ public class GameManager : MonoBehaviour {
         if (GameObject.Find("SideMenu Blue").GetComponent<SideBarMove>().panelactive || GameObject.Find("SideMenu Red").GetComponent<SideBarMove>().panelactive) {
             return true;
         }
-            if (currentChoosedCard == CardID.Deletecard) {
+        if (currentChoosedCard == CardID.Deletecard) {
             return !GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y)).GetComponent<Indicator>().isFieldDeleteable;
         }
         if (GameObject.Find(Slave.GetCardName(CardID.Card, x, y)) != null) {
@@ -275,9 +276,12 @@ public class GameManager : MonoBehaviour {
             && currentChoosedCard == CardID.Anchorcard) {
             return false;
         }
-        if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y)).GetComponent<Indicator>().indicatorState == IndicatorState.blocked
-            || GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y)).GetComponent<Indicator>().indicatorState == IndicatorState.unreachable
+        if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y)).GetComponent<Indicator>().indicatorState == IndicatorState.unreachable
             || GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y)).GetComponent<Indicator>().indicatorState == IndicatorState.anchorfield) {
+            return true;
+        }
+        if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y)).GetComponent<Indicator>().indicatorState == IndicatorState.blocked
+            && GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y)).GetComponent<Indicator>().currentcolor == IndicatorColor.red) {
             return true;
         }
         return false;
@@ -311,9 +315,9 @@ public class GameManager : MonoBehaviour {
 
         if (lastSetCard == CardID.Deletecard) {
             RemoveUnconnectedCards();
-            print("NR - removed cards!");
             lastSetCard = CardID.none;
         }
+        cardlocked = false;
         TogglePlayerScreen();
     }
 
@@ -371,7 +375,6 @@ public class GameManager : MonoBehaviour {
 
 
     public void RenewIndicators() {
-        print("Start RenewIndicators");
         for (int x = Camera.main.GetComponent<CameraManager>().min_x - 3; x <= Camera.main.GetComponent<CameraManager>().max_x + 3; x++) {
             for (int y = Camera.main.GetComponent<CameraManager>().min_y - 3; y <= Camera.main.GetComponent<CameraManager>().max_y + 3; y++) {
                 if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y)) != null) {
@@ -386,7 +389,7 @@ public class GameManager : MonoBehaviour {
         for (int x = Camera.main.GetComponent<CameraManager>().min_x; x <= Camera.main.GetComponent<CameraManager>().max_x; x++) {
             for (int y = Camera.main.GetComponent<CameraManager>().min_y; y <= Camera.main.GetComponent<CameraManager>().max_y; y++) {
                 if (GameObject.Find(Slave.GetCardName(CardID.Card, x, y)) != null) {
-                    SetFieldIndicator(x,y);
+                    SetFieldIndicator(x, y);
                 }
             }
         }
@@ -396,9 +399,8 @@ public class GameManager : MonoBehaviour {
         GameObject IndicatorLeft = GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x - 1, y));
         if (IndicatorLeft != null && IndicatorLeft.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
             IndicatorLeft.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
-            print("Indicator Left set to reachable");
         } else {
-            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x - 1, y)) == null) {
+            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x - 1, y)) == null && GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x-1, y)) == null) {
                 GenerateFieldCard(CardID.FieldIndicatorRed, x - 1, y);
             }
         }
@@ -406,9 +408,8 @@ public class GameManager : MonoBehaviour {
         GameObject IndicatorRight = GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x + 1, y));
         if (IndicatorRight != null && IndicatorRight.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
             IndicatorRight.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
-            print("Indicator Right set to reachable");
         } else {
-            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x + 1, y)) == null) {
+            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x + 1, y)) == null && GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x+1, y)) == null) {
                 GenerateFieldCard(CardID.FieldIndicatorRed, x + 1, y);
             }
         }
@@ -416,9 +417,8 @@ public class GameManager : MonoBehaviour {
         GameObject IndicatorDown = GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y - 1));
         if (IndicatorDown != null && IndicatorDown.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
             IndicatorDown.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
-            print("Indicator Down set to reachable");
         } else {
-            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x, y - 1)) == null) {
+            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x, y - 1)) == null && GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y - 1)) == null) {
                 GenerateFieldCard(CardID.FieldIndicatorRed, x, y - 1);
             }
         }
@@ -426,9 +426,8 @@ public class GameManager : MonoBehaviour {
         GameObject IndicatorUp = GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y + 1));
         if (IndicatorUp != null && IndicatorUp.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
             IndicatorUp.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
-            print("Indicator Up set to reachable");
         } else {
-            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x, y + 1)) == null) {
+            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x, y + 1)) == null && GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y + 1)) == null) {
                 GenerateFieldCard(CardID.FieldIndicatorRed, x, y + 1);
             }
         }
@@ -526,7 +525,6 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
-        print("DeleteUnconnectedCards done.");
     }
 
     void MarkUnconnectedCards() {
@@ -544,7 +542,6 @@ public class GameManager : MonoBehaviour {
             anchor[i].GetComponent<Card>().visited = true;
 
             while (ToDo.Count > 0) {
-                print("Queue Entries: " + ToDo.Count);
                 GameObject CurrentGameObject = ToDo.Dequeue();
                 int x = CurrentGameObject.GetComponent<Card>().x;
                 int y = CurrentGameObject.GetComponent<Card>().y;
@@ -583,7 +580,6 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
-        print("MarkUnconnectedCards done");
     }
 }
 

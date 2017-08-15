@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,12 @@ namespace Cards {
 
         public IndicatorType indicatorType;
 
+        public bool reachableMarked = false;
+        public bool anchorvisible = false;
+        public bool placeallow = false;
 
+        public IndicatorColor indicatorColor;
+        public IndicatorColor currentcolor = IndicatorColor.transparent;
 
         GameObject Card;
         SpriteRenderer SpriteRenderer;
@@ -27,17 +33,23 @@ namespace Cards {
 
             } else {
                 Card = GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y));
+            }
             SpriteRenderer = Card.GetComponent<SpriteRenderer>();
         }
 
         // Update is called once per frame
         void Update() {
             if (indicatorType == IndicatorType.field) {
-                StateUpdate();
+                FieldStateUpdate();
+            }
+            if (indicatorType == IndicatorType.card) {
+                CardStateUpdate();
             }
 
         }
-        public void setData(int xcord, int ycord, Team cardteam, IndicatorType type) {
+
+
+        public void setData(int xcord, int ycord, Team cardteam, IndicatorType type, IndicatorColor color) {
             x = xcord;
             y = ycord;
             team = cardteam;
@@ -74,28 +86,28 @@ namespace Cards {
                   && anchorvisible == false) {
                 SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.yellow));
                 anchorvisible = true;
-            }
-            if (anchorvisible == true
-                && indicatorState == IndicatorState.anchorfield
-                && GameObject.Find("Field").GetComponent<GameManager>().currentChoosedCard != CardID.Anchorcard) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.FieldIndicatorBlack, Team.system));
+            } else if (anchorvisible == true
+                  && indicatorState == IndicatorState.anchorfield
+                  && GameObject.Find("Field").GetComponent<GameManager>().currentChoosedCard != CardID.Anchorcard) {
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.black));
                 anchorvisible = false;
+            } else if (indicatorState == IndicatorState.reachable
+                  && currentcolor != IndicatorColor.green) {
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.green));
+                currentcolor = IndicatorColor.green;
+            } else if (indicatorState == IndicatorState.unreachable
+                  && currentcolor != IndicatorColor.black) {
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.black));
+                currentcolor = IndicatorColor.black;
+            } else if (indicatorState == IndicatorState.anchorfield
+                  && currentcolor == IndicatorColor.green) {
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.black));
+                currentcolor = IndicatorColor.black;
             }
-            if (indicatorState == IndicatorState.reachable
-                && reachableMarked == false) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.FieldIndicatorGreen, Team.system));
-                reachableMarked = true;
-            }
-            if (indicatorState == IndicatorState.unreachable
-                && reachableMarked == true) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.FieldIndicatorBlack, Team.system));
-                reachableMarked = false;
-            }
-            if (indicatorState == IndicatorState.anchorfield
-                && reachableMarked == true) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.FieldIndicatorBlack, Team.system));
-                reachableMarked = false;
-            }
+        }
+
+        public void setColor(IndicatorColor color) {
+            indicatorColor = color;
         }
     }
 }

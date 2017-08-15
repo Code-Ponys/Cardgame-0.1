@@ -74,7 +74,13 @@ static public class Slave {
 
 
     }
-    static public string GetCardName(CardID cardid, int x, int y) {
+
+    static public string GetImagePath(IndicatorColor color) {
+                return "emptycards/" + color;
+    }
+
+
+        static public string GetCardName(CardID cardid, int x, int y) {
         switch (cardid) {
             default:
                 return "Error " + x + "," + y;

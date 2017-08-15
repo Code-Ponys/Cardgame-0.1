@@ -30,6 +30,11 @@ public enum Block {
 public enum IndicatorType {
     card, field
 }
+
+public enum IndicatorColor {
+    transparent, black, green, yellow, red, redcovered, greencovered, yellowcovered
+}
+
 public class Materials {
     //Material transparent = new Material();
 }

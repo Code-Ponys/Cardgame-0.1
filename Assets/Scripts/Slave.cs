@@ -60,13 +60,15 @@ static public class Slave {
             case CardID.CardIndicator:
                 return "emptycards/transparent";
             case CardID.CardIndicatorRed:
-                return "emptycards/CardIndicatorRed";
+                return "emptycards/redcovered";
             case CardID.FieldIndicatorGreen:
                 return "emptycards/green";
             case CardID.FieldIndicatorBlack:
                 return "emptycards/black";
             case CardID.FieldIndicatorYellow:
                 return "emptycards/yellow";
+            case CardID.FieldIndicatorRed:
+                return "emptycards/red";
             default:
                 return "cards/" + team + "/Errorcard";
         }
@@ -171,7 +173,7 @@ static public class Slave {
             case CardID.Blockcard:
                 return "Blocks a field and reserves an empty, adjacent one for you to use later.";
             case CardID.Doublecard:
-                return "Place a Point- and a Blankcard from your deck.";
+                return "Places first a Blankcard and later a Pointcard from your deck.";
             case CardID.Deletecard:
                 return "Destroys any card from the playfield.";
             case CardID.Burncard:

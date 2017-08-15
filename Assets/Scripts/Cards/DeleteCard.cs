@@ -5,10 +5,11 @@ using UnityEngine;
 namespace Cards {
     public class DeleteCard : Card {
 
+
         // Use this for initialization
         void Start() {
-            GameObject F = GameObject.Find("Field");
-            GameObject Card = GameObject.Find("Card " + x + "," + y);
+        GameObject F = GameObject.Find("Field");
+        GameObject Card = GameObject.Find("Card " + x + "," + y);
             if (Card != null) {
                 for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
                     if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
@@ -37,6 +38,7 @@ namespace Cards {
                 Destroy(GameObject.Find(Slave.GetCardName(CardID.Card, x, y)));
             }
             Destroy(GameObject.Find(Slave.GetCardName(CardID.Deletecard, x, y)));
+            F.GetComponent<GameManager>().animationDone = true;
         }
 
 

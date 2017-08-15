@@ -119,7 +119,7 @@ static public class Slave {
             case CardID.Vortexcard:
                 return "Vortexcard " + x + "," + y;
             case CardID.Anchorcard:
-                return "Anchorcard " + x + "," + y;
+                return "Card " + x + "," + y;
             case CardID.Shufflecard:
                 return "Shufflecard " + x + "," + y;
             case CardID.CardIndicator:

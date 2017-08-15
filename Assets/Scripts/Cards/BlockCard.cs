@@ -74,17 +74,40 @@ namespace Cards {
                     GameObject Card = GameObject.Find(Slave.GetCardName(CardID.Card, indexX, indexY));
 
                     if (CardIndicator.GetComponent<Indicator>().placeallow == true && Card == null) {
-                        FieldIndicator.GetComponent<Indicator>().indicatorState = IndicatorState.blocked;
-                        FieldIndicator.GetComponent<Indicator>().team = F.GetComponent<GameManager>().currentPlayer;
-                        FieldIndicator.GetComponent<Indicator>().currentcolor = IndicatorColor.red;
-                        F.GetComponent<GameManager>().animationDone = true;
-                        F.GetComponent<GameManager>().cardlocked = false;
                         cardprocessdone = true;
-                        print("Change to transparent");
                         CardIndicatorLeft.GetComponent<Indicator>().setColor(IndicatorColor.transparent);
                         CardIndicatorRight.GetComponent<Indicator>().setColor(IndicatorColor.transparent);
                         CardIndicatorUp.GetComponent<Indicator>().setColor(IndicatorColor.transparent);
                         CardIndicatorDown.GetComponent<Indicator>().setColor(IndicatorColor.transparent);
+
+                        for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
+                            if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == indexX
+                                && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == indexY) {
+                                F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                                break;
+                            }
+                        }
+                        if (Card.GetComponent<Card>().cardid == CardID.Blockcard) {
+                            Block blockdirection = GameObject.Find(Slave.GetCardName(CardID.Card, x, y)).GetComponent<BlockCard>().blockDirection;
+                            switch (blockdirection) {
+                                case Block.right:
+                                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x + 1, y)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                                    break;
+                                case Block.left:
+                                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x - 1, y)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                                    break;
+                                case Block.up:
+                                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y + 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                                    break;
+                                case Block.down:
+                                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y - 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                                    break;
+                            }
+                        }
+                        DestroyImmediate(GameObject.Find(Slave.GetCardName(CardID.Card, x, y)));
+                        F.GetComponent<GameManager>().animationDone = true;
+                        F.GetComponent<GameManager>().cardlocked = false;
+
 
 
                     }

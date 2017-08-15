@@ -6,7 +6,8 @@ namespace Cards {
     public class BlankCard : Card {
 
         private void Start() {
-            //GenerateCard();
+            GameObject F = GameObject.Find("Field");
+            F.GetComponent<GameManager>().animationDone = true;
         }
     }
 }

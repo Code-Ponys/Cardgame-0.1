@@ -42,6 +42,19 @@ namespace Cards {
             y = ycord;
             team = cardteam;
             indicatorType = type;
+            currentcolor = color;
+        }
+        private void CardStateUpdate() {
+            if (currentcolor != indicatorColor) {
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(indicatorColor));
+                print("Changed currentcolor " + currentcolor + " of Card " + Card.name + " to " + indicatorColor);
+                currentcolor = indicatorColor;
+            }
+            if (indicatorColor == IndicatorColor.greencovered) {
+                placeallow = true;
+            } else {
+                placeallow = false;
+            }
         }
 
 

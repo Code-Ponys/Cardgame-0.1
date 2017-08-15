@@ -22,7 +22,11 @@ namespace Cards {
 
         // Use this for initialization
         void Start() {
-            Card = GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y));
+            if (indicatorType == IndicatorType.card) {
+                Card = GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y));
+
+            } else {
+                Card = GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y));
             SpriteRenderer = Card.GetComponent<SpriteRenderer>();
         }
 
@@ -41,23 +45,21 @@ namespace Cards {
         }
 
 
-        void StateUpdate() {
+        void FieldStateUpdate() {
             if (indicatorState == IndicatorState.blocked
-                && blocked == true
-                && GameObject.Find("Field").GetComponent<GameManager>().currentPlayer == team) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.FieldIndicatorGreen, Team.system));
-                blocked = false;
-            }
-            if (indicatorState == IndicatorState.blocked
-                && blocked == false
-                && GameObject.Find("Field").GetComponent<GameManager>().currentPlayer != team) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.FieldIndicatorRed, Team.system));
-                blocked = true;
-            }
-            if (indicatorState == IndicatorState.anchorfield
-                && GameObject.Find("Field").GetComponent<GameManager>().currentChoosedCard == CardID.Anchorcard
-                && anchorvisible == false) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.FieldIndicatorYellow, Team.system));
+                && GameObject.Find("Field").GetComponent<GameManager>().currentPlayer == team
+                && currentcolor != IndicatorColor.green) {
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.green));
+                currentcolor = IndicatorColor.green;
+            } else if (indicatorState == IndicatorState.blocked
+                  && GameObject.Find("Field").GetComponent<GameManager>().currentPlayer != team
+                  && currentcolor != IndicatorColor.red) {
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.red));
+                currentcolor = IndicatorColor.red;
+            } else if (indicatorState == IndicatorState.anchorfield
+                  && GameObject.Find("Field").GetComponent<GameManager>().currentChoosedCard == CardID.Anchorcard
+                  && anchorvisible == false) {
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.yellow));
                 anchorvisible = true;
             }
             if (anchorvisible == true

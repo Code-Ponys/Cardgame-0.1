@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour {
     public bool anchorFieldVisible;
     public bool cardIndicatorVisible;
     public bool animationDone;
+    public bool cardlocked;
 
     // Use this for initialization
     void Start() {
@@ -317,10 +318,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public void OnCardClick() {
-        string name = EventSystem.current.currentSelectedGameObject.name;
-        currentChoosedCardName = name;
-        currentChoosedCardGO = GameObject.Find(name);
-        currentChoosedCard = currentChoosedCardGO.GetComponent<Handcards>().cardid;
+        if (!cardlocked) {
+            string name = EventSystem.current.currentSelectedGameObject.name;
+            currentChoosedCardName = name;
+            currentChoosedCardGO = GameObject.Find(name);
+            currentChoosedCard = currentChoosedCardGO.GetComponent<Handcards>().cardid;
+        }
     }
 
     public void TogglePlayerScreen() {

@@ -15,10 +15,7 @@ namespace Cards {
 
         public IndicatorType indicatorType;
 
-        bool blocked = true;
-        bool reachableMarked = false;
 
-        bool anchorvisible = false;
 
         GameObject Card;
         SpriteRenderer SpriteRenderer;

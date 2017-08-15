@@ -313,7 +313,7 @@ public class GameManager : MonoBehaviour {
             PlayerName.GetComponent<Text>().text = "Spieler 2";
         }
 
-        if (lastSetCard == CardID.Deletecard) {
+        if (lastSetCard == CardID.Deletecard || lastSetCard == CardID.Burncard) {
             RemoveUnconnectedCards();
             lastSetCard = CardID.none;
         }

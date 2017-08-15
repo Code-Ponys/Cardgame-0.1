@@ -178,11 +178,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                     print("Handcardtext Blanccard");
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -192,11 +194,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -206,11 +210,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -220,11 +226,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -234,11 +242,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -248,11 +258,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -262,11 +274,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -276,11 +290,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -290,11 +306,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -304,11 +322,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -318,11 +338,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -332,11 +354,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -346,11 +370,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }
@@ -360,11 +386,13 @@ public class Player : MonoBehaviour {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
 
-                } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
+                }
+                if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
                 }

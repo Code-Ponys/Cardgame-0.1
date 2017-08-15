@@ -141,37 +141,6 @@ namespace Cards {
             }
             return false;
         }
-
-        void GetCardName() {
-            //Texte für Handkartenanzeige
-            if (GameObject.Find("HandCard1" + team).GetComponent<Handcards>().cardid == CardID.Pointcard) {
-                print("i bims 1 pointcard");
-                GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Kartenname;
-
-            } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == CardID.Pointcard) {
-                print("i bims 1 pointcard");
-                GameObject.Find("Kartenname2" + team).GetComponent<Text>().text = Kartenname;
-
-            } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == CardID.Pointcard) {
-                print("i bims 1 pointcard");
-                GameObject.Find("Kartenname3" + team).GetComponent<Text>().text = Kartenname;
-            }
-
-        }
-
-        void GetCardDescription() {
-            //Texte für Handkartenanzeige
-            if (GameObject.Find("HandCard1" + team).GetComponent<Handcards>().cardid == CardID.Pointcard) {
-                GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Kartenbeschreibung;
-
-            } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == CardID.Pointcard) {
-                GameObject.Find("Kartentext2" + team).GetComponent<Text>().text = Kartenbeschreibung;
-
-            } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == CardID.Pointcard) {
-                GameObject.Find("Kartentext3" + team).GetComponent<Text>().text = Kartenbeschreibung;
-            }
-
-        }
     }
 }
 

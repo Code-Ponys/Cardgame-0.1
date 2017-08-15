@@ -8,6 +8,8 @@ namespace Cards {
 
         // Use this for initialization
         void Start() {
+            GameObject F = GameObject.Find("Field");
+            F.GetComponent<GameManager>().animationDone = true;
 
         }
 

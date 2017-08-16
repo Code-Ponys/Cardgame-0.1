@@ -437,8 +437,8 @@ public class GameManager : MonoBehaviour {
             GameObject.Find("Field").GetComponent<Field>().cardsOnField.Add(Card);
         }
 
-        if(cardid != CardID.Startpoint) {
-        lastSetCard = cardid;
+        if (cardid != CardID.Startpoint) {
+            lastSetCard = cardid;
         }
 
         return Card;
@@ -502,7 +502,10 @@ public class GameManager : MonoBehaviour {
             PlayerName.GetComponent<Text>().text = "Spieler 2";
         }
 
-        if (lastSetCard == CardID.Deletecard || lastSetCard == CardID.Burncard|| lastSetCard == CardID.Nukecard) {
+        if (lastSetCard == CardID.Deletecard
+            || lastSetCard == CardID.Burncard
+            || lastSetCard == CardID.Nukecard
+            || lastSetCard == CardID.Cancercard) {
             RemoveUnconnectedCards();
             lastSetCard = CardID.none;
         }
@@ -690,6 +693,11 @@ public class GameManager : MonoBehaviour {
                 if (Card != null
                     && Card.GetComponent<Card>().visited == false) {
                     for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
+                        if (F.GetComponent<Field>().cardsOnField[i] == null) {
+                            F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                            break;
+                        }
+                        print(F.GetComponent<Field>().cardsOnField[i]);
                         if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
                             && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
                             F.GetComponent<Field>().cardsOnField.RemoveAt(i);
@@ -777,5 +785,3 @@ public class GameManager : MonoBehaviour {
         }
     }
 }
-
-

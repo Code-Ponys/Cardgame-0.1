@@ -102,16 +102,16 @@ namespace Cards {
                 return;
             } else {
                 if (CardLeft != null) {
-                    CardIndicatorLeft.GetComponent<Indicator>().setColor(IndicatorColor.redcovered);
+                    CardIndicatorLeft.GetComponent<Indicator>().setColor(IndicatorColor.yellowcovered);
                 }
                 if (CardRight != null) {
-                    CardIndicatorRight.GetComponent<Indicator>().setColor(IndicatorColor.redcovered);
+                    CardIndicatorRight.GetComponent<Indicator>().setColor(IndicatorColor.yellowcovered);
                 }
                 if (CardUp != null) {
-                    CardIndicatorUp.GetComponent<Indicator>().setColor(IndicatorColor.redcovered);
+                    CardIndicatorUp.GetComponent<Indicator>().setColor(IndicatorColor.yellowcovered);
                 }
                 if (CardDown != null) {
-                    CardIndicatorDown.GetComponent<Indicator>().setColor(IndicatorColor.redcovered);
+                    CardIndicatorDown.GetComponent<Indicator>().setColor(IndicatorColor.yellowcovered);
                 }
             }
 

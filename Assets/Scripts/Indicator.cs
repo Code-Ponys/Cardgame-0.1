@@ -62,11 +62,6 @@ namespace Cards {
                 print("Changed currentcolor " + currentcolor + " of Card " + Card.name + " to " + indicatorColor);
                 currentcolor = indicatorColor;
             }
-            if (indicatorColor == IndicatorColor.greencovered) {
-                placeallow = true;
-            } else {
-                placeallow = false;
-            }
         }
 
 

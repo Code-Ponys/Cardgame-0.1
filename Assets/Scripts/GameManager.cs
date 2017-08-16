@@ -29,9 +29,10 @@ public class GameManager : MonoBehaviour {
     public CardID currentChoosedCard;
     public CardID lastSetCard;
     public bool anchorFieldVisible;
-    public bool cardIndicatorVisible;
+    public bool deleteIndicatorVisible;
     public bool animationDone;
     public bool cardlocked;
+    private bool changeIndicatorVisible;
 
     // Use this for initialization
     void Start() {
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour {
         string pf_path = Slave.GetImagePathPf(cardid, currentPlayer);
         string cardname = Slave.GetCardName(cardid, x, y);
 
+        print("Create: " + cardname);
 
         GameObject Card = (GameObject)Instantiate(Resources.Load(pf_path));
         if (cardid == CardID.FieldIndicator) {
@@ -260,11 +262,12 @@ public class GameManager : MonoBehaviour {
         if (x == 0 && y == 0) {
             return true;
         }
+        
         if (GameObject.Find("SideMenu Blue").GetComponent<SideBarMove>().panelactive || GameObject.Find("SideMenu Red").GetComponent<SideBarMove>().panelactive) {
             return true;
         }
-        if (currentChoosedCard == CardID.Deletecard) {
-            return !GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y)).GetComponent<Indicator>().isFieldDeleteable;
+        if (GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y)).GetComponent<Indicator>().indicatorColor == IndicatorColor.yellowcovered) {
+            return false;
         }
         if (GameObject.Find(Slave.GetCardName(CardID.Card, x, y)) != null) {
             return true;
@@ -400,7 +403,7 @@ public class GameManager : MonoBehaviour {
         if (IndicatorLeft != null && IndicatorLeft.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
             IndicatorLeft.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
         } else {
-            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x - 1, y)) == null && GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x-1, y)) == null) {
+            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x - 1, y)) == null && GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x - 1, y)) == null) {
                 GenerateFieldCard(CardID.FieldIndicatorRed, x - 1, y);
             }
         }
@@ -409,7 +412,7 @@ public class GameManager : MonoBehaviour {
         if (IndicatorRight != null && IndicatorRight.GetComponent<Indicator>().indicatorState != IndicatorState.blocked) {
             IndicatorRight.GetComponent<Indicator>().indicatorState = IndicatorState.reachable;
         } else {
-            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x + 1, y)) == null && GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x+1, y)) == null) {
+            if (GameObject.Find(Slave.GetCardName(CardID.FieldIndicatorRed, x + 1, y)) == null && GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x + 1, y)) == null) {
                 GenerateFieldCard(CardID.FieldIndicatorRed, x + 1, y);
             }
         }
@@ -446,36 +449,42 @@ public class GameManager : MonoBehaviour {
     }
 
     void ToggleDeleteCardFieldVisibility() {
-        if (currentChoosedCard == CardID.Deletecard && cardIndicatorVisible == false) {
-            cardIndicatorVisible = true;
+        if (currentChoosedCard == CardID.Deletecard && deleteIndicatorVisible == false) {
+            deleteIndicatorVisible = true;
             for (int i = 0; i < Field.cardsOnField.Count; i++) {
                 GameObject Card = Field.cardsOnField[i];
-                if (Card.GetComponent<Card>().team != currentPlayer
-                    && Card.GetComponent<Card>().team != Team.system) {
+                if (Card.GetComponent<Card>().team != Team.system) {
                     ShowCardIndicators(Card.GetComponent<Card>().x, Card.GetComponent<Card>().y);
                 }
             }
+        } else if (currentChoosedCard != CardID.Deletecard && deleteIndicatorVisible == true) {
+            deleteIndicatorVisible = false;
+            HideCardIndicator();
         }
-        if (currentChoosedCard != CardID.Deletecard && cardIndicatorVisible) {
-            cardIndicatorVisible = false;
+        if (currentChoosedCard == CardID.Changecard && changeIndicatorVisible == false) {
+            changeIndicatorVisible = true;
+            for (int i = 0; i < Field.cardsOnField.Count; i++) {
+                GameObject Card = Field.cardsOnField[i];
+                if (Card.GetComponent<Card>().team != currentPlayer && Card.GetComponent<Card>().cardid == CardID.Pointcard) {
+                    ShowCardIndicators(Card.GetComponent<Card>().x, Card.GetComponent<Card>().y);
+                }
+            }
+        } else if (currentChoosedCard != CardID.Changecard && changeIndicatorVisible == true) {
+            changeIndicatorVisible = false;
             HideCardIndicator();
         }
     }
 
     void ShowCardIndicators(int x, int y) {
         GameObject CardIndicator = GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y));
-        SpriteRenderer rend = CardIndicator.GetComponent<SpriteRenderer>();
-        rend.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.CardIndicatorRed, Team.system));
-        CardIndicator.GetComponent<Indicator>().isFieldDeleteable = true;
+        CardIndicator.GetComponent<Indicator>().indicatorColor = IndicatorColor.yellowcovered;
     }
 
     void HideCardIndicator() {
         for (int x = Camera.main.GetComponent<CameraManager>().min_x; x <= Camera.main.GetComponent<CameraManager>().max_x; x++) {
             for (int y = Camera.main.GetComponent<CameraManager>().min_y; y <= Camera.main.GetComponent<CameraManager>().max_y; y++) {
                 GameObject CardIndicator = GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y));
-                SpriteRenderer rend = CardIndicator.GetComponent<SpriteRenderer>();
-                rend.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.CardIndicator, Team.system));
-                CardIndicator.GetComponent<Indicator>().isFieldDeleteable = false;
+                CardIndicator.GetComponent<Indicator>().indicatorColor = IndicatorColor.transparent;
             }
         }
     }

@@ -79,7 +79,7 @@ namespace Cards {
             } else if (indicatorState == IndicatorState.anchorfield
                   && GameObject.Find("Field").GetComponent<GameManager>().currentChoosedCard == CardID.Anchorcard
                   && anchorvisible == false) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.yellow));
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.green));
                 anchorvisible = true;
             } else if (anchorvisible == true
                   && indicatorState == IndicatorState.anchorfield

@@ -73,7 +73,7 @@ namespace Cards {
                     GameObject FieldIndicator = GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, indexX, indexY));
                     GameObject Card = GameObject.Find(Slave.GetCardName(CardID.Card, indexX, indexY));
 
-                    if (CardIndicator.GetComponent<Indicator>().indicatorColor == IndicatorColor.greencovered && Card == null) {
+                    if (CardIndicator.GetComponent<Indicator>().indicatorColor == IndicatorColor.yellowcovered && Card == null) {
                         cardprocessdone = true;
                         CardIndicatorLeft.GetComponent<Indicator>().setColor(IndicatorColor.transparent);
                         CardIndicatorRight.GetComponent<Indicator>().setColor(IndicatorColor.transparent);

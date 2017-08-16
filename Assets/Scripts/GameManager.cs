@@ -76,6 +76,190 @@ public class GameManager : MonoBehaviour {
         Application.Quit();
     }
 
+    public virtual GameObject GenerateFieldCard(CardID cardid, int x, int y, Team team) {
+        if (cardid == CardID.ChoosedCard) {
+            cardid = currentChoosedCard;
+        }
+        if (currentChoosedCard == CardID.placed || cardid == CardID.none) {
+            return null;
+        }
+        string pf_path = Slave.GetImagePathPf(cardid, currentPlayer);
+        string cardname = Slave.GetCardName(cardid, x, y);
+
+        print("Create: " + cardname);
+
+        GameObject Card = (GameObject)Instantiate(Resources.Load(pf_path));
+        if (cardid == CardID.FieldIndicator) {
+            GameObject FieldIndicatorParent = GameObject.Find("FieldIndicator");
+            Card.transform.parent = FieldIndicatorParent.transform;
+            Card.transform.position = new Vector3(x, y, -1);
+        } else if (cardid == CardID.FieldIndicatorRed) {
+            GameObject FieldIndicatorParentRed = GameObject.Find("FieldIndicator");
+            Card.transform.parent = FieldIndicatorParentRed.transform;
+            Card.transform.position = new Vector3(x, y, -1);
+        } else if (cardid == CardID.CardIndicator) {
+            GameObject CardIndicatorParentRed = GameObject.Find("CardIndicator");
+            Card.transform.parent = CardIndicatorParentRed.transform;
+            Card.transform.position = new Vector3(x, y, -3);
+        } else {
+            GameObject FieldParent = GameObject.Find("Field");
+            Card.transform.parent = FieldParent.transform;
+            Card.transform.position = new Vector3(x, y, -2);
+        }
+        Card.transform.localScale = new Vector3(0.320f, 0.320f, 0);
+        Card.name = cardname;
+
+        if (cardid == CardID.Startpoint || cardid == CardID.Anchorcard
+            || cardid == CardID.Pointcard || cardid == CardID.Blockcard
+            || cardid == CardID.Blankcard) {
+
+            SetFieldIndicator(x, y);
+            //Card.AddComponent<Card>();
+
+            Camera.main.GetComponent<CameraManager>().CenterCamera(x, y);
+        }
+
+        switch (cardid) {
+            default:
+                Card.AddComponent<NotImplemented>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Blankcard:
+                Card.AddComponent<BlankCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Pointcard:
+                Card.AddComponent<PointCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Startpoint:
+                Card.AddComponent<Startpoint>();
+                Card.GetComponent<Card>().team = Team.system;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Blockcard:
+                Card.AddComponent<BlockCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.FieldIndicator:
+                Card.AddComponent<Indicator>();
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field, IndicatorColor.black);
+                break;
+            case CardID.FieldIndicatorRed:
+                Card.AddComponent<Indicator>();
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field, IndicatorColor.red);
+                Card.GetComponent<Indicator>().currentcolor = IndicatorColor.red;
+                break;
+            case CardID.Doublecard:
+                Card.AddComponent<DoubleCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Deletecard:
+                Card.AddComponent<DeleteCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Burncard:
+                Card.AddComponent<BurnCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Infernocard:
+                Card.AddComponent<InfernoCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Changecard:
+                Card.AddComponent<ChangeCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Cancercard:
+                Card.AddComponent<CancerCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.HotPotatoe:
+                Card.AddComponent<HotPotatoe>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Nukecard:
+                Card.AddComponent<NukeCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Vortexcard:
+                Card.AddComponent<VortexCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Anchorcard:
+                Card.AddComponent<AnchorCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.Shufflecard:
+                Card.AddComponent<ShuffleCard>();
+                Card.GetComponent<Card>().team = team;
+                Card.GetComponent<Card>().x = x;
+                Card.GetComponent<Card>().y = y;
+                Card.GetComponent<Card>().cardid = cardid;
+                break;
+            case CardID.CardIndicator:
+                Card.AddComponent<Indicator>();
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.card, IndicatorColor.transparent);
+                break;
+        }
+
+        if (cardid == CardID.Startpoint || cardid == CardID.Anchorcard
+            || cardid == CardID.Pointcard || cardid == CardID.Blockcard
+            || cardid == CardID.Blankcard) {
+            GameObject.Find("Field").GetComponent<Field>().cardsOnField.Add(Card);
+        }
+
+        if(cardid != CardID.Startpoint) {
+        lastSetCard = cardid;
+        }
+
+        return Card;
+    }
+
     public virtual GameObject GenerateFieldCard(CardID cardid, int x, int y) {
         if (cardid == CardID.ChoosedCard) {
             cardid = currentChoosedCard;

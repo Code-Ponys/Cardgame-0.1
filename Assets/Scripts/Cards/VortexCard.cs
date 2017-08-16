@@ -75,6 +75,8 @@ namespace Cards {
             Handcard6.GetComponent<Handcards>().cardid = Handcard3Red;
             Player2.GetComponent<Player>().GetCardTexts(Handcard3Red);
 
+            GameObject.Find("Field").GetComponent<GameManager>().animationDone = true;
+
             Destroy(GameObject.Find(Slave.GetCardName(CardID.Vortexcard, x, y)));
         }
 

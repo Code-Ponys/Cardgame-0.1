@@ -253,7 +253,9 @@ public class GameManager : MonoBehaviour {
             GameObject.Find("Field").GetComponent<Field>().cardsOnField.Add(Card);
         }
 
+        if(cardid != CardID.Startpoint) {
         lastSetCard = cardid;
+        }
 
         return Card;
     }
@@ -316,7 +318,7 @@ public class GameManager : MonoBehaviour {
             PlayerName.GetComponent<Text>().text = "Spieler 2";
         }
 
-        if (lastSetCard == CardID.Deletecard || lastSetCard == CardID.Burncard) {
+        if (lastSetCard == CardID.Deletecard || lastSetCard == CardID.Burncard|| lastSetCard == CardID.Nukecard) {
             RemoveUnconnectedCards();
             lastSetCard = CardID.none;
         }

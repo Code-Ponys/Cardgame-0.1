@@ -7,12 +7,14 @@ using UnityEngine.UI;
 namespace Cards {
 
     public class PointCard : Card {
-
-        string Kartenname = "Pointcard";
-        string Kartenbeschreibung = "Lege 3 Punktkarten horizontal, vertical oder diagonal aneinader um zu gewinnen!";
+        GameObject Card;
+        SpriteRenderer SpriteRenderer;
 
         private void Start() {
             GameObject F = GameObject.Find("Field");
+            Card = GameObject.Find(Slave.GetCardName(CardID.Card, x, y));
+            SpriteRenderer = Card.GetComponent<SpriteRenderer>();
+            SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(team, F.GetComponent<GameManager>().currentChoosedCardGO.GetComponent<Handcards>().PointCardCounter));
             if (WinCondition() == true) {
                 F.GetComponent<GameManager>().WinScreen.enabled = true;
                 string playerName;

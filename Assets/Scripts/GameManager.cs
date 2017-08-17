@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour {
     private bool changeIndicatorVisible;
     float triggerDelayedNewRound;
     private bool shuffleIndicatorVisible;
+    public int PointCardCounterRed;
+    public int PointCardCounterBlue;
+
 
     // Use this for initialization
     void Start() {
@@ -74,7 +77,8 @@ public class GameManager : MonoBehaviour {
             if (lastSetCard == CardID.Deletecard
             || lastSetCard == CardID.Burncard
             || lastSetCard == CardID.Nukecard
-            || lastSetCard == CardID.Cancercard) {
+            || lastSetCard == CardID.Cancercard
+            || lastSetCard == CardID.Infernocard) {
 
                 RemoveUnconnectedCards();
                 lastSetCard = CardID.none;
@@ -175,7 +179,7 @@ public class GameManager : MonoBehaviour {
                 break;
             case CardID.FieldIndicator:
                 Card.AddComponent<Indicator>();
-                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field, IndicatorColor.black);
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field, IndicatorColor.transparent);
                 break;
             case CardID.FieldIndicatorRed:
                 Card.AddComponent<Indicator>();
@@ -360,7 +364,7 @@ public class GameManager : MonoBehaviour {
                 break;
             case CardID.FieldIndicator:
                 Card.AddComponent<Indicator>();
-                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field, IndicatorColor.black);
+                Card.GetComponent<Indicator>().setData(x, y, Team.system, IndicatorType.field, IndicatorColor.transparent);
                 break;
             case CardID.FieldIndicatorRed:
                 Card.AddComponent<Indicator>();
@@ -847,6 +851,18 @@ public class GameManager : MonoBehaviour {
                     }
                 }
             }
+        }
+    }
+
+    public int GetPointCardNumber() {
+        if (currentPlayer == Team.red) {
+            PointCardCounterRed++;
+            PointCardCounterRed = PointCardCounterRed % 15;
+            return PointCardCounterRed;
+        } else {
+            PointCardCounterBlue++;
+            PointCardCounterBlue = PointCardCounterBlue % 15;
+            return PointCardCounterBlue % 15;
         }
     }
 }

@@ -9,8 +9,10 @@ public class Player : MonoBehaviour {
     public Team team;
     public List<CardID> Deck;
     bool refillCardsIsDone = false;
+    public GameObject F;
 
     private void Start() {
+        F = GameObject.Find("Field");
     }
 
     // Use this for initialization
@@ -139,15 +141,34 @@ public class Player : MonoBehaviour {
             if (GameObject.Find("HandCard1" + team).GetComponent<Handcards>().cardid == CardID.none) {
                 GameObject Handcard = GameObject.Find("HandCard1" + team);
                 Image image = Handcard.GetComponent<Image>();
-                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
+                if (card != CardID.Pointcard) {
+                    image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
+                } else {
+                    image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(team, F.GetComponent<GameManager>().GetPointCardNumber()));
+                    if(team == Team.red) {
+                        Handcard.GetComponent<Handcards>().PointCardCounter = F.GetComponent<GameManager>().PointCardCounterRed;
+                    } else {
+                        Handcard.GetComponent<Handcards>().PointCardCounter = F.GetComponent<GameManager>().PointCardCounterBlue;
+                    }
+                }
                 Handcard.GetComponent<Handcards>().cardid = card;
+
                 GetCardTexts(card);
                 Deck.RemoveAt(0);
                 continue;
             } else if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == CardID.none) {
                 GameObject Handcard = GameObject.Find("HandCard2" + team);
                 Image image = Handcard.GetComponent<Image>();
-                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
+                if (card != CardID.Pointcard) {
+                    image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
+                } else {
+                    image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(team, F.GetComponent<GameManager>().GetPointCardNumber()));
+                    if (team == Team.red) {
+                        Handcard.GetComponent<Handcards>().PointCardCounter = F.GetComponent<GameManager>().PointCardCounterRed;
+                    } else {
+                        Handcard.GetComponent<Handcards>().PointCardCounter = F.GetComponent<GameManager>().PointCardCounterBlue;
+                    }
+                }
                 Handcard.GetComponent<Handcards>().cardid = card;
                 GetCardTexts(card);
                 Deck.RemoveAt(0);
@@ -155,7 +176,16 @@ public class Player : MonoBehaviour {
             } else if (GameObject.Find("HandCard3" + team).GetComponent<Handcards>().cardid == CardID.none) {
                 GameObject Handcard = GameObject.Find("HandCard3" + team);
                 Image image = Handcard.GetComponent<Image>();
-                image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
+                if (card != CardID.Pointcard) {
+                    image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
+                } else {
+                    image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(team, F.GetComponent<GameManager>().GetPointCardNumber()));
+                    if (team == Team.red) {
+                        Handcard.GetComponent<Handcards>().PointCardCounter = F.GetComponent<GameManager>().PointCardCounterRed;
+                    } else {
+                        Handcard.GetComponent<Handcards>().PointCardCounter = F.GetComponent<GameManager>().PointCardCounterBlue;
+                    }
+                }
                 Handcard.GetComponent<Handcards>().cardid = card;
                 GetCardTexts(card);
                 Deck.RemoveAt(0);

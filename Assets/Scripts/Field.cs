@@ -29,7 +29,9 @@ public class Field : MonoBehaviour {
         //    CM.CenterCamera();
         //    print("Kamera korrigiert");
         //}
-        if (GameManager.ChangePlayer.enabled == true || GameObject.Find("Field").GetComponent<GameManager>().WinScreen.enabled == true || GameObject.Find("Field").GetComponent<GameManager>().cardlocked == true) return;
+        if (GameManager.ChangePlayer.enabled == true
+            || GameObject.Find("Field").GetComponent<GameManager>().WinScreen.enabled == true
+            || GameObject.Find("Field").GetComponent<GameManager>().cardlocked == true) return;
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             if (GameObject.Find("SideMenu Blue").GetComponent<SideBarMove>().panelactive == false
                 || GameObject.Find("SideMenu Red").GetComponent<SideBarMove>().panelactive == false) {

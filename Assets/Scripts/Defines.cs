@@ -11,11 +11,12 @@ public struct MousePos {
 }
 
 public enum CardID {
-    Startpoint, Pointcard, Blankcard,
-    Doublecard, Blockcard, Deletecard,
-    Burncard, Infernocard, Changecard,
-    Cancercard, HotPotatoe, Nukecard,
-    Vortexcard, Anchorcard, Shufflecard,
+    Anchorcard,
+    Blankcard, Blockcard,Burncard,
+    Cancercard, Changecard, Deletecard,
+    Doublecard, HotPotatoe, Infernocard,
+    Nukecard, Pointcard, Shufflecard,
+    Startpoint, Vortexcard,
     FieldIndicator, FieldIndicatorRed, FieldIndicatorGreen, FieldIndicatorBlack, FieldIndicatorYellow,
     none, ChoosedCard, placed,
     CardIndicator, CardIndicatorRed, Card

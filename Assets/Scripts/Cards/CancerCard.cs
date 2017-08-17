@@ -22,7 +22,9 @@ namespace Cards {
                     if (Cardchange.GetComponent<Card>().cardid == CardID.Startpoint || Cardchange.GetComponent<Card>().cardid == CardID.Blankcard) {
                         continue;
                     }
-
+                    int ycord = Cardchange.GetComponent<Card>().y;
+                    Team cardteam = Cardchange.GetComponent<Card>().team;
+                    int xcord = Cardchange.GetComponent<Card>().x;
                     switch (Cardchange.GetComponent<Card>().cardid) {
                         case CardID.Blockcard:
                             Block blockdirection = Cardchange.GetComponent<BlockCard>().blockDirection;
@@ -44,37 +46,25 @@ namespace Cards {
                                     GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, Cardchange.GetComponent<Card>().x, Cardchange.GetComponent<Card>().y - 1)).GetComponent<Indicator>().team = Team.system;
                                     break;
                             }
-                            Cardchange.AddComponent<BlankCard>();
-                            Cardchange.GetComponent<Card>().cardid = CardID.Blankcard;
-                            SpriteRenderer = Cardchange.GetComponent<SpriteRenderer>();
-                            SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.Blankcard, Cardchange.GetComponent<Card>().team));
+
                             DestroyImmediate(Cardchange.GetComponent<BlockCard>());
                             break;
                         case CardID.Anchorcard:
-                            Team cardteam = Cardchange.GetComponent<Card>().team;
-                            int xcord = Cardchange.GetComponent<Card>().x;
-                            int ycord = Cardchange.GetComponent<Card>().y;
-                            for (int a = 0; a < F.GetComponent<Field>().cardsOnField.Count; a++) {
-                                if (F.GetComponent<Field>().cardsOnField[a].GetComponent<Card>().x == xcord
-                                    && F.GetComponent<Field>().cardsOnField[a].GetComponent<Card>().y == ycord) {
-                                    F.GetComponent<Field>().cardsOnField.RemoveAt(a);
-                                    break;
-                                }
-                            }
-                            DestroyImmediate(Cardchange);
-                            F.GetComponent<GameManager>().GenerateFieldCard(CardID.Blankcard, xcord, ycord, cardteam);
+                            DestroyImmediate(Cardchange.GetComponent<AnchorCard>());
                             break;
                         case CardID.Pointcard:
-                            Cardchange.AddComponent<BlankCard>();
-                            Cardchange.GetComponent<Card>().cardid = CardID.Blankcard;
-                            SpriteRenderer = Cardchange.GetComponent<SpriteRenderer>();
-                            SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.Blankcard, Cardchange.GetComponent<Card>().team));
                             DestroyImmediate(Cardchange.GetComponent<PointCard>());
                             break;
                     }
+                    Cardchange.AddComponent<BlankCard>();
+                    Cardchange.GetComponent<Card>().y = ycord;
+                    Cardchange.GetComponent<Card>().x = xcord;
+                    Cardchange.GetComponent<Card>().team = cardteam;
+                    Cardchange.GetComponent<Card>().cardid = CardID.Blankcard;
+                    SpriteRenderer = Cardchange.GetComponent<SpriteRenderer>();
+                    SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(CardID.Blankcard, cardteam));
                 }
             }
-            print(GameObject.Find(Slave.GetCardName(CardID.Cancercard, x, y)).name);
             F.GetComponent<GameManager>().lastSetCard = CardID.Cancercard;
             F.GetComponent<GameManager>().animationDone = true;
             DestroyImmediate(GameObject.Find(Slave.GetCardName(CardID.Cancercard, x, y)));

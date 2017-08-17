@@ -84,20 +84,20 @@ namespace Cards {
             } else if (anchorvisible == true
                   && indicatorState == IndicatorState.anchorfield
                   && GameObject.Find("Field").GetComponent<GameManager>().currentChoosedCard != CardID.Anchorcard) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.black));
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.transparent));
                 anchorvisible = false;
             } else if (indicatorState == IndicatorState.reachable
                   && currentcolor != IndicatorColor.green) {
                 SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.green));
                 currentcolor = IndicatorColor.green;
             } else if (indicatorState == IndicatorState.unreachable
-                  && currentcolor != IndicatorColor.black) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.black));
-                currentcolor = IndicatorColor.black;
+                  && currentcolor != IndicatorColor.transparent) {
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.transparent));
+                currentcolor = IndicatorColor.transparent;
             } else if (indicatorState == IndicatorState.anchorfield
                   && currentcolor == IndicatorColor.green) {
-                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.black));
-                currentcolor = IndicatorColor.black;
+                SpriteRenderer.sprite = Resources.Load<Sprite>(Slave.GetImagePath(IndicatorColor.transparent));
+                currentcolor = IndicatorColor.transparent;
             }
         }
 

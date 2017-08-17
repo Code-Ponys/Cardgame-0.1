@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 static public class Slave {
+
+
     static public string GetImagePathPf(CardID card, Team team) {
         if (card != CardID.FieldIndicator
             && card != CardID.FieldIndicatorRed
@@ -15,7 +17,7 @@ static public class Slave {
             default:
                 return "cards/" + team + "/pf_Errorcard";
             case CardID.FieldIndicator:
-                return "emptycards/pf_black";
+                return "emptycards/pf_transparent";
             case CardID.FieldIndicatorRed:
                 return "emptycards/pf_red";
             case CardID.Startpoint:
@@ -64,7 +66,7 @@ static public class Slave {
             case CardID.FieldIndicatorGreen:
                 return "emptycards/green";
             case CardID.FieldIndicatorBlack:
-                return "emptycards/black";
+                return "emptycards/transparent";
             case CardID.FieldIndicatorYellow:
                 return "emptycards/yellow";
             case CardID.FieldIndicatorRed:
@@ -77,12 +79,17 @@ static public class Slave {
 
     }
 
+    static public string GetImagePath(Team team, int counter) {
+
+        return "cards/" + team + "/" + team + counter;
+    }
+
     static public string GetImagePath(IndicatorColor color) {
-                return "emptycards/" + color;
+        return "emptycards/" + color;
     }
 
 
-        static public string GetCardName(CardID cardid, int x, int y) {
+    static public string GetCardName(CardID cardid, int x, int y) {
         switch (cardid) {
             default:
                 return "Error " + x + "," + y;

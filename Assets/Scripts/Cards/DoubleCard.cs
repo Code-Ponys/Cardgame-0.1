@@ -30,6 +30,7 @@ namespace Cards {
 
                     if (FieldIndicator.GetComponent<Indicator>().currentcolor == IndicatorColor.green) {
                         print("Pointcard created");
+                        F.GetComponent<GameManager>().GetPointCardNumber();
                         F.GetComponent<GameManager>().GenerateFieldCard(CardID.Pointcard, indexX, indexY);
                         DestroyImmediate(GameObject.Find(Slave.GetCardName(CardID.Doublecard, x, y)));
                         cardprocessdone = true;

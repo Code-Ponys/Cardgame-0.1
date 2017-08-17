@@ -172,6 +172,7 @@ namespace Cards {
             }
             Destroy(DeletedCard);
         }
+
         void HideCardIndicator() {
                 CardIndicatorLeft1.GetComponent<Indicator>().indicatorColor = IndicatorColor.transparent;
                 CardIndicatorLeft2.GetComponent<Indicator>().indicatorColor = IndicatorColor.transparent;

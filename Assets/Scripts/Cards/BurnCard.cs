@@ -88,12 +88,12 @@ namespace Cards {
                 }
                 if (CardUp != null) {
                     for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
-                            if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == CardUp.GetComponent<Card>().x
-                                && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == CardUp.GetComponent<Card>().y) {
-                                F.GetComponent<Field>().cardsOnField.RemoveAt(i);
-                                break;
-                            }
+                        if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == CardUp.GetComponent<Card>().x
+                            && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == CardUp.GetComponent<Card>().y) {
+                            F.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                            break;
                         }
+                    }
                     DestroyImmediate(CardUp);
                 }
                 DestroyImmediate(GameObject.Find(Slave.GetCardName(CardID.Burncard, x, y)));
@@ -129,7 +129,9 @@ namespace Cards {
                     GameObject CardIndicator = GameObject.Find(Slave.GetCardName(CardID.CardIndicator, indexX, indexY));
                     GameObject Card = GameObject.Find(Slave.GetCardName(CardID.Card, indexX, indexY));
 
-                    if (Card != null && Card.GetComponent<Card>().team != Team.system) {
+                    if (Card != null
+                        && Card.GetComponent<Card>().team != Team.system
+                        && CardIndicator.GetComponent<Indicator>().indicatorColor == IndicatorColor.yellowcovered) {
                         F.GetComponent<GameManager>().animationDone = true;
                         F.GetComponent<GameManager>().cardlocked = false;
                         cardprocessdone = true;

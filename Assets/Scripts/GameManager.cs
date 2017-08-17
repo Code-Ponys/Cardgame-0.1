@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
     public bool animationDone;
     public bool cardlocked;
     private bool changeIndicatorVisible;
+    float triggerDelayedNewRound;
 
     // Use this for initialization
     void Start() {
@@ -63,6 +64,22 @@ public class GameManager : MonoBehaviour {
             RemovePlacedCardFromHand();
             TogglePlayerScreen();
             animationDone = false;
+        }
+        if (triggerDelayedNewRound != 0) {
+            triggerDelayedNewRound = -Time.deltaTime;
+        }
+        if (triggerDelayedNewRound != 0 && triggerDelayedNewRound < 0.5f) {
+            triggerDelayedNewRound = 0;
+            if (lastSetCard == CardID.Deletecard
+            || lastSetCard == CardID.Burncard
+            || lastSetCard == CardID.Nukecard
+            || lastSetCard == CardID.Cancercard) {
+
+                RemoveUnconnectedCards();
+                lastSetCard = CardID.none;
+            }
+            cardlocked = false;
+            TogglePlayerScreen();
         }
     }
 
@@ -253,8 +270,8 @@ public class GameManager : MonoBehaviour {
             GameObject.Find("Field").GetComponent<Field>().cardsOnField.Add(Card);
         }
 
-        if(cardid != CardID.Startpoint) {
-        lastSetCard = cardid;
+        if (cardid != CardID.Startpoint) {
+            lastSetCard = cardid;
         }
 
         return Card;
@@ -269,8 +286,9 @@ public class GameManager : MonoBehaviour {
         }
         string pf_path = Slave.GetImagePathPf(cardid, currentPlayer);
         string cardname = Slave.GetCardName(cardid, x, y);
-
-        print("Create: " + cardname);
+        if (cardid != CardID.FieldIndicator && cardid != CardID.CardIndicator) {
+            print("Create: " + cardid);
+        }
 
         GameObject Card = (GameObject)Instantiate(Resources.Load(pf_path));
         if (cardid == CardID.FieldIndicator) {
@@ -448,11 +466,17 @@ public class GameManager : MonoBehaviour {
         if (x == 0 && y == 0) {
             return true;
         }
-        
+
         if (GameObject.Find("SideMenu Blue").GetComponent<SideBarMove>().panelactive || GameObject.Find("SideMenu Red").GetComponent<SideBarMove>().panelactive) {
             return true;
         }
-        if (GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y)).GetComponent<Indicator>().indicatorColor == IndicatorColor.yellowcovered) {
+        if (currentChoosedCard == CardID.Changecard 
+            & GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y)).GetComponent<Indicator>().indicatorColor != IndicatorColor.yellowcovered) {
+            return true;
+        }
+        if (GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y)).GetComponent<Indicator>().indicatorColor == IndicatorColor.yellowcovered
+            && currentChoosedCard == CardID.Changecard || currentChoosedCard == CardID.Deletecard
+            || currentChoosedCard == CardID.Changecard || currentChoosedCard == CardID.Shufflecard) {
             return false;
         }
         if (GameObject.Find(Slave.GetCardName(CardID.Card, x, y)) != null) {
@@ -502,15 +526,10 @@ public class GameManager : MonoBehaviour {
             PlayerName.GetComponent<Text>().text = "Spieler 2";
         }
 
-        if (lastSetCard == CardID.Deletecard
-            || lastSetCard == CardID.Burncard
-            || lastSetCard == CardID.Nukecard
-            || lastSetCard == CardID.Cancercard) {
-            RemoveUnconnectedCards();
-            lastSetCard = CardID.none;
-        }
-        cardlocked = false;
-        TogglePlayerScreen();
+        triggerDelayedNewRound = 1;
+
+
+
     }
 
     public void OnCardClick() {
@@ -697,7 +716,6 @@ public class GameManager : MonoBehaviour {
                             F.GetComponent<Field>().cardsOnField.RemoveAt(i);
                             break;
                         }
-                        print(F.GetComponent<Field>().cardsOnField[i]);
                         if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
                             && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
                             F.GetComponent<Field>().cardsOnField.RemoveAt(i);
@@ -721,6 +739,7 @@ public class GameManager : MonoBehaviour {
                                 break;
                         }
                     }
+                    print("Destroy Card" + Card);
                     DestroyImmediate(Card);
                 } else if (Card != null
                      && Card.GetComponent<Card>().visited == true) {
@@ -733,8 +752,8 @@ public class GameManager : MonoBehaviour {
     void MarkUnconnectedCards() {
         List<GameObject> anchor = new List<GameObject>();
         for (int i = 0; i < Field.cardsOnField.Count; i++) {
-            if (Field.cardsOnField[i].GetComponent("Startpoint") != null
-                || Field.cardsOnField[i].GetComponent("AnchorCard") != null) {
+            if (Field.cardsOnField[i].GetComponent<Card>().cardid == CardID.Anchorcard
+                || Field.cardsOnField[i].GetComponent<Card>().cardid == CardID.Startpoint) {
                 anchor.Add(Field.cardsOnField[i]);
             }
         }

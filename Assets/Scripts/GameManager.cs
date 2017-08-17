@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour {
     public bool cardlocked;
     private bool changeIndicatorVisible;
     float triggerDelayedNewRound;
+    private bool shuffleIndicatorVisible;
 
     // Use this for initialization
     void Start() {
@@ -470,7 +471,7 @@ public class GameManager : MonoBehaviour {
         if (GameObject.Find("SideMenu Blue").GetComponent<SideBarMove>().panelactive || GameObject.Find("SideMenu Red").GetComponent<SideBarMove>().panelactive) {
             return true;
         }
-        if (currentChoosedCard == CardID.Changecard 
+        if (currentChoosedCard == CardID.Changecard
             & GameObject.Find(Slave.GetCardName(CardID.CardIndicator, x, y)).GetComponent<Indicator>().indicatorColor != IndicatorColor.yellowcovered) {
             return true;
         }
@@ -679,6 +680,51 @@ public class GameManager : MonoBehaviour {
             }
         } else if (currentChoosedCard != CardID.Changecard && changeIndicatorVisible == true) {
             changeIndicatorVisible = false;
+            HideCardIndicator();
+        }
+        if (currentChoosedCard == CardID.Shufflecard && shuffleIndicatorVisible == false) {
+            shuffleIndicatorVisible = true;
+            for (int i = 0; i < Field.cardsOnField.Count; i++) {
+                GameObject Card = Field.cardsOnField[i];
+                int x = Card.GetComponent<Card>().x;
+                int y = Card.GetComponent<Card>().y;
+
+                GameObject CardLeft = GameObject.Find(Slave.GetCardName(CardID.Card, x - 1, y));
+                GameObject CardRight = GameObject.Find(Slave.GetCardName(CardID.Card, x + 1, y));
+                GameObject CardUp = GameObject.Find(Slave.GetCardName(CardID.Card, x, y + 1));
+                GameObject CardDown = GameObject.Find(Slave.GetCardName(CardID.Card, x, y - 1));
+                if (Card.GetComponent<Card>().team == currentPlayer || Card.GetComponent<Card>().team == Team.system) continue;
+                if (CardLeft != null) {
+                    if (CardLeft.GetComponent<Card>().cardid == CardID.Pointcard
+                        || CardLeft.GetComponent<Card>().cardid == CardID.Blankcard
+                        && CardLeft.GetComponent<Card>().team == currentPlayer) {
+                        ShowCardIndicators(Card.GetComponent<Card>().x, Card.GetComponent<Card>().y);
+                    }
+                }
+                if (CardRight != null) {
+                    if (CardRight.GetComponent<Card>().cardid == CardID.Pointcard
+                          || CardRight.GetComponent<Card>().cardid == CardID.Blankcard
+                          && CardRight.GetComponent<Card>().team == currentPlayer) {
+                        ShowCardIndicators(Card.GetComponent<Card>().x, Card.GetComponent<Card>().y);
+                    }
+                }
+                if (CardUp != null) {
+                    if (CardUp.GetComponent<Card>().cardid == CardID.Pointcard
+                  || CardUp.GetComponent<Card>().cardid == CardID.Blankcard
+                  && CardUp.GetComponent<Card>().team == currentPlayer) {
+                        ShowCardIndicators(Card.GetComponent<Card>().x, Card.GetComponent<Card>().y);
+                    }
+                }
+                if (CardDown) {
+                    if (CardDown.GetComponent<Card>().cardid == CardID.Pointcard
+                          || CardDown.GetComponent<Card>().cardid == CardID.Blankcard
+                          && CardDown.GetComponent<Card>().team == currentPlayer) {
+                        ShowCardIndicators(Card.GetComponent<Card>().x, Card.GetComponent<Card>().y);
+                    }
+                }
+            }
+        } else if (currentChoosedCard != CardID.Shufflecard && shuffleIndicatorVisible == true) {
+            shuffleIndicatorVisible = false;
             HideCardIndicator();
         }
     }

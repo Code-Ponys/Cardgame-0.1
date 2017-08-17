@@ -7,7 +7,9 @@ namespace Cards {
 
         private void Start() {
             GameObject F = GameObject.Find("Field");
+            if (F.GetComponent<GameManager>().currentChoosedCard != CardID.Doublecard) {
             F.GetComponent<GameManager>().animationDone = true;
+            }
         }
     }
 }

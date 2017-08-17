@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cards;
 
-public abstract class Card : MonoBehaviour {
+public class Card : MonoBehaviour {
 
     public CardID cardid;
     public Team team;

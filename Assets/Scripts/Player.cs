@@ -20,7 +20,7 @@ public class Player : MonoBehaviour {
         this.team = team;
         Deck = GenerateDeck();
         //Deckerstellung
-        RefillHand(team);
+        RefillHand();
 
 
     }
@@ -129,11 +129,11 @@ public class Player : MonoBehaviour {
                 lastspecialcard = false;
             }
         }
-        Debug.Log("" + team + " GenerateDeck");
+        Debug.Log(team + " GenerateDeck");
         return generatedDeck;
     }
 
-    public void RefillHand(Team team) {
+    public void RefillHand() {
         print("RefillHand");
         refillCardsIsDone = false;
         while (refillCardsIsDone == false) {
@@ -144,7 +144,7 @@ public class Player : MonoBehaviour {
                 if (card != CardID.Pointcard && card != CardID.Doublecard) {
                     image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
                 } else {
-                    int counter = F.GetComponent<GameManager>().GetPointCardNumber();
+                    int counter = F.GetComponent<GameManager>().GetPointCardNumber(team);
                     if (card == CardID.Doublecard) {
                         image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
                     } else {
@@ -167,7 +167,7 @@ public class Player : MonoBehaviour {
                 if (card != CardID.Pointcard && card != CardID.Doublecard) {
                     image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
                 } else {
-                    int counter = F.GetComponent<GameManager>().GetPointCardNumber();
+                    int counter = F.GetComponent<GameManager>().GetPointCardNumber(team);
                     if (card == CardID.Doublecard) {
                         image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
                     } else {
@@ -189,7 +189,7 @@ public class Player : MonoBehaviour {
                 if (card != CardID.Pointcard && card != CardID.Doublecard) {
                     image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
                 } else {
-                    int counter = F.GetComponent<GameManager>().GetPointCardNumber();
+                    int counter = F.GetComponent<GameManager>().GetPointCardNumber(team);
                     if (card == CardID.Doublecard) {
                         image.sprite = Resources.Load<Sprite>(Slave.GetImagePath(card, team));
                     } else {

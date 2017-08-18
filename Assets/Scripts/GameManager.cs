@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
 
         GameObject PlayerName = GameObject.Find("TextSpieler");
         PlayerName.GetComponent<Text>().text = "Spieler 1";
-        PlayerBlue.RefillHand(currentPlayer);
+        PlayerBlue.RefillHand();
 
         //Image SideBarBlue = GameObject.Find("SideMenu Blue").GetComponent<Image>();
         //Image SideBarRed = GameObject.Find("SideMenu Red").GetComponent<Image>();
@@ -520,13 +520,13 @@ public class GameManager : MonoBehaviour {
         if (currentPlayer == Team.blue) {
             SideBarBlue.enabled = true;
             SideBarRed.enabled = false;
-            players[0].RefillHand(currentPlayer);
+            players[0].RefillHand();
             GameObject PlayerName = GameObject.Find("TextSpieler");
             PlayerName.GetComponent<Text>().text = "Spieler 1";
         } else {
             SideBarBlue.enabled = false;
             SideBarRed.enabled = true;
-            players[1].RefillHand(currentPlayer);
+            players[1].RefillHand();
 
             GameObject PlayerName = GameObject.Find("TextSpieler");
             PlayerName.GetComponent<Text>().text = "Spieler 2";
@@ -749,6 +749,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void RemoveUnconnectedCards() {
+        print("Removing unconnected Cards");
         MarkUnconnectedCards();
         DeleteUnconnectedCards();
         RenewIndicators();
@@ -762,34 +763,7 @@ public class GameManager : MonoBehaviour {
                 GameObject Card = GameObject.Find(Slave.GetCardName(CardID.Card, x, y));
                 if (Card != null
                     && Card.GetComponent<Card>().visited == false) {
-                    for (int i = 0; i < F.GetComponent<Field>().cardsOnField.Count; i++) {
-                        if (F.GetComponent<Field>().cardsOnField[i] == null) {
-                            F.GetComponent<Field>().cardsOnField.RemoveAt(i);
-                            break;
-                        }
-                        if (F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == x
-                            && F.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == y) {
-                            F.GetComponent<Field>().cardsOnField.RemoveAt(i);
-                            break;
-                        }
-                    }
-                    if (Card.GetComponent<Card>().cardid == CardID.Blockcard) {
-                        Block blockdirection = Card.GetComponent<BlockCard>().blockDirection;
-                        switch (blockdirection) {
-                            case Block.right:
-                                GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x + 1, y)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
-                                break;
-                            case Block.left:
-                                GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x - 1, y)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
-                                break;
-                            case Block.up:
-                                GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y + 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
-                                break;
-                            case Block.down:
-                                GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, x, y - 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
-                                break;
-                        }
-                    }
+                    RemoveCard(Card);
                     DestroyImmediate(Card);
                 } else if (Card != null
                      && Card.GetComponent<Card>().visited == true) {
@@ -854,8 +828,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public int GetPointCardNumber() {
-        if (currentPlayer == Team.red) {
+    public int GetPointCardNumber(Team team) {
+        if (team == Team.red) {
             PointCardCounterRed++;
             PointCardCounterRed = PointCardCounterRed % 15;
             print("PointCardCounterRed set to: " + PointCardCounterRed);
@@ -871,7 +845,8 @@ public class GameManager : MonoBehaviour {
     public void RemoveCard(GameObject DeletedCard) {
         if (DeletedCard == null || DeletedCard.GetComponent<Card>().cardid == CardID.Startpoint) return;
         for (int i = 0; i < Field.GetComponent<Field>().cardsOnField.Count; i++) {
-            if (Field.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == DeletedCard.GetComponent<Card>().x
+            if (Field.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().cardid == DeletedCard.GetComponent<Card>().cardid
+                && Field.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == DeletedCard.GetComponent<Card>().x
                 && Field.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == DeletedCard.GetComponent<Card>().y) {
                 Field.GetComponent<Field>().cardsOnField.RemoveAt(i);
                 break;
@@ -898,6 +873,7 @@ public class GameManager : MonoBehaviour {
                     break;
             }
         }
+        print("RemovedCard " + DeletedCard.GetComponent<Card>().cardid + " at " + DeletedCard.GetComponent<Card>().x + "," + DeletedCard.GetComponent<Card>().y + "!");
         DestroyImmediate(DeletedCard);
     }
 }

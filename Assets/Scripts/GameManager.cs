@@ -292,7 +292,7 @@ public class GameManager : MonoBehaviour {
         string pf_path = Slave.GetImagePathPf(cardid, currentPlayer);
         string cardname = Slave.GetCardName(cardid, x, y);
         if (cardid != CardID.FieldIndicator && cardid != CardID.CardIndicator) {
-            print("Create: " + cardid);
+            print("Create: " + cardid + " at " + x + "," + y);
         }
 
         GameObject Card = (GameObject)Instantiate(Resources.Load(pf_path));
@@ -511,6 +511,7 @@ public class GameManager : MonoBehaviour {
         } else {
             currentPlayer = Team.blue;
         }
+        print("New Round. Turn of Player " + currentPlayer);
         currentChoosedCard = CardID.none;
         animationDone = false;
 
@@ -789,7 +790,6 @@ public class GameManager : MonoBehaviour {
                                 break;
                         }
                     }
-                    print("Destroy Card" + Card);
                     DestroyImmediate(Card);
                 } else if (Card != null
                      && Card.GetComponent<Card>().visited == true) {
@@ -858,11 +858,46 @@ public class GameManager : MonoBehaviour {
         if (currentPlayer == Team.red) {
             PointCardCounterRed++;
             PointCardCounterRed = PointCardCounterRed % 15;
+            print("PointCardCounterRed set to: " + PointCardCounterRed);
             return PointCardCounterRed;
         } else {
             PointCardCounterBlue++;
             PointCardCounterBlue = PointCardCounterBlue % 15;
+            print("PointCardCounterBlue set to: " + PointCardCounterBlue);
+
             return PointCardCounterBlue % 15;
         }
+    }
+    public void RemoveCard(GameObject DeletedCard) {
+        if (DeletedCard == null || DeletedCard.GetComponent<Card>().cardid == CardID.Startpoint) return;
+        for (int i = 0; i < Field.GetComponent<Field>().cardsOnField.Count; i++) {
+            if (Field.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().x == DeletedCard.GetComponent<Card>().x
+                && Field.GetComponent<Field>().cardsOnField[i].GetComponent<Card>().y == DeletedCard.GetComponent<Card>().y) {
+                Field.GetComponent<Field>().cardsOnField.RemoveAt(i);
+                break;
+            }
+        }
+        if (DeletedCard.GetComponent<Card>().cardid == CardID.Blockcard) {
+            Block blockdirection = GameObject.Find(Slave.GetCardName(CardID.Card, DeletedCard.GetComponent<Card>().x, DeletedCard.GetComponent<Card>().y)).GetComponent<BlockCard>().blockDirection;
+            switch (blockdirection) {
+                case Block.right:
+                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, DeletedCard.GetComponent<Card>().x + 1, DeletedCard.GetComponent<Card>().y)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, DeletedCard.GetComponent<Card>().x + 1, DeletedCard.GetComponent<Card>().y)).GetComponent<Indicator>().team = Team.system;
+                    break;
+                case Block.left:
+                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, DeletedCard.GetComponent<Card>().x - 1, DeletedCard.GetComponent<Card>().y)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, DeletedCard.GetComponent<Card>().x - 1, DeletedCard.GetComponent<Card>().y)).GetComponent<Indicator>().team = Team.system;
+                    break;
+                case Block.up:
+                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, DeletedCard.GetComponent<Card>().x, DeletedCard.GetComponent<Card>().y + 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, DeletedCard.GetComponent<Card>().x, DeletedCard.GetComponent<Card>().y + 1)).GetComponent<Indicator>().team = Team.system;
+                    break;
+                case Block.down:
+                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, DeletedCard.GetComponent<Card>().x, DeletedCard.GetComponent<Card>().y - 1)).GetComponent<Indicator>().indicatorState = IndicatorState.unreachable;
+                    GameObject.Find(Slave.GetCardName(CardID.FieldIndicator, DeletedCard.GetComponent<Card>().x, DeletedCard.GetComponent<Card>().y - 1)).GetComponent<Indicator>().team = Team.system;
+                    break;
+            }
+        }
+        DestroyImmediate(DeletedCard);
     }
 }

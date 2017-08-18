@@ -221,7 +221,6 @@ public class Player : MonoBehaviour {
                 if (GameObject.Find("HandCard1" + team).GetComponent<Handcards>().cardid == card) {
                     GameObject.Find("Kartenname1" + team).GetComponent<Text>().text = Slave.GetCardName(card);
                     GameObject.Find("Kartentext1" + team).GetComponent<Text>().text = Slave.GetCardDescription(card);
-                    print("Handcardtext Blanccard");
 
                 }
                 if (GameObject.Find("HandCard2" + team).GetComponent<Handcards>().cardid == card) {

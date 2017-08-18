@@ -103,8 +103,8 @@ namespace Cards {
                         F.GetComponent<GameManager>().RemoveCard(CardLeft3);
                         cardprocessdone = true;
                         F.GetComponent<GameManager>().animationDone = true;
-                        F.GetComponent<GameManager>().RemoveCard(GameObject.Find(Slave.GetCardName(CardID.Infernocard, x, y)));
                         HideCardIndicator();
+                        F.GetComponent<GameManager>().RemoveCard(GameObject.Find(Slave.GetCardName(CardID.Infernocard, x, y)));
                     } else if (CardIndicator.name == CardIndicatorRight1.name
                           || CardIndicator.name == CardIndicatorRight2.name
                           || CardIndicator.name == CardIndicatorRight3.name) {
@@ -113,8 +113,8 @@ namespace Cards {
                         F.GetComponent<GameManager>().RemoveCard(CardRight2);
                         cardprocessdone = true;
                         F.GetComponent<GameManager>().animationDone = true;
-                        F.GetComponent<GameManager>().RemoveCard(GameObject.Find(Slave.GetCardName(CardID.Infernocard, x, y)));
                         HideCardIndicator();
+                        F.GetComponent<GameManager>().RemoveCard(GameObject.Find(Slave.GetCardName(CardID.Infernocard, x, y)));
                     } else if (CardIndicator.name == CardIndicatorUp1.name
                           || CardIndicator.name == CardIndicatorUp2.name
                           || CardIndicator.name == CardIndicatorUp3.name) {
@@ -123,8 +123,8 @@ namespace Cards {
                         F.GetComponent<GameManager>().RemoveCard(CardUp3);
                         cardprocessdone = true;
                         F.GetComponent<GameManager>().animationDone = true;
-                        F.GetComponent<GameManager>().RemoveCard(GameObject.Find(Slave.GetCardName(CardID.Infernocard, x, y)));
                         HideCardIndicator();
+                        F.GetComponent<GameManager>().RemoveCard(GameObject.Find(Slave.GetCardName(CardID.Infernocard, x, y)));
                     } else if (CardIndicator.name == CardIndicatorDown1.name
                           || CardIndicator.name == CardIndicatorDown2.name
                           || CardIndicator.name == CardIndicatorDown3.name) {
@@ -133,8 +133,8 @@ namespace Cards {
                         F.GetComponent<GameManager>().RemoveCard(CardDown3);
                         cardprocessdone = true;
                         F.GetComponent<GameManager>().animationDone = true;
-                        F.GetComponent<GameManager>().RemoveCard(GameObject.Find(Slave.GetCardName(CardID.Infernocard, x, y)));
                         HideCardIndicator();
+                        F.GetComponent<GameManager>().RemoveCard(GameObject.Find(Slave.GetCardName(CardID.Infernocard, x, y)));
                     }
                 }
             }
